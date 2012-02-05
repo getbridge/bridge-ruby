@@ -12,7 +12,7 @@ module Bridge
       :port    => 8080,
       :api_key => :null
     }.merge(options)
-    @core = Core.new(self)
+    @core = Core.new()
     EventMachine::connect(@options[:host],
                           @options[:port],
                           Conn)
