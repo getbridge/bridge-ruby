@@ -25,18 +25,18 @@ module Bridge
   end
 
   def publishService name, service, fun
-    
+
   end
 
   def joinChannel name, handler, fun
-    
+
   end
 
   def getService name, fun
-    
+
   end
 
   def getChannel name
-    
+
   end
 end

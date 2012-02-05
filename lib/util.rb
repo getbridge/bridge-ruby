@@ -5,7 +5,7 @@ module Bridge
       obj = JSON::parse(obj)
       [obj.length].pack("N") + obj
     end
-    
+
     def inflate obj
       if obj.respond_to? :keys
         obj.each do |x|
@@ -14,11 +14,11 @@ module Bridge
       end
       obj["ref"] ? (Core::lookup obj["ref"]) : obj
     end
-    
+
     def unserialize str
       obj = str.to_json
       revive obj
     end
-    
+
   end
 end

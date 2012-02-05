@@ -4,15 +4,15 @@ module Bridge
       @queue, @sess = {}, :null
       @connected = @len = false
     end
-    
+
     def command cmd, data
       Conn::send_data serialize({:command => cmd, :data => data})
     end
-    
+
     def lookup ref
-      
+
     end
-    
+
     def process data
       if !@len
         @len = data.unpack("N")
@@ -21,7 +21,7 @@ module Bridge
       if (@buffer << data).length < @len
         return
       end
-      
+
       # If this is the first message, set our SessionId and Secret.
       m = /^([a-zA-Z0-9]+)\|([a-zA-Z0-9]+)$/.match data
       if m
