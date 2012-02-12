@@ -8,35 +8,54 @@ module Bridge
   # Expects to be called inside an EventMachine block.
   def initialize(options = {})
     @options = {
-      :host    => '127.0.0.1',
-      :port    => 8080,
-      :api_key => :null
+      :host      => '127.0.0.1',
+      :port      => 8080,
+      :api_key   => :null,
+      :reconnect => true
     }.merge(options)
-    @core = Core.new()
-    EventMachine::connect(@options[:host],
-                          @options[:port],
-                          Conn)
+    EventMachine::connect(@options[:host], @options[:port], Conn)
   end
 
-  # Similar to $(document).ready in that it takes callbacks that it
-  # will call when the connection handshake has been completed.
+  def options
+    @options
+  end
+
+  # Similar to $(document).ready of jQuery as well as now.ready: takes
+  # callbacks that it will call when the connection handshake has been
+  # completed.
   def ready fun
-    @queue << fun
+    Core::enqueue fun
   end
 
-  def publishService name, service, fun
-
+  def send args, dest
+    Core::command(:SEND,
+                  { :args        => Util::serialize(args),
+                    :destination => dest })
   end
 
-  def joinChannel name, handler, fun
-
+  def publishService svc, fun
+    if service == 'system'
+      Util::err('Invalid service name: ' + system)
+    else
+      Core::command(:JOINWORKERPOOL,
+                    { :name     => svc,
+                      :callback => Core::lookup fun })
+    end
+    Core::addService(svc)
   end
 
-  def getService name, fun
-
+  def joinChannel channel, handler, fun
+    Core::command(:JOINCHANNEL,
+                  { :name     => channel,
+                    :handler  => handler,
+                    :callback => Core::lookup fun })
   end
 
-  def getChannel name
+  def getService svc
+    Core::lookup ['named', svc, svc]
+  end
 
+  def getChannel channel
+    Core::lookup ['channel', channel, 'channel:' + channel]
   end
 end
