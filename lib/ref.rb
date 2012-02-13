@@ -15,7 +15,7 @@ module Bridge
     end
 
     def method_missing atom, *args, &blk
-      Ref.lookup (path + [atom])
+      Ref.lookup path + [atom]
     end
 
     def call *args

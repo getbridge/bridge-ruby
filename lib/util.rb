@@ -1,13 +1,13 @@
 module Bridge
   module Util
     require 'json'
-    def serialize obj
-      obj = JSON::parse obj
+    def self.serialize obj
+      obj = JSON::generate obj
       [obj.length].pack("N") + obj
     end
 
-    def unserialize str
-      obj = JSON::generate str.gsub('{"ref":', '{"json_class":"Ref","ref":')
+    def self.unserialize str
+      obj = JSON::parse str.gsub('{"ref":', '{"json_class":"Ref","ref":')
     end
   end
 end

@@ -1,56 +1,72 @@
 module Bridge
   module Core
-    def initialize
-      @refs, @queue, @sess = {}, {}, [0, 0]
-      @connected, @len = false, 0
+    @@services, @@refs, @@queue, @@sess = {}, {}, [], [0, 0]
+    @@connected, @@len, @@buffer = false, 0, ''
+
+    def self.session
+      @@sess
     end
 
-    def enqueue fun
-      @queue << fun
+    # The queue is used solely for Bridge::ready() callbacks.
+    def self.enqueue fun
+      @@queue << fun
     end
 
-    def command cmd, data
-      Conn::send_data JSON::generate({:command => cmd, :data => data})
+    def self.store svc, obj = {}
+      @@services[svc] = obj
     end
 
-    def process data
-      if @len == 0
-        @len = data.unpack("N")
+    def self.lookup ref
+      svc = @@services[ref[2]]
+      if svc != nil && svc.respond_to?(ref[3])
+        return svc.method ref[3]
+      end
+      Ref.lookup ref
+    end
+
+    def self.process data
+      if @@len == 0
+        @@len = data.unpack("N")[0]
         return process data[4 .. -1]
       end
-      if (@buffer << data).length < @len
+      (@@buffer << data)
+      if @@buffer.length < @@len
         return
       end
 
       # If this is the first message, set our SessionId and Secret.
       m = /^(\w+)\|(\w+)$/.match data
       if m
-        @sess = [m[1], m[2]]
-        @queue.each {|fun| fun.call}
-        @connected = true
+        @@sess = [m[1], m[2]]
+        @@queue.each {|fun| fun.call}
+        @@connected = true
         return
       end
-      @buffer, @len = @buffer[@len .. -1], 0
+      @@buffer, @@len = @@buffer[@@len .. -1], 0
       # Else, it is a normal message.
       unser = Util::unserialize data
-      dest = Ref.lookup unser["destination"]
+      dest = lookup unser["destination"]
       dest.call *unser["args"]
     end
 
-    def reconnect timeout
+    def self.command cmd, data
+      Conn::send Util::serialize({:command => cmd, :data => data})
+    end
+
+    def self.reconnect timeout
       opts = Bridge::options
       if opts[:reconnect]
         EventMachine::connect(opts[:host], opts[:port], Conn)
         EventMachine::Timer.new(timeout) do
-          if not @connected
+          if not @@connected
             reconnect timeout*2
           end
         end
       end
     end
 
-    def disconnect
-      @connected = false
+    def self.disconnect
+      @@connected = false
       reconnect 100
     end
   end
