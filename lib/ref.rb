@@ -14,6 +14,10 @@ module Bridge
       @@refs[ref] = self
     end
 
+    def path
+      @path
+    end
+
     def method_missing atom, *args, &blk
       Ref.lookup path + [atom]
     end

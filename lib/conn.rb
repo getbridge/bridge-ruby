@@ -7,7 +7,6 @@ module Bridge
     # Methods expected by EventMachine.
     def initialize
       @@conn = self
-      @buffer = ""
     end
 
     def post_init
@@ -17,7 +16,7 @@ module Bridge
     end
 
     def receive_data data
-      @buffer = Core::process(@buffer << data)
+      Core::process(data)
     end
 
     def unbind

@@ -12,12 +12,14 @@ module Bridge
       @@queue << fun
     end
 
-    def self.store svc, obj = {}
-      @@services[svc] = obj
+    def self.store svc, obj = {}, named = true
+      @@services[[named ? 'named' : 'channel', svc,
+                  named ? svc : 'channel:' + channel]] = obj
     end
 
     def self.lookup ref
-      svc = @@services[ref[2]]
+      ref = ref.path
+      svc = @@services[ref[0 .. 2]]
       if svc != nil && svc.respond_to?(ref[3])
         return svc.method ref[3]
       end
@@ -26,7 +28,7 @@ module Bridge
 
     def self.process data
       if @@len == 0
-        @@len = data.unpack("N")[0]
+        @@len = data.unpack('N')[0]
         return process data[4 .. -1]
       end
       (@@buffer << data)
@@ -45,8 +47,8 @@ module Bridge
       @@buffer, @@len = @@buffer[@@len .. -1], 0
       # Else, it is a normal message.
       unser = Util::unserialize data
-      dest = lookup unser["destination"]
-      dest.call *unser["args"]
+      dest = lookup unser['destination']
+      dest.call *unser['args']
     end
 
     def self.command cmd, data

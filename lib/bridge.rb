@@ -2,10 +2,11 @@ require 'eventmachine'
 
 dirname = File.dirname(File.expand_path(__FILE__))
 require dirname + '/util'
-require dirname + '/core'
+require dirname + '/sys'
 require dirname + '/conn'
+require dirname + '/core'
 require dirname + '/ref'
-require dirname + '/callbackref'
+require dirname + '/cbref'
 
 module Bridge
   # Usage: Bridge::initialize(opts).
@@ -31,35 +32,44 @@ module Bridge
     Core::enqueue fun
   end
 
-  def self.send args, dest
+  # Calls a remote function specified by `dest` with `args`.
+  def self.send dest, args
     Core::command(:SEND,
                   { :args        => Util::serialize(args),
                     :destination => dest })
   end
 
-  def self.publish_service name, svc, fun
+  # Broadcasts the availability of certain functionality specified by a
+  # proc `fun` under the name of `svc`.
+  def self.publish_service svc, fun
     if svc == 'system'
       Util::err('Invalid service name: ' + svc)
     else
       Core::command(:JOINWORKERPOOL,
-                    { :name     => name,
+                    { :name     => svc,
                       :callback => Core::store(fun.hash, CallbackRef(fun))
                     })
     end
     Core::store(name, svc)
   end
 
+  # Join the channel specified by `channel`. Messages from this channel
+  # will be passed in to a handler specified by `handler`. The callback
+  # `fun` is to be called to confirm successful joining of the channel.
   def self.join_channel channel, handler, fun
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
                     :handler  => handler,
-                    :callback => Core::store(fun.hash, CallbackRef(fun)) })
+                    :callback => Core::store(fun.hash, CallbackRef(fun))
+                  })
   end
 
+  # Returns a reference to the service specified by `svc`.
   def self.get_service svc
     Core::lookup ['named', svc, svc]
   end
 
+  # Returns a reference to the channel specified by `channel`.
   def self.get_channel channel
     Core::lookup ['channel', channel, 'channel:' + channel]
   end
