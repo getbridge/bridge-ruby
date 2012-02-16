@@ -1,6 +1,6 @@
 module Bridge
   module Core
-    @@services, @@refs, @@queue, @@sess = {}, {}, [], [0, 0]
+    @@services, @@refs, @@queue, @@sess = {:system => Bridge::Sys}, {}, [], [0, 0]
     @@connected, @@len, @@buffer = false, 0, ''
 
     def self.session
@@ -11,7 +11,7 @@ module Bridge
       @@connected
     end
 
-    # The queue is used solely for Bridge::ready() callbacks.
+    # The queue is used primarily for Bridge::ready() callbacks.
     def self.enqueue fun
       @@queue << fun
     end
