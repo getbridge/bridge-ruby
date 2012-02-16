@@ -7,6 +7,10 @@ module Bridge
       @@sess
     end
 
+     def self.connected
+      @@connected
+    end
+
     # The queue is used solely for Bridge::ready() callbacks.
     def self.enqueue fun
       @@queue << fun
@@ -41,6 +45,7 @@ module Bridge
       if m
         @@sess = [m[1], m[2]]
         @@queue.each {|fun| fun.call}
+        @@queue = []
         @@connected = true
         return
       end

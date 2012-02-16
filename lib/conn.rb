@@ -1,7 +1,11 @@
 module Bridge
   module Conn
     def self.send *args
-      @@conn.send_data *args
+      if Core::connected
+        @@conn.send_data *args
+      else
+        Core::enqueue lambda {Conn::send *args}
+      end
     end
 
     # Methods expected by EventMachine.
