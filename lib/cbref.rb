@@ -1,6 +1,7 @@
 module Bridge
   class CallbackRef < Ref
-    def initialize path, fun
+    def initialize fun
+      path = [fun.hash]
       super(path)
       @fun = fun
     end

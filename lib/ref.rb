@@ -30,8 +30,8 @@ module Bridge
       true
     end
 
-    def to_json
-      {:ref => @path}.to_json
+    def to_json *a
+      {:ref => @path}.to_json *a
     end
 
     def self.json_create o

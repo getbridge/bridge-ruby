@@ -15,7 +15,7 @@ module Bridge
     @options = {
       :host      => '127.0.0.1',
       :port      => 8080,
-      :api_key   => :null,
+      :api_key   => nil,
       :reconnect => true
     }.merge(options)
     EventMachine::connect(@options[:host], @options[:port], Bridge::Conn)
@@ -47,7 +47,8 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :callback => Core::store(fun.hash, CallbackRef(fun))
+                      :callback => Core::store(fun.hash,
+                                               CallbackRef.new(fun))
                     })
     end
     Core::store(name, svc)
@@ -60,7 +61,8 @@ module Bridge
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
                     :handler  => handler,
-                    :callback => Core::store(fun.hash, CallbackRef(fun))
+                    :callback => Core::store(fun.hash,
+                                             CallbackRef.new(fun))
                   })
   end
 
