@@ -4,7 +4,6 @@ Gem::Specification.new do |s|
   s.name = 'bridge'
   s.version = Bridge::VERSION
   s.homepage = 'http://flotype.com'
-  # s.rubyforge_project = 'brooklyn'
 
   s.authors = ["Flotype"]
   s.email   = ["team@flotype.com"]
@@ -13,6 +12,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'eventmachine', '>= 0.12.0'
   s.add_dependency 'json', ">= 1.5.0"
+
+  s.add_development_dependency 'yard', '>= 0.7.2'
+  s.add_development_dependency 'rake-compiler', '>= 0.7.9'
 
   s.summary = 'Ruby/Bridge library'
   s.description = "Ruby client for Flotype Bridge."
