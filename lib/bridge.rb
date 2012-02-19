@@ -1,12 +1,11 @@
-require 'eventmachine'
+require 'bb/conn'
+require 'bb/ref'
+require 'bb/sys'
+require 'bb/core'
+require 'bb/cbref'
+require 'bb/util'
 
-dirname = File.dirname(File.expand_path(__FILE__))
-require dirname + '/util'
-require dirname + '/sys'
-require dirname + '/conn'
-require dirname + '/core'
-require dirname + '/ref'
-require dirname + '/cbref'
+require 'eventmachine'
 
 module Bridge
   # Usage: Bridge::initialize(opts).
