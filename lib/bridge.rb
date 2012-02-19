@@ -47,7 +47,7 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :callback => Core::store(fun.hash,
+                      :callback => Core::store(fun.hash.to_s(16),
                                                CallbackRef.new(fun))
                     })
     end
@@ -61,7 +61,7 @@ module Bridge
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
                     :handler  => handler,
-                    :callback => Core::store(fun.hash,
+                    :callback => Core::store(fun.hash.to_s(36),
                                              CallbackRef.new(fun))
                   })
   end
