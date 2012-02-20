@@ -28,6 +28,7 @@ module Bridge
   # callbacks that it will call when the connection handshake has been
   # completed.
   def self.ready fun
+    puts "fun enqueued."
     Core::enqueue fun
   end
 

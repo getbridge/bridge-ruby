@@ -10,16 +10,19 @@ module Bridge
 
     # Methods expected by EventMachine.
     def initialize
+      Util::log "Initialized."
       @@conn = self
     end
 
     def post_init
+      Util::log "Connecting."
       Core::command(:CONNECT,
                     { :session => Core::session,
                       :api_key => Bridge::options[:api_key] })
     end
 
     def receive_data data
+      Util::log "Got data."
       Core::process(data)
     end
 

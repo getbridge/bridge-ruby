@@ -14,5 +14,9 @@ module Bridge
     def err msg
       $stderr.puts err
     end
+
+    def log msg
+      puts err
+    end
   end
 end
