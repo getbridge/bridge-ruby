@@ -1,15 +1,15 @@
 module Bridge
   module Sys
-    def hookChannelHandler name, handler, fun
-      fun(Core::store(name, Core::lookup(handler), false))
+    def self.hook_channel_handler name, handler, fun
+      fun.call(Core::store(name, Core::lookup(handler), false))
     end
 
-    def remoteError msg
+    def self.remote_error msg
       Util::err(msg)
     end
 
-    def getService name, fun
-      fun(Core::lookup(name).methods(false))
+    def self.get_service name, fun
+      fun.call(Core::lookup(name).methods(false))
     end
   end
 end

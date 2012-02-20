@@ -8,15 +8,16 @@ module Bridge
     end
 
     def self.unserialize str
-      obj = JSON::parse str.gsub('{"ref":', '{"json_class":"Ref","ref":')
+      str = str[4 .. -1].gsub('{"ref":', '{"json_class":"Bridge::Ref","ref":')
+      obj = JSON::parse str
     end
 
-    def err msg
+    def self.err msg
       $stderr.puts err
     end
 
-    def log msg
-      puts err
+    def self.log msg
+      puts msg
     end
   end
 end

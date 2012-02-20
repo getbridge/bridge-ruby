@@ -1,32 +1,29 @@
 module Bridge
   module Conn
-    def self.send *args
-      if Core::connected
-        @@conn.send_data *args
-      else
-        Core::enqueue lambda {Conn::send *args}
-      end
+    def self.send arg, force = false
+      @@conn.send_data arg
     end
 
     # Methods expected by EventMachine.
     def initialize
-      Util::log "Initialized."
+      Util::log 'Connection initialized.'
       @@conn = self
     end
 
     def post_init
-      Util::log "Connecting."
+      Util::log 'Starting handshake.'
       Core::command(:CONNECT,
                     { :session => Core::session,
                       :api_key => Bridge::options[:api_key] })
     end
 
     def receive_data data
-      Util::log "Got data."
+      Util::log 'Got data.'
       Core::process(data)
     end
 
     def unbind
+      Util::log 'Disconnected.'
       Core::disconnect
     end
   end

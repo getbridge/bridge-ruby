@@ -1,9 +1,11 @@
 module Bridge
   class CallbackRef < Ref
     def initialize fun
-      path = [fun.hash]
-      super(path)
       @fun = fun
+      path = ['named', lambda {
+                Core::client_id
+              }, 'callback', fun.hash.to_s(36)]
+      super(path)
     end
 
     def method_missing atom, *args, &blk

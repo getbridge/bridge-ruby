@@ -1,10 +1,14 @@
 module Bridge
   module Core
-    @@services, @@refs, @@queue, @@sess = {:system => Bridge::Sys}, {}, [], [0, 0]
+    @@services, @@refs, @@queue, @@sess = {'system' => Bridge::Sys}, {}, [], [0, 0]
     @@connected, @@len, @@buffer = false, 0, ''
 
     def self.session
       @@sess
+    end
+
+    def self.client_id
+      @@sess[0]
     end
 
      def self.connected
@@ -13,17 +17,22 @@ module Bridge
 
     # The queue is used primarily for Bridge::ready() callbacks.
     def self.enqueue fun
-      @@queue << fun
+      if @@connected
+        fun.call
+        Util::log 'Already connected.'
+      else
+        Util::log 'enqueuing function'
+        @@queue << fun
+      end
     end
 
     def self.store svc, obj = {}, named = true
-      @@services[[named ? 'named' : 'channel', svc,
-                  named ? svc : 'channel:' + channel]] = obj
+      @@services[[named ? svc : 'channel:' + svc].to_json] = obj
     end
 
     def self.lookup ref
-      ref = ref.path
-      svc = @@services[ref[0 .. 2]]
+      ref = JSON::parse ref.to_json
+      svc = @@services[ref[2]]
       if svc != nil && svc.respond_to?(ref[3])
         return svc.method ref[3]
       end
@@ -44,6 +53,7 @@ module Bridge
       m = /^(\w+)\|(\w+)$/.match data
       if m
         @@sess = [m[1], m[2]]
+        Util::log 'Received secret and session ID: ' + @@sess.to_json
         @@queue.each {|fun| fun.call}
         @@queue = []
         @@connected = true
@@ -52,15 +62,26 @@ module Bridge
       @@buffer, @@len = @@buffer[@@len .. -1], 0
       # Else, it is a normal message.
       unser = Util::unserialize data
-      dest = lookup unser['destination']
-      dest.call *unser['args']
+      dest = unser['destination']
+      if dest.respond_to? :call
+        dest.call *unser['args']
+      else
+        dest = lookup dest
+      end
     end
 
     def self.command cmd, data
-      Conn::send Util::serialize({:command => cmd, :data => data})
+      if cmd == :CONNECT
+        Conn::send(Util::serialize({:command => cmd, :data => data}))
+      else 
+        Core::enqueue lambda {
+          Conn::send(Util::serialize({:command => cmd, :data => data}))
+        }
+      end
     end
 
     def self.reconnect timeout
+      Util::log 'Attempting to reconnect; waiting at most ' + timeout + 's.'
       opts = Bridge::options
       if opts[:reconnect]
         EventMachine::connect(opts[:host], opts[:port], Conn)

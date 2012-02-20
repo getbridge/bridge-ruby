@@ -11,6 +11,7 @@ module Bridge
   # Usage: Bridge::initialize(opts).
   # Expects to be called inside an EventMachine block.
   def self.initialize(options = {})
+    Util::log 'initialize called.'
     @options = {
       :host      => '127.0.0.1',
       :port      => 8080,
@@ -28,7 +29,6 @@ module Bridge
   # callbacks that it will call when the connection handshake has been
   # completed.
   def self.ready fun
-    puts "fun enqueued."
     Core::enqueue fun
   end
 
@@ -47,7 +47,7 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :callback => Core::store(fun.hash.to_s(16),
+                      :callback => Core::store(fun.hash.to_s(36),
                                                CallbackRef.new(fun))
                     })
     end
@@ -60,7 +60,8 @@ module Bridge
   def self.join_channel channel, handler, fun
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
-                    :handler  => handler,
+                    :handler  => Core::store(handler.hash.to_s(36),
+                                             CallbackRef.new(handler)),
                     :callback => Core::store(fun.hash.to_s(36),
                                              CallbackRef.new(fun))
                   })
@@ -74,5 +75,9 @@ module Bridge
   # Returns a reference to the channel specified by `channel`.
   def self.get_channel channel
     Core::lookup ['channel', channel, 'channel:' + channel]
+  end
+
+  def self.client_id
+    Core::client_id
   end
 end

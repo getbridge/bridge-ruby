@@ -3,15 +3,16 @@ module Bridge
     @@refs = {}
 
     def self.lookup ref
-      if @@refs[ref]  == nil
-        Ref.new(ref)
+      key = ref[2 .. -1].to_json
+      if @@refs[key] == nil
+        @@refs[key] = Ref.new(ref)
       end
-      @@refs[ref]
+      @@refs[key]
     end
 
     def initialize path
       @path = path
-      @@refs[ref] = self
+      @@refs[path[2 .. -1].to_json] = self
     end
 
     def path
@@ -19,11 +20,11 @@ module Bridge
     end
 
     def method_missing atom, *args, &blk
-      Ref.lookup(path + [atom])
+      Ref.lookup(@path + [atom])
     end
 
     def call *args
-      Core::send args, @path
+      Core::command :SEND, args
     end
 
     def respond_to? atom
@@ -31,6 +32,9 @@ module Bridge
     end
 
     def to_json *a
+      if @path[1].respond_to? :call
+        @path[1] = @path[1].call
+      end
       {:ref => @path}.to_json *a
     end
 
