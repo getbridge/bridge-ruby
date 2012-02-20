@@ -1,4 +1,5 @@
 module Bridge
+  # Instances of this class represent references to remote services.
   class Ref
     @@refs = {}
 

@@ -1,7 +1,10 @@
 module Bridge
+  # The internals of the Bridge client. Use of this module is strongly
+  # unadvised, as the internal structure may vary greatly from that of
+  # other language implementations.
   module Core
-    @@services, @@refs, @@queue, @@sess = {'system' => Bridge::Sys}, {}, [], [0, 0]
-    @@connected, @@len, @@buffer = false, 0, ''
+    @@services, @@refs, @@queue = {'system' => Bridge::Sys}, {}, []
+    @@connected, @@len, @@buffer, @@sess = false, 0, '', [0, 0]
 
     def self.session
       @@sess

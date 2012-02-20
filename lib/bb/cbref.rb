@@ -1,4 +1,5 @@
 module Bridge
+  # Wrapper for callbacks passed in as arguments.
   class CallbackRef < Ref
     def initialize fun
       @fun = fun

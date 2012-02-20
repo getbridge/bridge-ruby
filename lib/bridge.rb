@@ -47,8 +47,7 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :callback => Core::store(fun.hash.to_s(36),
-                                               CallbackRef.new(fun))
+                      :callback => Util::cb(fun)
                     })
     end
     Core::store(name, svc)
@@ -60,10 +59,8 @@ module Bridge
   def self.join_channel channel, handler, fun
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
-                    :handler  => Core::store(handler.hash.to_s(36),
-                                             CallbackRef.new(handler)),
-                    :callback => Core::store(fun.hash.to_s(36),
-                                             CallbackRef.new(fun))
+                    :handler  => Util::cb(handler),
+                    :callback => Util::cb(fun)
                   })
   end
 
@@ -77,6 +74,7 @@ module Bridge
     Core::lookup ['channel', channel, 'channel:' + channel]
   end
 
+  # The client's ID.
   def self.client_id
     Core::client_id
   end
