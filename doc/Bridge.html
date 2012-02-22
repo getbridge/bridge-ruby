@@ -369,12 +369,12 @@ The client&#8217;s ID.
       <pre class="lines">
 
 
-81
-82
-83</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 78</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_client_id identifier id'>client_id</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_client_id identifier id'>client_id</span>
@@ -412,18 +412,12 @@ Returns a reference to the channel specified by `channel`.
 
 73
 74
-75
-76
-77
-78</pre>
+75</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 73</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_channel identifier id'>get_channel</span> <span class='rubyid_channel identifier id'>channel</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:GETCHANNEL</span><span class='comma token'>,</span>
-                <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_channel identifier id'>channel</span>
-                <span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'channel'</span><span class='comma token'>,</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='string val'>'channel:'</span> <span class='plus op'>+</span> <span class='rubyid_channel identifier id'>channel</span><span class='rbrack token'>]</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -760,7 +754,7 @@ Calls a remote function specified by `dest` with `args`.
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 22 14:43:52 2012 by 
+  Generated on Wed Feb 22 16:47:46 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>

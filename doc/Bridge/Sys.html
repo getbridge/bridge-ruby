@@ -129,7 +129,7 @@ Erlang gateway.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#hook_channel_handler-class_method" title="hook_channel_handler (class method)">+ (Object) <strong>hook_channel_handler</strong>(name, handler, fun = false) </a>
+      <a href="#hook_channel_handler-class_method" title="hook_channel_handler (class method)">+ (Object) <strong>hook_channel_handler</strong>(name, handler, fun) </a>
     
 
     
@@ -190,12 +190,12 @@ Erlang gateway.
       <pre class="lines">
 
 
-16
-17
-18</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bb/sys.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/bb/sys.rb', line 13</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_service identifier id'>get_service</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span>
   <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_methods identifier id'>methods</span><span class='lparen token'>(</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
@@ -209,7 +209,7 @@ Erlang gateway.
       <div class="method_details ">
   <p class="signature " id="hook_channel_handler-class_method">
   
-    + (<tt>Object</tt>) <strong>hook_channel_handler</strong>(name, handler, fun = false) 
+    + (<tt>Object</tt>) <strong>hook_channel_handler</strong>(name, handler, fun) 
   
 
   
@@ -221,19 +221,13 @@ Erlang gateway.
 
 5
 6
-7
-8
-9
-10</pre>
+7</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bb/sys.rb', line 5</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_hook_channel_handler identifier id'>hook_channel_handler</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
-  <span class='rubyid_ref identifier id'>ref</span> <span class='assign token'>=</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_fun identifier id'>fun</span>
-    <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_ref identifier id'>ref</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_hook_channel_handler identifier id'>hook_channel_handler</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span>
+  <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -254,12 +248,12 @@ Erlang gateway.
       <pre class="lines">
 
 
-12
-13
-14</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bb/sys.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/bb/sys.rb', line 9</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_remote_error identifier id'>remote_error</span> <span class='rubyid_msg identifier id'>msg</span>
   <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_err identifier id'>err</span><span class='lparen token'>(</span><span class='rubyid_msg identifier id'>msg</span><span class='rparen token'>)</span>
@@ -275,7 +269,7 @@ Erlang gateway.
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 22 14:43:52 2012 by 
+  Generated on Wed Feb 22 16:47:46 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>
