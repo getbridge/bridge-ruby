@@ -37,5 +37,14 @@ module Bridge
     def self.cb fun
       Core::store(fun.hash.to_s(36), CallbackRef.new(fun))
     end
+
+    def self.has_keys? obj, *keys
+      keys.each do |k|
+        if !obj.has_key?(k)
+          return false
+        end
+      end
+      true
+    end
   end
 end

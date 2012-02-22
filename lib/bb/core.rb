@@ -5,6 +5,7 @@ module Bridge
   module Core
     @@services, @@refs, @@queue = {'system' => Bridge::Sys}, {}, []
     @@connected, @@len, @@buffer, @@sess = false, 0, '', [0, 0]
+    @@pqueue = []
 
     def self.session
       @@sess
@@ -57,7 +58,7 @@ module Bridge
       if m
         @@sess = [m[1], m[2]]
         Util::log 'Received secret and session ID: ' + @@sess.to_json
-        @@queue.each {|fun| fun.call}
+        (@@queue + @@pqueue).each {|fun| fun.call}
         @@queue = []
         @@connected = true
         return
@@ -84,7 +85,7 @@ module Bridge
     end
 
     def self.reconnect timeout
-      Util::log 'Attempting to reconnect; waiting at most ' + timeout + 's.'
+      Util::log 'Attempting to reconnect; waiting at most ' + timeout.to_s + 's.'
       opts = Bridge::options
       if opts[:reconnect]
         EventMachine::connect(opts[:host], opts[:port], Conn)
