@@ -410,14 +410,20 @@ Returns a reference to the channel specified by `channel`.
       <pre class="lines">
 
 
+73
+74
+75
 76
 77
 78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 73</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_channel identifier id'>get_channel</span> <span class='rubyid_channel identifier id'>channel</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:GETCHANNEL</span><span class='comma token'>,</span>
+                <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_channel identifier id'>channel</span>
+                <span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'channel'</span><span class='comma token'>,</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='string val'>'channel:'</span> <span class='plus op'>+</span> <span class='rubyid_channel identifier id'>channel</span><span class='rbrack token'>]</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -451,12 +457,12 @@ Returns a reference to the service specified by `svc`.
       <pre class="lines">
 
 
-71
-72
-73</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 68</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_service identifier id'>get_service</span> <span class='rubyid_svc identifier id'>svc</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'named'</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='rbrack token'>]</span>
@@ -550,26 +556,22 @@ called to confirm successful joining of the channel.
       <pre class="lines">
 
 
+59
 60
 61
 62
 63
 64
-65
-66
-67
-68</pre>
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 59</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_join_channel identifier id'>join_channel</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINCHANNEL</span><span class='comma token'>,</span>
                 <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span>
-                  <span class='symbol val'>:handler</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='dot token'>.</span><span class='rubyid_hash identifier id'>hash</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='lparen token'>(</span><span class='integer val'>36</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                                           <span class='rubyid_CallbackRef constant id'>CallbackRef</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                  <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_hash identifier id'>hash</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='lparen token'>(</span><span class='integer val'>36</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                                           <span class='rubyid_CallbackRef constant id'>CallbackRef</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+                  <span class='symbol val'>:handler</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                  <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
                 <span class='rbrace token'>}</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -643,8 +645,7 @@ Broadcasts the availability of certain functionality specified by a proc
 51
 52
 53
-54
-55</pre>
+54</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 44</span>
@@ -655,8 +656,7 @@ Broadcasts the availability of certain functionality specified by a proc
   <span class='rubyid_else else kw'>else</span>
     <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINWORKERPOOL</span><span class='comma token'>,</span>
                   <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span>
-                    <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_hash identifier id'>hash</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='lparen token'>(</span><span class='integer val'>36</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                                             <span class='rubyid_CallbackRef constant id'>CallbackRef</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+                    <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
                   <span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='rparen token'>)</span>
@@ -760,7 +760,7 @@ Calls a remote function specified by `dest` with `args`.
 </div>
     
     <div id="footer">
-  Generated on Sun Feb 19 18:53:54 2012 by 
+  Generated on Wed Feb 22 14:43:52 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>
