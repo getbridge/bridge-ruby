@@ -4,7 +4,7 @@ module Bridge
   module Sys
     def self.hook_channel_handler name, handler, fun = false
       ref = Core::store(name, Core::lookup(handler), false)
-      if fun then
+      if fun
         fun.call(ref, name)
       end
     end
