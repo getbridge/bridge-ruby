@@ -71,6 +71,9 @@ module Bridge
 
   # Returns a reference to the channel specified by `channel`.
   def self.get_channel channel
+    Core::command(:GETCHANNEL,
+                  { :name     => channel
+                  })
     Core::lookup ['channel', channel, 'channel:' + channel]
   end
 
