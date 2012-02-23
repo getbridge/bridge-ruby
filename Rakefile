@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rubygems/installer'
-GEMSPEC = Gem::Specification.load('bridge.gemspec')
+GEMSPEC = Gem::Specification.load('flotype-bridge.gemspec')
 
 require 'rake/clean'
 task :clobber => :clean
