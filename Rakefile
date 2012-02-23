@@ -9,7 +9,7 @@ desc "Build bridge, then run tests."
 task :default => [:test, :package]
 
 task :install => :package do
-  Gem::Installer.new('pkg/bridge-' + GEMSPEC.version.to_s + '.gem').install
+  Gem::Installer.new("pkg/flotype-bridge-#{GEMSPEC.version}.gem").install
 end
 
 desc 'Generate documentation'
