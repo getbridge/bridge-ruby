@@ -31,7 +31,7 @@ module Bridge
     end
 
     def self.store svc, obj = {}, named = true
-      @@services[[named ? svc : "channel:#{svc}"].to_json] = obj
+      @@services[[named ? svc : 'channel:' + svc].to_json] = obj
     end
 
     def self.lookup ref
@@ -57,8 +57,8 @@ module Bridge
       m = /^(\w+)\|(\w+)$/.match data
       if m
         @@sess = [m[1], m[2]]
-        Util::log "Received secret and session ID: #{@@sess.to_json}"
-        @@queue.each {|fun| fun.call}
+        Util::log 'Received secret and session ID: ' + @@sess.to_json
+        (@@queue + @@pqueue).each {|fun| fun.call}
         @@queue = []
         @@connected = true
         return
@@ -85,7 +85,7 @@ module Bridge
     end
 
     def self.reconnect timeout
-      Util::log 'Attempting to reconnect; waiting at most #{timeout.to_s}s.'
+      Util::log 'Attempting to reconnect; waiting at most ' + timeout.to_s + 's.'
       opts = Bridge::options
       if opts[:reconnect]
         EventMachine::connect(opts[:host], opts[:port], Conn)

@@ -27,7 +27,7 @@ module Bridge
       # Support for redirector.
       conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
                                                 @options['redir_port'])
-      req = conn.get({'uri' => "/redirect/#{@options['api_key']}"})
+      req = conn.get({"uri" => '/' + @options['api_key'].to_s + '/json'})
       req.callback {|obj|
         obj = obj.to_json
         EM::connect(obj['host'], obj['port'], Bridge::Conn)
@@ -62,7 +62,7 @@ module Bridge
   #   proc `fun` under the name of `svc`.
   def self.publish_service svc, fun
     if svc == 'system'
-      Util::err("Invalid service name: #{svc}")
+      Util::err('Invalid service name: ' + svc)
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
@@ -90,7 +90,7 @@ module Bridge
 
   # Returns a reference to the channel specified by `channel`.
   def self.get_channel channel
-    Core::lookup ['channel', channel, "channel:#{channel}"]
+    Core::lookup ['channel', channel, 'channel:' + channel]
   end
 
   # The client's ID.
