@@ -15,19 +15,19 @@ module Bridge
   def self.initialize(options = {})
     Util::log 'initialize called.'
     @options = {
-      'api_key'    => nil,
-      'reconnect'  => true,
-      'redir_host' => '127.0.0.1',
-      'redir_port' => 80
+      :api_key    => nil,
+      :reconnect  => true,
+      :redir_host => '127.0.0.1',
+      :redir_port => 80
     }.merge(options)
 
     if Util::has_keys?(@options, 'host', 'port')
       EM::connect(@options['host'], @options['port'], Bridge::Conn)
     elsif Util::has_keys?(@options, 'api_key', 'redir_host', 'redir_port')
       # Support for redirector.
-      conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
-                                                @options['redir_port'])
-      req = conn.get({'uri' => "/redirect/#{@options['api_key']}"})
+      conn = EM::Protocols::HttpClient2.connect(@options[:redir_host],
+                                                @options[:redir_port])
+      req = conn.get({'uri' => "/redirect/#{@options[:api_key]}"})
       req.callback {|obj|
         obj = obj.to_json
         EM::connect(obj['host'], obj['port'], Bridge::Conn)

@@ -91,7 +91,7 @@ module Bridge
         EventMachine::connect(opts[:host], opts[:port], Conn)
         EventMachine::Timer.new(timeout) do
           if not @@connected
-            reconnect timeout*2
+            reconnect timeout * 2
           end
         end
       end
@@ -99,7 +99,7 @@ module Bridge
 
     def self.disconnect
       @@connected = false
-      reconnect 100
+      reconnect 0.1
     end
   end
 end
