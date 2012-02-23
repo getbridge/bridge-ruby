@@ -1,7 +1,7 @@
 require File.expand_path('../lib/bb/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = 'bridge'
+  s.name = 'flotype-bridge'
   s.version = Bridge::VERSION
   s.homepage = 'http://flotype.com'
 
