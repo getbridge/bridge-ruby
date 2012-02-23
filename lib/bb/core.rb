@@ -85,7 +85,7 @@ module Bridge
     end
 
     def self.reconnect timeout
-      Util::log 'Attempting to reconnect; waiting at most #{timeout.to_s}s.'
+      Util::log "Attempting to reconnect; waiting at most #{timeout.to_s}s."
       opts = Bridge::options
       if opts[:reconnect]
         EventMachine::connect(opts[:host], opts[:port], Conn)

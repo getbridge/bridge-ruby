@@ -22,7 +22,7 @@ module Bridge
     end
 
     def self.unserialize str
-      str = str[4 .. -1].gsub('{"ref":', '{"json_class":"Bridge::Ref","ref":')
+      str = str.gsub('{"ref":', '{"json_class":"Bridge::Ref","ref":')
       obj = JSON::parse str
     end
 
@@ -40,8 +40,10 @@ module Bridge
 
     def self.has_keys? obj, *keys
       keys.each do |k|
-        if !obj.has_key?(k)
+        if !obj.has_key?(k) && !obj.has_key?(k.to_sym)
           return false
+        else
+          obj[k] = obj[k.to_sym]
         end
       end
       true

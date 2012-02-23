@@ -15,7 +15,9 @@ module EchoModule
 end
 
 EventMachine::run {
-  Bridge::initialize({:reconnect => false, :port => 8090})
+  Bridge::initialize({:reconnect => false,
+                       :host => '127.0.0.1',
+                       :port => 8090})
   Bridge::ready lambda {
     puts 'Connected.'
   }
