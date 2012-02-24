@@ -4,7 +4,7 @@ module Bridge
   # other language implementations.
   module Core
     @@services, @@refs, @@queue = {'system' => Bridge::Sys}, {}, []
-    @@connected, @@len, @@buffer, @@sess = false, 0, '', [0, 0]
+    @@connected, @@len, @@buffer, @@sess = false, 0, '', [nil, nil]
     @@pqueue = []
 
     def self.session
