@@ -30,7 +30,7 @@ module Bridge
       end
     end
 
-    def self.store svc, obj = nil, named = true
+    def self.store svc, obj = {}, named = true
       @@services[[named ? svc : "channel:#{svc}"].to_json] = obj
     end
 
@@ -48,7 +48,6 @@ module Bridge
         @@len = data.unpack('N')[0]
         return process data[4 .. -1]
       end
-      Util::log data
       (@@buffer << data)
       if @@buffer.length < @@len
         return
@@ -80,16 +79,15 @@ module Bridge
         Conn::send(Util::serialize({:command => cmd, :data => data}))
       else 
         Core::enqueue lambda {
-          puts 'Sending  ' + cmd.to_s + ': ' + data.to_json
           Conn::send(Util::serialize({:command => cmd, :data => data}))
         }
       end
     end
 
     def self.reconnect timeout
+      Util::log "Attempting to reconnect; waiting at most #{timeout.to_s}s."
       opts = Bridge::options
       if opts[:reconnect]
-        Util::log "Attempting to reconnect; waiting at most #{timeout.to_s}s."
         EventMachine::connect(opts[:host], opts[:port], Conn)
         EventMachine::Timer.new(timeout) do
           if not @@connected

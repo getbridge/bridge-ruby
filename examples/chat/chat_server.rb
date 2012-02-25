@@ -16,7 +16,7 @@ start_server = lambda do
 end
 
 EM::run do
-  Bridge::initialize({ 'api_key'   => 'abcdefgh',
-                       'reconnect' => false })
+  Bridge::initialize({ :api_key   => 'abcdefgh',
+                       :reconnect => false })
   Bridge::ready(start_server)
 end

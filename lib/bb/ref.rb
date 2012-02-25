@@ -36,7 +36,6 @@ module Bridge
       if @path[1].respond_to? :call
         @path[1] = @path[1].call
       end
-      puts 'jsonifying ' + @path.to_json
       {:ref => @path}.to_json *a
     end
 

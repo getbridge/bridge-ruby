@@ -1,7 +1,6 @@
 module Bridge
   module Conn
-    def self.send arg
-      Util::log 'sending: ' + arg
+    def self.send arg, force = false
       @@conn.send_data arg
     end
 
@@ -15,7 +14,7 @@ module Bridge
       Util::log 'Starting handshake.'
       Core::command(:CONNECT,
                     { :session => Core::session,
-                      :api_key => Bridge::options['api_key'] })
+                      :api_key => Bridge::options[:api_key] })
     end
 
     def receive_data data
