@@ -1,0 +1,752 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Bridge::Core
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <span class='title'><span class='object_link'><a href="../Bridge.html" title="Bridge (module)">Bridge</a></span></span>
+     &raquo; 
+    <span class="title">Core</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Bridge::Core
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/bb/core.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+The internals of the Bridge client. Use of this module is strongly
+unadvised, as the internal structure may vary greatly from that of other
+language implementations.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#client_id-class_method" title="client_id (class method)">+ (Object) <strong>client_id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#command-class_method" title="command (class method)">+ (Object) <strong>command</strong>(cmd, data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#connected-class_method" title="connected (class method)">+ (Object) <strong>connected</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#disconnect-class_method" title="disconnect (class method)">+ (Object) <strong>disconnect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#enqueue-class_method" title="enqueue (class method)">+ (Object) <strong>enqueue</strong>(fun) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The queue is used primarily for Bridge::ready() callbacks.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lookup-class_method" title="lookup (class method)">+ (Object) <strong>lookup</strong>(ref) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process-class_method" title="process (class method)">+ (Object) <strong>process</strong>(data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reconnect-class_method" title="reconnect (class method)">+ (Object) <strong>reconnect</strong>(timeout) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#session-class_method" title="session (class method)">+ (Object) <strong>session</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#store-class_method" title="store (class method)">+ (Object) <strong>store</strong>(svc, obj = {}, named = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="client_id-class_method">
+  
+    + (<tt>Object</tt>) <strong>client_id</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 13</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_client_id identifier id'>client_id</span>
+  <span class='rubyid_@@sess ivar id'>@@sess</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="command-class_method">
+  
+    + (<tt>Object</tt>) <strong>command</strong>(cmd, data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 76</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_command identifier id'>command</span> <span class='rubyid_cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_cmd identifier id'>cmd</span> <span class='eq op'>==</span> <span class='symbol val'>:CONNECT</span>
+    <span class='rubyid_Conn constant id'>Conn</span><span class='colon2 op'>::</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_serialize identifier id'>serialize</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:command</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='symbol val'>:data</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_data identifier id'>data</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span> 
+    <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_enqueue identifier id'>enqueue</span> <span class='rubyid_lambda identifier id'>lambda</span> <span class='lbrace token'>{</span>
+      <span class='rubyid_Conn constant id'>Conn</span><span class='colon2 op'>::</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_serialize identifier id'>serialize</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:command</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_cmd identifier id'>cmd</span><span class='comma token'>,</span> <span class='symbol val'>:data</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_data identifier id'>data</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='rbrace token'>}</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="connected-class_method">
+  
+    + (<tt>Object</tt>) <strong>connected</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 17</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_connected identifier id'>connected</span>
+  <span class='rubyid_@@connected ivar id'>@@connected</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="disconnect-class_method">
+  
+    + (<tt>Object</tt>) <strong>disconnect</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 99</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_disconnect identifier id'>disconnect</span>
+  <span class='rubyid_@@connected ivar id'>@@connected</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+  <span class='rubyid_reconnect identifier id'>reconnect</span> <span class='integer val'>100</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="enqueue-class_method">
+  
+    + (<tt>Object</tt>) <strong>enqueue</strong>(fun) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+The queue is used primarily for Bridge::ready() callbacks.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 22</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_enqueue identifier id'>enqueue</span> <span class='rubyid_fun identifier id'>fun</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@@connected ivar id'>@@connected</span>
+    <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_log identifier id'>log</span> <span class='string val'>'Already connected.'</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_log identifier id'>log</span> <span class='string val'>'enqueuing function'</span>
+    <span class='rubyid_@@queue ivar id'>@@queue</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_fun identifier id'>fun</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="lookup-class_method">
+  
+    + (<tt>Object</tt>) <strong>lookup</strong>(ref) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 36</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='rubyid_ref identifier id'>ref</span>
+  <span class='rubyid_ref identifier id'>ref</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='colon2 op'>::</span><span class='rubyid_parse identifier id'>parse</span> <span class='rubyid_ref identifier id'>ref</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span>
+  <span class='rubyid_svc identifier id'>svc</span> <span class='assign token'>=</span> <span class='rubyid_@@services ivar id'>@@services</span><span class='lbrack token'>[</span><span class='rubyid_ref identifier id'>ref</span><span class='lbrack token'>[</span><span class='integer val'>2</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_svc identifier id'>svc</span> <span class='neq op'>!=</span> <span class='rubyid_nil nil kw'>nil</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_svc identifier id'>svc</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='rubyid_ref identifier id'>ref</span><span class='lbrack token'>[</span><span class='integer val'>3</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_svc identifier id'>svc</span><span class='dot token'>.</span><span class='rubyid_method identifier id'>method</span> <span class='rubyid_ref identifier id'>ref</span><span class='lbrack token'>[</span><span class='integer val'>3</span><span class='rbrack token'>]</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_Ref constant id'>Ref</span><span class='dot token'>.</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='rubyid_ref identifier id'>ref</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="process-class_method">
+  
+    + (<tt>Object</tt>) <strong>process</strong>(data) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 45</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_process identifier id'>process</span> <span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@@len ivar id'>@@len</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+    <span class='rubyid_@@len ivar id'>@@len</span> <span class='assign token'>=</span> <span class='rubyid_data identifier id'>data</span><span class='dot token'>.</span><span class='rubyid_unpack identifier id'>unpack</span><span class='lparen token'>(</span><span class='string val'>'N'</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_process identifier id'>process</span> <span class='rubyid_data identifier id'>data</span><span class='lbrack token'>[</span><span class='integer val'>4</span> <span class='dot2 op'>..</span> <span class='integer val'>-1</span><span class='rbrack token'>]</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='lparen token'>(</span><span class='rubyid_@@buffer ivar id'>@@buffer</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_data identifier id'>data</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@@buffer ivar id'>@@buffer</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span> <span class='lt op'>&lt;</span> <span class='rubyid_@@len ivar id'>@@len</span>
+    <span class='rubyid_return return kw'>return</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='comment val'># If this is the first message, set our SessionId and Secret.</span>
+  <span class='rubyid_m identifier id'>m</span> <span class='assign token'>=</span> <span class='regexp val'>/^(\w+)\|(\w+)$/</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span> <span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_m identifier id'>m</span>
+    <span class='rubyid_@@sess ivar id'>@@sess</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_m identifier id'>m</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_m identifier id'>m</span><span class='lbrack token'>[</span><span class='integer val'>2</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
+    <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_log identifier id'>log</span> <span class='string val'>'Received secret and session ID: '</span> <span class='plus op'>+</span> <span class='rubyid_@@sess ivar id'>@@sess</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span>
+    <span class='rubyid_@@queue ivar id'>@@queue</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_fun identifier id'>fun</span><span class='bitor op'>|</span> <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='rbrace token'>}</span>
+    <span class='rubyid_@@queue ivar id'>@@queue</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+    <span class='rubyid_@@connected ivar id'>@@connected</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
+    <span class='rubyid_return return kw'>return</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_@@buffer ivar id'>@@buffer</span><span class='comma token'>,</span> <span class='rubyid_@@len ivar id'>@@len</span> <span class='assign token'>=</span> <span class='rubyid_@@buffer ivar id'>@@buffer</span><span class='lbrack token'>[</span><span class='rubyid_@@len ivar id'>@@len</span> <span class='dot2 op'>..</span> <span class='integer val'>-1</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='integer val'>0</span>
+  <span class='comment val'># Else, it is a normal message.</span>
+  <span class='rubyid_unser identifier id'>unser</span> <span class='assign token'>=</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_unserialize identifier id'>unserialize</span> <span class='rubyid_data identifier id'>data</span>
+  <span class='rubyid_dest identifier id'>dest</span> <span class='assign token'>=</span> <span class='rubyid_unser identifier id'>unser</span><span class='lbrack token'>[</span><span class='string val'>'destination'</span><span class='rbrack token'>]</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_dest identifier id'>dest</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='colon op'>:</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_dest identifier id'>dest</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='mult op'>*</span><span class='rubyid_unser identifier id'>unser</span><span class='lbrack token'>[</span><span class='string val'>'args'</span><span class='rbrack token'>]</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_dest identifier id'>dest</span> <span class='assign token'>=</span> <span class='rubyid_lookup identifier id'>lookup</span> <span class='rubyid_dest identifier id'>dest</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="reconnect-class_method">
+  
+    + (<tt>Object</tt>) <strong>reconnect</strong>(timeout) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 86</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_reconnect identifier id'>reconnect</span> <span class='rubyid_timeout identifier id'>timeout</span>
+  <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_log identifier id'>log</span> <span class='string val'>'Attempting to reconnect; waiting at most '</span> <span class='plus op'>+</span> <span class='rubyid_timeout identifier id'>timeout</span> <span class='plus op'>+</span> <span class='string val'>'s.'</span>
+  <span class='rubyid_opts identifier id'>opts</span> <span class='assign token'>=</span> <span class='rubyid_Bridge constant id'>Bridge</span><span class='colon2 op'>::</span><span class='rubyid_options identifier id'>options</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_opts identifier id'>opts</span><span class='lbrack token'>[</span><span class='symbol val'>:reconnect</span><span class='rbrack token'>]</span>
+    <span class='rubyid_EventMachine constant id'>EventMachine</span><span class='colon2 op'>::</span><span class='rubyid_connect identifier id'>connect</span><span class='lparen token'>(</span><span class='rubyid_opts identifier id'>opts</span><span class='lbrack token'>[</span><span class='symbol val'>:host</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_opts identifier id'>opts</span><span class='lbrack token'>[</span><span class='symbol val'>:port</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_Conn constant id'>Conn</span><span class='rparen token'>)</span>
+    <span class='rubyid_EventMachine constant id'>EventMachine</span><span class='colon2 op'>::</span><span class='rubyid_Timer constant id'>Timer</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_timeout identifier id'>timeout</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_not not kw'>not</span> <span class='rubyid_@@connected ivar id'>@@connected</span>
+        <span class='rubyid_reconnect identifier id'>reconnect</span> <span class='rubyid_timeout identifier id'>timeout</span><span class='mult op'>*</span><span class='integer val'>2</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="session-class_method">
+  
+    + (<tt>Object</tt>) <strong>session</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 9</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_session identifier id'>session</span>
+  <span class='rubyid_@@sess ivar id'>@@sess</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="store-class_method">
+  
+    + (<tt>Object</tt>) <strong>store</strong>(svc, obj = {}, named = true) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/core.rb', line 32</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_store identifier id'>store</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='rubyid_named identifier id'>named</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
+  <span class='rubyid_@@services ivar id'>@@services</span><span class='lbrack token'>[</span><span class='lbrack token'>[</span><span class='rubyid_named identifier id'>named</span> <span class='integer val'>? </span><span class='rubyid_svc identifier id'>svc</span> <span class='colon op'>:</span> <span class='string val'>'channel:'</span> <span class='plus op'>+</span> <span class='rubyid_svc identifier id'>svc</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_obj identifier id'>obj</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed Feb 22 16:47:47 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
