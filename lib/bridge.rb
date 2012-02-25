@@ -1,4 +1,4 @@
-nrequire 'bb/conn'
+require 'bb/conn'
 require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
@@ -15,25 +15,25 @@ module Bridge
   def self.initialize(options = {})
     Util::log 'initialize called.'
     @options = {
-      :api_key    => nil,
-      :reconnect  => true,
-      :redir_host => 'redirector.flotype.com',
-      :redir_port => 80
+      'reconnect'  => true,
+      'redir_host' => 'redirector.flotype.com',
+      'redir_port' => 80,
+      'log_level'  => 3, # 0 for no output.
     }.merge(options)
 
-    if @options[:api_key] == nil
+    if !(@options.has_key? 'api_key')
       raise ArgumentError, 'No API key specified.'
     end
 
     if Util::has_keys?(@options, 'host', 'port')
       EM::connect(@options['host'], @options['port'], Bridge::Conn)
-    elsif Util::has_keys?(@options, 'api_key', 'redir_host', 'redir_port')
+    else
       # Support for redirector.
-      conn = EM::Protocols::HttpClient2.connect(@options[:redir_host],
-                                                @options[:redir_port])
-      req = conn.get({'uri' => "/redirect/#{@options[:api_key]}"})
+      conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
+                                                @options['redir_port'])
+      req = conn.get({:uri => "/redirect/#{@options['api_key']}"})
       req.callback do |obj|
-        obj = obj.to_json
+        obj = JSON::parse obj.content
         if obj.has_key?('data')
           obj = obj['data']
           EM::connect(obj['bridge_host'], obj['bridge_port'], Bridge::Conn)
@@ -69,12 +69,13 @@ module Bridge
 
   # Broadcasts the availability of certain functionality specified by a
   #   proc `fun` under the name of `svc`.
-  def self.publish_service svc, fun
+  def self.publish_service svc, handler, fun
     if svc == 'system'
       Util::err("Invalid service name: #{svc}")
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
+                      :handler  => Util::cb(handler),
                       :callback => Util::cb(fun) })
     end
     Core::store(name, svc)

@@ -30,8 +30,8 @@ def start_client
 end
 
 EM::run do
-  Bridge::initialize({ :api_key  => 'abcdefgh',
-                       :reconnect => false })
+  Bridge::initialize({ 'api_key'  => 'abcdefgh',
+                       'reconnect' => false })
 
   Bridge::ready(start_client)
 end
