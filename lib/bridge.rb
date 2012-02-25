@@ -1,4 +1,4 @@
-require 'bb/conn'
+nrequire 'bb/conn'
 require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
@@ -18,8 +18,12 @@ module Bridge
       :api_key    => nil,
       :reconnect  => true,
       :redir_host => 'redirector.flotype.com',
-      :redir_port => 7000
+      :redir_port => 80
     }.merge(options)
+
+    if @options[:api_key] == nil
+      raise ArgumentError, 'No API key specified.'
+    end
 
     if Util::has_keys?(@options, 'host', 'port')
       EM::connect(@options['host'], @options['port'], Bridge::Conn)
@@ -28,10 +32,10 @@ module Bridge
       conn = EM::Protocols::HttpClient2.connect(@options[:redir_host],
                                                 @options[:redir_port])
       req = conn.get({'uri' => "/redirect/#{@options[:api_key]}"})
-      req.callback {|obj|
+      req.callback do |obj|
         obj = obj.to_json
         EM::connect(obj['host'], obj['port'], Bridge::Conn)
-      }
+      end
     end
   end
 
@@ -66,8 +70,7 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :callback => Util::cb(fun)
-                    })
+                      :callback => Util::cb(fun) })
     end
     Core::store(name, svc)
   end
@@ -79,8 +82,7 @@ module Bridge
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
                     :handler  => Util::cb(handler),
-                    :callback => Util::cb(fun)
-                  })
+                    :callback => Util::cb(fun) })
   end
 
   # Returns a reference to the service specified by `svc`.
