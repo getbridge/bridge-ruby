@@ -35,25 +35,28 @@ module Bridge
     end
 
     def self.lookup ref
+      Util::log 'Looking up ref ' + ref.to_json
       ref = JSON::parse ref.to_json
-      svc = @@services[ref[2]]
+      svc = @@services[[ref[2]].to_json] || @@services[ref[2 .. -1].to_json]
       if svc != nil && svc.respond_to?(ref[3])
-        return svc.method ref[3]
+        return svc.method(ref[3])
       end
       Ref.lookup ref
     end
 
     def self.process data
       if @@len == 0
+        puts ':: New message starting.'
         @@len = data.unpack('N')[0]
         return process data[4 .. -1]
       end
-      Util::log data
+      Util::log ':::: ' + data
       (@@buffer << data)
       if @@buffer.length < @@len
         return
       end
-
+      data = @@buffer
+      @@buffer, @@len = @@buffer[@@len .. -1], 0
       # If this is the first message, set our SessionId and Secret.
       m = /^(\w+)\|(\w+)$/.match data
       if m
@@ -64,14 +67,12 @@ module Bridge
         @@connected = true
         return
       end
-      @@buffer, @@len = @@buffer[@@len .. -1], 0
       # Else, it is a normal message.
       unser = Util::unserialize data
       dest = unser['destination']
       if dest.respond_to? :call
+        puts 'Calling dest.'
         dest.call *unser['args']
-      else
-        dest = lookup dest
       end
     end
 

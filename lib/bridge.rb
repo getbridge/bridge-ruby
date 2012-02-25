@@ -12,14 +12,15 @@ module Bridge
   # Expects to be called inside an EventMachine block in lieu of
   #   EM::connect.
   # @param [Hash] configuration options
+  @options = {
+    'reconnect'  => true,
+    'redir_host' => 'redirector.flotype.com',
+    'redir_port' => 80,
+    'log_level'  => 3, # 0 for no output.
+  }
   def self.initialize(options = {})
     Util::log 'initialize called.'
-    @options = {
-      'reconnect'  => true,
-      'redir_host' => 'redirector.flotype.com',
-      'redir_port' => 80,
-      'log_level'  => 3, # 0 for no output.
-    }.merge(options)
+    @options = @options.merge(options)
 
     if !(@options.has_key? 'api_key')
       raise ArgumentError, 'No API key specified.'
@@ -75,10 +76,9 @@ module Bridge
     else
       Core::command(:JOINWORKERPOOL,
                     { :name     => svc,
-                      :handler  => Util::cb(handler),
                       :callback => Util::cb(fun) })
     end
-    Core::store(name, svc)
+    Core::store(svc, handler)
   end
 
   # Join the channel specified by `channel`. Messages from this channel
