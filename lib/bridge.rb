@@ -34,7 +34,12 @@ module Bridge
       req = conn.get({'uri' => "/redirect/#{@options[:api_key]}"})
       req.callback do |obj|
         obj = obj.to_json
-        EM::connect(obj['host'], obj['port'], Bridge::Conn)
+        if obj.has_key?('data')
+          obj = obj['data']
+          EM::connect(obj['bridge_host'], obj['bridge_port'], Bridge::Conn)
+        else
+          raise Exception, 'Invalid API key.'
+        end
       end
     end
   end
