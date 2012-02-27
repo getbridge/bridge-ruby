@@ -93,6 +93,14 @@ module Bridge
                     :callback => Util::cb(fun) })
   end
 
+  # Leave a channel.
+  def self.leave_channel channel, handler, fun
+    Core::command(:LEAVECHANNEL,
+                  { :name     => channel,
+                    :handler  => Util::local_ref(handler),
+                    :callback => Util::cb(fun) })
+  end
+
   # Returns a reference to the service specified by `svc`.
   def self.get_service svc
     Core::lookup ['named', svc, svc]
