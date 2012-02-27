@@ -3,9 +3,8 @@ module Bridge
   # unadvised, as the internal structure may vary greatly from that of
   # other language implementations.
   module Core
-    @@services, @@refs, @@queue = {'system' => Bridge::Sys}, {}, []
-    @@connected, @@len, @@buffer, @@sess = false, 0, '', [nil, nil]
-    @@pqueue = []
+    @@services, @@queue, @@sess = {'["system"]' => Bridge::Sys}, [], [nil, nil]
+    @@connected, @@len, @@buffer = false, 0, ''
 
     def self.session
       @@sess
@@ -15,7 +14,7 @@ module Bridge
       @@sess[0]
     end
 
-     def self.connected
+    def self.connected
       @@connected
     end
 
@@ -25,8 +24,7 @@ module Bridge
         fun.call
         Util::log 'Already connected.'
       else
-        Util::log 'enqueuing function'
-        @@queue << fun
+        @@queue = @@queue + [fun]
       end
     end
 
@@ -37,16 +35,20 @@ module Bridge
     def self.lookup ref
       Util::log 'Looking up ref ' + ref.to_json
       ref = JSON::parse ref.to_json
-      svc = @@services[[ref[2]].to_json] || @@services[ref[2 .. -1].to_json]
-      if svc != nil && svc.respond_to?(ref[3])
-        return svc.method(ref[3])
+      svc = @@services[ref[2 .. -1].to_json] || @@services[[ref[2]].to_json]
+      if svc != nil
+        if ref[3] != nil
+          svc.method(ref[3])
+        else
+          svc
+        end
+      else
+        Ref.lookup ref
       end
-      Ref.lookup ref
     end
 
     def self.process data
       if @@len == 0
-        puts ':: New message starting.'
         @@len = data.unpack('N')[0]
         return process data[4 .. -1]
       end
@@ -60,18 +62,19 @@ module Bridge
       # If this is the first message, set our SessionId and Secret.
       m = /^(\w+)\|(\w+)$/.match data
       if m
+        @@connected = true
         @@sess = [m[1], m[2]]
         Util::log "Received secret and session ID: #{@@sess.to_json}"
-        @@queue.each {|fun| fun.call}
+        @@queue.each {|fun|
+          fun.call
+        }
         @@queue = []
-        @@connected = true
         return
       end
       # Else, it is a normal message.
       unser = Util::unserialize data
       dest = unser['destination']
       if dest.respond_to? :call
-        puts 'Calling dest.'
         dest.call *unser['args']
       end
     end
@@ -79,9 +82,8 @@ module Bridge
     def self.command cmd, data
       if cmd == :CONNECT
         Conn::send(Util::serialize({:command => cmd, :data => data}))
-      else 
+      else
         Core::enqueue lambda {
-          puts 'Sending  ' + cmd.to_s + ': ' + data.to_json
           Conn::send(Util::serialize({:command => cmd, :data => data}))
         }
       end

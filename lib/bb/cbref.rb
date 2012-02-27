@@ -1,13 +1,9 @@
 module Bridge
   # Wrapper for callbacks passed in as arguments.
-  class CallbackRef < Ref
+  class CallbackRef < LocalRef
     def initialize fun
       @fun = fun
-      path = ['client', lambda {
-                Core::client_id
-              }, fun.hash.to_s(36),
-              'callback']
-      super(path)
+      super([fun.hash.to_s(36), 'callback'], self)
     end
 
     def callback *args
@@ -15,6 +11,23 @@ module Bridge
     end
 
     def call *args
+    end
+
+    def method atom
+      if atom.to_s == 'callback'
+        @fun
+      else
+        nil
+      end
+    end
+
+    def methods bool
+      [:callback]
+    end
+
+    def respond_to? atom
+      atom = atom.to_s
+      atom == 'call' || atom == 'to_json'
     end
   end
 end

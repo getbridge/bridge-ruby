@@ -17,7 +17,7 @@ end
 
 EM::run do
   Bridge::initialize({ 'api_key'   => 'abcdefgh',
-                       'host'      => '127.0.0.1',
+                       'host'      => 'localhost',
                        'port'      => 8090,
                        'reconnect' => false })
   Bridge::ready(start_server)

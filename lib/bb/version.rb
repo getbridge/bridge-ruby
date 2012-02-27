@@ -1,3 +1,3 @@
 module Bridge
-  VERSION = "0.1.0.alpha.8"
+  VERSION = "0.1.0.beta.0"
 end

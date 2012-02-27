@@ -1,7 +1,9 @@
+require 'bb/svc'
 require 'bb/conn'
 require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
+require 'bb/localref'
 require 'bb/cbref'
 require 'bb/util'
 
@@ -78,7 +80,7 @@ module Bridge
                     { :name     => svc,
                       :callback => Util::cb(fun) })
     end
-    Core::store(svc, handler)
+    Core::store(svc, Bridge::LocalRef.new([svc], handler))
   end
 
   # Join the channel specified by `channel`. Messages from this channel
@@ -87,7 +89,7 @@ module Bridge
   def self.join_channel channel, handler, fun
     Core::command(:JOINCHANNEL,
                   { :name     => channel,
-                    :handler  => Util::cb(handler),
+                    :handler  => Util::local_ref(handler),
                     :callback => Util::cb(fun) })
   end
 

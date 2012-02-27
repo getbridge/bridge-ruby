@@ -6,7 +6,7 @@ module Bridge
       fun.call(Core::store(name, Core::lookup(handler), 'channel'))
     end
 
-    def self.remote_error msg
+    def self.remoteError msg
       Util::err(msg)
     end
 

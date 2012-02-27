@@ -21,12 +21,14 @@ module Bridge
     end
 
     def method_missing atom, *args, &blk
-      puts 'method missing: ' + atom.to_s
-      Ref.lookup(@path + [atom])
+      Ref.lookup(@path + [atom]).call *args
     end
 
     def call *args
-      Core::command :SEND, {:destination => @path, :args => args}
+      Core::command :SEND, {
+        :destination => {:ref => @path},
+        :args        => Util::inflate(args)
+      }
     end
 
     def respond_to? atom
@@ -38,10 +40,6 @@ module Bridge
         @path[1] = @path[1].call
       end
       {:ref => @path}.to_json *a
-    end
-
-    def self.json_create o
-      Core::lookup o['ref']
     end
   end
 end
