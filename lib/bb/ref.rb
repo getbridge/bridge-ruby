@@ -21,7 +21,11 @@ module Bridge
     end
 
     def method_missing atom, *args, &blk
-      Ref.lookup(@path + [atom]).call *args
+      Core::lookup(@path + [atom]).call *args
+    end
+ 
+    def method atom
+      Core::lookup(@path + [atom])
     end
 
     def call *args

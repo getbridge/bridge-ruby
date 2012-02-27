@@ -67,7 +67,7 @@ module Bridge
     def self.log msg, level = 3
       opts = Bridge::options
       if level <= opts['log_level']
-        # puts msg
+        puts msg
       end
     end
 

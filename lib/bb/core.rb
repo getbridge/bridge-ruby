@@ -22,7 +22,6 @@ module Bridge
     def self.enqueue fun
       if @@connected
         fun.call
-        Util::log 'Already connected.'
       else
         @@queue = @@queue + [fun]
       end

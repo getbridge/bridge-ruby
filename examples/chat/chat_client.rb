@@ -1,9 +1,9 @@
 require 'bridge' 
 require 'eventmachine'
 
-class MsgHandler
+module MsgHandler
   include Bridge::Service
-  def msg(name, message)
+  def self.msg(name, message)
     puts(name + ': ' + message)
   end
 end

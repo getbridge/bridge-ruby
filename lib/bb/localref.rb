@@ -12,7 +12,11 @@ module Bridge
     end
 
     def method atom
-      @mod.method atom
+      @mod.method(atom)
+    end
+
+    def methods bool
+      @mod.methods(bool)
     end
 
     def call *args
