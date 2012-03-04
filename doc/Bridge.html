@@ -70,10 +70,14 @@
     
   
   
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><span class='object_link'><a href="Bridge/Service.html" title="Bridge::Service (module)">Service</a></span></dd>
+    
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/bridge.rb<span class="defines">,<br />
-  lib/bb/sys.rb,<br /> lib/bb/ref.rb,<br /> lib/bb/conn.rb,<br /> lib/bb/core.rb,<br /> lib/bb/util.rb,<br /> lib/bb/cbref.rb,<br /> lib/bb/version.rb</span>
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/bb/svc.rb<span class="defines">,<br />
+  lib/bridge.rb,<br /> lib/bb/ref.rb,<br /> lib/bb/sys.rb,<br /> lib/bb/core.rb,<br /> lib/bb/conn.rb,<br /> lib/bb/util.rb,<br /> lib/bb/version.rb,<br /> lib/bb/callback.rb,<br /> lib/bb/localref.rb</span>
 </dd>
   
 </dl>
@@ -83,11 +87,11 @@
 <p class="children">
    
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Bridge/Conn.html" title="Bridge::Conn (module)">Conn</a></span>, <span class='object_link'><a href="Bridge/Core.html" title="Bridge::Core (module)">Core</a></span>, <span class='object_link'><a href="Bridge/Sys.html" title="Bridge::Sys (module)">Sys</a></span>, <span class='object_link'><a href="Bridge/Util.html" title="Bridge::Util (module)">Util</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Bridge/Conn.html" title="Bridge::Conn (module)">Conn</a></span>, <span class='object_link'><a href="Bridge/Core.html" title="Bridge::Core (module)">Core</a></span>, <span class='object_link'><a href="Bridge/Service.html" title="Bridge::Service (module)">Service</a></span>, <span class='object_link'><a href="Bridge/Sys.html" title="Bridge::Sys (module)">Sys</a></span>, <span class='object_link'><a href="Bridge/Util.html" title="Bridge::Util (module)">Util</a></span>
     
    
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bridge/CallbackRef.html" title="Bridge::CallbackRef (class)">CallbackRef</a></span>, <span class='object_link'><a href="Bridge/Ref.html" title="Bridge::Ref (class)">Ref</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bridge/Callback.html" title="Bridge::Callback (class)">Callback</a></span>, <span class='object_link'><a href="Bridge/LocalRef.html" title="Bridge::LocalRef (class)">LocalRef</a></span>, <span class='object_link'><a href="Bridge/Ref.html" title="Bridge::Ref (class)">Ref</a></span>
     
   
 </p>
@@ -99,7 +103,7 @@
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='string val'>&quot;0.1.0.alpha.5&quot;</span>
+        <dd><pre class="code"><span class='string val'>&quot;0.1.0.beta.1&quot;</span>
 </pre></dd>
       
     </dl>
@@ -207,10 +211,7 @@ Returns a reference to the service specified by `svc`.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Usage: Bridge::initialize(opts).
-</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -218,7 +219,7 @@ Usage: Bridge::initialize(opts).
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#join_channel-class_method" title="join_channel (class method)">+ (Object) <strong>join_channel</strong>(channel, handler, fun) </a>
+      <a href="#join_channel-class_method" title="join_channel (class method)">+ (Object) <strong>join_channel</strong>(channel, handler, fun = nil) </a>
     
 
     
@@ -242,28 +243,7 @@ Join the channel specified by `channel`.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#options-class_method" title="options (class method)">+ (Object) <strong>options</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#publish_service-class_method" title="publish_service (class method)">+ (Object) <strong>publish_service</strong>(svc, fun) </a>
+      <a href="#leave_channel-class_method" title="leave_channel (class method)">+ (Object) <strong>leave_channel</strong>(channel, handler, fun = nil) </a>
     
 
     
@@ -277,8 +257,55 @@ Join the channel specified by `channel`.
 
   
     <span class="summary_desc"><div class='inline'><p>
-Broadcasts the availability of certain functionality specified by a proc
-`fun` under the name of `svc`.
+Leave a channel.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#options-class_method" title="options (class method)">+ (Object) <strong>options</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Accessor for @options.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#publish_service-class_method" title="publish_service (class method)">+ (Object) <strong>publish_service</strong>(svc, handler, fun = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Broadcasts the availability of certain functionality specified by a.
 </p>
 </div></span>
   
@@ -302,9 +329,7 @@ Broadcasts the availability of certain functionality specified by a proc
 
   
     <span class="summary_desc"><div class='inline'><p>
-Similar to $(document).ready of jQuery as well as now.ready: takes
-callbacks that it will call when the connection handshake has been
-completed.
+Similar to $(document).ready of jQuery as well as now.ready: takes.
 </p>
 </div></span>
   
@@ -369,12 +394,12 @@ The client&#8217;s ID.
       <pre class="lines">
 
 
-78
-79
-80</pre>
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 119</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_client_id identifier id'>client_id</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_client_id identifier id'>client_id</span>
@@ -410,15 +435,15 @@ Returns a reference to the channel specified by `channel`.
       <pre class="lines">
 
 
-73
-74
-75</pre>
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 114</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_channel identifier id'>get_channel</span> <span class='rubyid_channel identifier id'>channel</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'channel'</span><span class='comma token'>,</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='string val'>'channel:'</span> <span class='plus op'>+</span> <span class='rubyid_channel identifier id'>channel</span><span class='rbrack token'>]</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'channel'</span><span class='comma token'>,</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='dstring node'>&quot;channel:#{channel}&quot;</span><span class='rbrack token'>]</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -451,12 +476,12 @@ Returns a reference to the service specified by `svc`.
       <pre class="lines">
 
 
-68
-69
-70</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 109</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_service identifier id'>get_service</span> <span class='rubyid_svc identifier id'>svc</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='lbrack token'>[</span><span class='string val'>'named'</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='rbrack token'>]</span>
@@ -474,48 +499,67 @@ Returns a reference to the service specified by `svc`.
   
 
   
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-Usage: Bridge::initialize(opts). Expects to be called inside an
-EventMachine block.
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</p><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre>
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 23</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_log identifier id'>log</span> <span class='string val'>'initialize called.'</span>
-  <span class='rubyid_@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='symbol val'>:host</span>      <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'127.0.0.1'</span><span class='comma token'>,</span>
-    <span class='symbol val'>:port</span>      <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>8080</span><span class='comma token'>,</span>
-    <span class='symbol val'>:api_key</span>   <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span>
-    <span class='symbol val'>:reconnect</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
-  <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_merge identifier id'>merge</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
-  <span class='rubyid_EventMachine constant id'>EventMachine</span><span class='colon2 op'>::</span><span class='rubyid_connect identifier id'>connect</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:host</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='symbol val'>:port</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_Bridge constant id'>Bridge</span><span class='colon2 op'>::</span><span class='rubyid_Conn constant id'>Conn</span><span class='rparen token'>)</span>
+  <span class='rubyid_@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='rubyid_@options ivar id'>@options</span><span class='dot token'>.</span><span class='rubyid_merge identifier id'>merge</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='dot token'>.</span><span class='rubyid_has_key? fid id'>has_key?</span> <span class='string val'>'api_key'</span><span class='rparen token'>)</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>'No API key specified.'</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_has_keys? fid id'>has_keys?</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='comma token'>,</span> <span class='string val'>'host'</span><span class='comma token'>,</span> <span class='string val'>'port'</span><span class='rparen token'>)</span>
+    <span class='rubyid_EM constant id'>EM</span><span class='colon2 op'>::</span><span class='rubyid_connect identifier id'>connect</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='string val'>'host'</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='string val'>'port'</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_Bridge constant id'>Bridge</span><span class='colon2 op'>::</span><span class='rubyid_Conn constant id'>Conn</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='comment val'># Support for redirector.</span>
+    <span class='rubyid_conn identifier id'>conn</span> <span class='assign token'>=</span> <span class='rubyid_EM constant id'>EM</span><span class='colon2 op'>::</span><span class='rubyid_Protocols constant id'>Protocols</span><span class='colon2 op'>::</span><span class='rubyid_HttpClient2 constant id'>HttpClient2</span><span class='dot token'>.</span><span class='rubyid_connect identifier id'>connect</span><span class='lparen token'>(</span><span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='string val'>'redir_host'</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
+                                              <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='string val'>'redir_port'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_req identifier id'>req</span> <span class='assign token'>=</span> <span class='rubyid_conn identifier id'>conn</span><span class='dot token'>.</span><span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='symbol val'>:uri</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='dstring node'>&quot;/redirect/#{@options['api_key']}&quot;</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+    <span class='rubyid_req identifier id'>req</span><span class='dot token'>.</span><span class='rubyid_callback identifier id'>callback</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_obj identifier id'>obj</span><span class='bitor op'>|</span>
+      <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='rubyid_JSON constant id'>JSON</span><span class='colon2 op'>::</span><span class='rubyid_parse identifier id'>parse</span> <span class='rubyid_obj identifier id'>obj</span><span class='dot token'>.</span><span class='rubyid_content identifier id'>content</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_obj identifier id'>obj</span><span class='dot token'>.</span><span class='rubyid_has_key? fid id'>has_key?</span><span class='lparen token'>(</span><span class='string val'>'data'</span><span class='rparen token'>)</span>
+        <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='string val'>'data'</span><span class='rbrack token'>]</span>
+        <span class='rubyid_EM constant id'>EM</span><span class='colon2 op'>::</span><span class='rubyid_connect identifier id'>connect</span><span class='lparen token'>(</span><span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='string val'>'bridge_host'</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='string val'>'bridge_port'</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_Bridge constant id'>Bridge</span><span class='colon2 op'>::</span><span class='rubyid_Conn constant id'>Conn</span><span class='rparen token'>)</span>
+      <span class='rubyid_else else kw'>else</span>
+        <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exception constant id'>Exception</span><span class='comma token'>,</span> <span class='string val'>'Invalid API key.'</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -526,16 +570,67 @@ EventMachine block.
       <div class="method_details ">
   <p class="signature " id="join_channel-class_method">
   
-    + (<tt>Object</tt>) <strong>join_channel</strong>(channel, handler, fun) 
+    + (<tt>Object</tt>) <strong>join_channel</strong>(channel, handler, fun = nil) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Join the channel specified by `channel`. Messages from this channel will be
-passed in to a handler specified by `handler`. The callback `fun` is to be
-called to confirm successful joining of the channel.
+Join the channel specified by `channel`. Messages from this channel
+</p>
+<pre class="code ruby"><code>
+  <span class='rubyid_will identifier id'>will</span> <span class='rubyid_be identifier id'>be</span> <span class='rubyid_passed identifier id'>passed</span> <span class='rubyid_in in kw'>in</span> <span class='rubyid_to identifier id'>to</span> <span class='rubyid_a identifier id'>a</span> <span class='rubyid_handler identifier id'>handler</span> <span class='rubyid_specified identifier id'>specified</span> <span class='rubyid_by identifier id'>by</span> <span class='xstring val'>`handler`</span><span class='dot token'>.</span> <span class='rubyid_The constant id'>The</span> <span class='rubyid_callback identifier id'>callback</span>
+  <span class='xstring val'>`fun`</span> <span class='rubyid_is identifier id'>is</span> <span class='rubyid_to identifier id'>to</span> <span class='rubyid_be identifier id'>be</span> <span class='rubyid_called identifier id'>called</span> <span class='rubyid_to identifier id'>to</span> <span class='rubyid_confirm identifier id'>confirm</span> <span class='rubyid_successful identifier id'>successful</span> <span class='rubyid_joining identifier id'>joining</span> <span class='rubyid_of identifier id'>of</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_channel identifier id'>channel</span><span class='dot token'>.</span>
+</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93
+94
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 91</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_join_channel identifier id'>join_channel</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='symbol val'>:handler</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_local_ref identifier id'>local_ref</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='colon op'>:</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINCHANNEL</span><span class='comma token'>,</span> <span class='rubyid_obj identifier id'>obj</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="leave_channel-class_method">
+  
+    + (<tt>Object</tt>) <strong>leave_channel</strong>(channel, handler, fun = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Leave a channel.
 </p>
 
 
@@ -550,23 +645,23 @@ called to confirm successful joining of the channel.
       <pre class="lines">
 
 
-59
-60
-61
-62
-63
-64
-65</pre>
+100
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 100</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_join_channel identifier id'>join_channel</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINCHANNEL</span><span class='comma token'>,</span>
-                <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span>
-                  <span class='symbol val'>:handler</span>  <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                  <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
-                <span class='rbrace token'>}</span><span class='rparen token'>)</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_leave_channel identifier id'>leave_channel</span> <span class='rubyid_channel identifier id'>channel</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='symbol val'>:handler</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_local_ref identifier id'>local_ref</span><span class='lparen token'>(</span><span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='colon op'>:</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:LEAVECHANNEL</span><span class='comma token'>,</span> <span class='rubyid_obj identifier id'>obj</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -581,18 +676,49 @@ called to confirm successful joining of the channel.
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Accessor for @options.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+options
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 52</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_options identifier id'>options</span>
   <span class='rubyid_@options ivar id'>@options</span>
@@ -606,16 +732,18 @@ called to confirm successful joining of the channel.
       <div class="method_details ">
   <p class="signature " id="publish_service-class_method">
   
-    + (<tt>Object</tt>) <strong>publish_service</strong>(svc, fun) 
+    + (<tt>Object</tt>) <strong>publish_service</strong>(svc, handler, fun = nil) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     <p>
-Broadcasts the availability of certain functionality specified by a proc
-`fun` under the name of `svc`.
+Broadcasts the availability of certain functionality specified by a
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_proc identifier id'>proc</span> <span class='xstring val'>`fun`</span> <span class='rubyid_under identifier id'>under</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_name identifier id'>name</span> <span class='rubyid_of identifier id'>of</span> <span class='xstring val'>`svc`</span><span class='dot token'>.</span>
+</code></pre>
 
 
   </div>
@@ -629,31 +757,33 @@ Broadcasts the availability of certain functionality specified by a proc
       <pre class="lines">
 
 
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54</pre>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 75</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_publish_service identifier id'>publish_service</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_publish_service identifier id'>publish_service</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='comma token'>,</span> <span class='rubyid_fun identifier id'>fun</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_svc identifier id'>svc</span> <span class='eq op'>==</span> <span class='string val'>'system'</span>
-    <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_err identifier id'>err</span><span class='lparen token'>(</span><span class='string val'>'Invalid service name: '</span> <span class='plus op'>+</span> <span class='rubyid_svc identifier id'>svc</span><span class='rparen token'>)</span>
+    <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_err identifier id'>err</span><span class='lparen token'>(</span><span class='dstring node'>&quot;Invalid service name: #{svc}&quot;</span><span class='rparen token'>)</span>
   <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINWORKERPOOL</span><span class='comma token'>,</span>
-                  <span class='lbrace token'>{</span> <span class='symbol val'>:name</span>     <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span>
-                    <span class='symbol val'>:callback</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
-                  <span class='rbrace token'>}</span><span class='rparen token'>)</span>
+    <span class='rubyid_obj identifier id'>obj</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_svc identifier id'>svc</span><span class='rbrace token'>}</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_fun identifier id'>fun</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='colon op'>:</span><span class='rubyid_call identifier id'>call</span>
+      <span class='rubyid_obj identifier id'>obj</span><span class='lbrack token'>[</span><span class='symbol val'>:callback</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_cb identifier id'>cb</span><span class='lparen token'>(</span><span class='rubyid_fun identifier id'>fun</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:JOINWORKERPOOL</span><span class='comma token'>,</span> <span class='rubyid_obj identifier id'>obj</span><span class='rparen token'>)</span>
+    <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_svc identifier id'>svc</span><span class='comma token'>,</span> <span class='rubyid_Bridge constant id'>Bridge</span><span class='colon2 op'>::</span><span class='rubyid_LocalRef constant id'>LocalRef</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rubyid_svc identifier id'>svc</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_handler identifier id'>handler</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_store identifier id'>store</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_svc identifier id'>svc</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -672,15 +802,38 @@ Broadcasts the availability of certain functionality specified by a proc
   <div class="discussion">
     <p>
 Similar to $(document).ready of jQuery as well as now.ready: takes
-callbacks that it will call when the connection handshake has been
-completed.
 </p>
+<pre class="code ruby"><code>
+  <span class='rubyid_callbacks identifier id'>callbacks</span> <span class='rubyid_that identifier id'>that</span> <span class='rubyid_it identifier id'>it</span> <span class='rubyid_will identifier id'>will</span> <span class='rubyid_call identifier id'>call</span> <span class='rubyid_when when kw'>when</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_connection identifier id'>connection</span> <span class='rubyid_handshake identifier id'>handshake</span> <span class='rubyid_has identifier id'>has</span> <span class='rubyid_been identifier id'>been</span>
+  <span class='rubyid_completed identifier id'>completed</span><span class='dot token'>.</span>
+</code></pre>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>fun</span>
+      
+      
+        <span class='type'>(<tt>#call</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Callback to be called when the server connects.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -688,12 +841,12 @@ completed.
       <pre class="lines">
 
 
-31
-32
-33</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_ready identifier id'>ready</span> <span class='rubyid_fun identifier id'>fun</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_enqueue identifier id'>enqueue</span> <span class='rubyid_fun identifier id'>fun</span>
@@ -721,7 +874,45 @@ Calls a remote function specified by `dest` with `args`.
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>dest</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Bridge/Ref.html" title="Bridge::Ref (class)">Ref</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+The identifier of the remote function to call.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+Arguments to be passed to `dest`.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -729,14 +920,14 @@ Calls a remote function specified by `dest` with `args`.
       <pre class="lines">
 
 
-36
-37
-38
-39
-40</pre>
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 67</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span> <span class='rubyid_dest identifier id'>dest</span><span class='comma token'>,</span> <span class='rubyid_args identifier id'>args</span>
   <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span><span class='lparen token'>(</span><span class='symbol val'>:SEND</span><span class='comma token'>,</span>
@@ -754,7 +945,7 @@ Calls a remote function specified by `dest` with `args`.
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 22 16:47:46 2012 by 
+  Generated on Sun Mar  4 11:11:35 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>

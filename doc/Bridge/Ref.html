@@ -106,7 +106,7 @@ Instances of this class represent references to remote services.
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="CallbackRef.html" title="Bridge::CallbackRef (class)">CallbackRef</a></span></p>
+  <p class="children"><span class='object_link'><a href="LocalRef.html" title="Bridge::LocalRef (class)">LocalRef</a></span></p>
 </div>
 
   <h2>Constant Summary</h2>
@@ -135,27 +135,6 @@ Instances of this class represent references to remote services.
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#json_create-class_method" title="json_create (class method)">+ (Object) <strong>json_create</strong>(o) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -230,6 +209,27 @@ Instances of this class represent references to remote services.
 A new instance of Ref.
 </p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method-instance_method" title="#method (instance method)">- (Object) <strong>method</strong>(atom) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -396,7 +396,7 @@ A new instance of Ref
       <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 23</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_method_missing identifier id'>method_missing</span> <span class='rubyid_atom identifier id'>atom</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_blk identifier id'>blk</span>
-  <span class='rubyid_Ref constant id'>Ref</span><span class='dot token'>.</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_@path ivar id'>@path</span> <span class='plus op'>+</span> <span class='lbrack token'>[</span><span class='rubyid_atom identifier id'>atom</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_@path ivar id'>@path</span> <span class='plus op'>+</span> <span class='lbrack token'>[</span><span class='rubyid_atom identifier id'>atom</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -412,36 +412,7 @@ A new instance of Ref
     
     
       <div class="method_details first">
-  <p class="signature first" id="json_create-class_method">
-  
-    + (<tt>Object</tt>) <strong>json_create</strong>(o) 
-  
-
-  
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-42
-43
-44</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 42</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_json_create identifier id'>json_create</span> <span class='rubyid_o identifier id'>o</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span> <span class='rubyid_o identifier id'>o</span><span class='lbrack token'>[</span><span class='string val'>'ref'</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="lookup-class_method">
+  <p class="signature first" id="lookup-class_method">
   
     + (<tt>Object</tt>) <strong>lookup</strong>(ref) 
   
@@ -496,6 +467,41 @@ A new instance of Ref
       <pre class="lines">
 
 
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 31</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_call identifier id'>call</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span> <span class='symbol val'>:SEND</span><span class='comma token'>,</span> <span class='lbrace token'>{</span>
+    <span class='symbol val'>:destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span><span class='symbol val'>:ref</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_@path ivar id'>@path</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='symbol val'>:args</span>        <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_Util constant id'>Util</span><span class='colon2 op'>::</span><span class='rubyid_inflate identifier id'>inflate</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='rbrace token'>}</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="method-instance_method">
+  
+    - (<tt>Object</tt>) <strong>method</strong>(atom) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 27
 28
 29</pre>
@@ -503,8 +509,8 @@ A new instance of Ref
     <td>
       <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 27</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_call identifier id'>call</span> <span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span>
-  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_command identifier id'>command</span> <span class='symbol val'>:SEND</span><span class='comma token'>,</span> <span class='rubyid_args identifier id'>args</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_method identifier id'>method</span> <span class='rubyid_atom identifier id'>atom</span>
+  <span class='rubyid_Core constant id'>Core</span><span class='colon2 op'>::</span><span class='rubyid_lookup identifier id'>lookup</span><span class='lparen token'>(</span><span class='rubyid_@path ivar id'>@path</span> <span class='plus op'>+</span> <span class='lbrack token'>[</span><span class='rubyid_atom identifier id'>atom</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -576,12 +582,12 @@ A new instance of Ref
       <pre class="lines">
 
 
-31
-32
-33</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 38</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='rubyid_atom identifier id'>atom</span>
   <span class='rubyid_true true kw'>true</span>
@@ -605,15 +611,15 @@ A new instance of Ref
       <pre class="lines">
 
 
-35
-36
-37
-38
-39
-40</pre>
+42
+43
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/bb/ref.rb', line 42</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_json identifier id'>to_json</span> <span class='mult op'>*</span><span class='rubyid_a identifier id'>a</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_@path ivar id'>@path</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_respond_to? fid id'>respond_to?</span> <span class='colon op'>:</span><span class='rubyid_call identifier id'>call</span>
@@ -632,7 +638,7 @@ A new instance of Ref
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 22 16:47:46 2012 by 
+  Generated on Sun Mar  4 11:11:34 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.8.7).
 </div>

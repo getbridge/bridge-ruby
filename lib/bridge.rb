@@ -4,7 +4,7 @@ require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
 require 'bb/localref'
-require 'bb/cbref'
+require 'bb/callback'
 require 'bb/util'
 
 require 'eventmachine'
@@ -72,33 +72,37 @@ module Bridge
 
   # Broadcasts the availability of certain functionality specified by a
   #   proc `fun` under the name of `svc`.
-  def self.publish_service svc, handler, fun
+  def self.publish_service svc, handler, fun = nil
     if svc == 'system'
       Util::err("Invalid service name: #{svc}")
     else
-      Core::command(:JOINWORKERPOOL,
-                    { :name     => svc,
-                      :callback => Util::cb(fun) })
+      obj = { :name => svc}
+      if fun.respond_to? :call
+        obj[:callback] = Util::cb(fun)
+      end
+      Core::command(:JOINWORKERPOOL, obj)
+      Core::store(svc, Bridge::LocalRef.new([svc], handler))
     end
-    Core::store(svc, Bridge::LocalRef.new([svc], handler))
   end
 
   # Join the channel specified by `channel`. Messages from this channel
   #   will be passed in to a handler specified by `handler`. The callback
   #   `fun` is to be called to confirm successful joining of the channel.
-  def self.join_channel channel, handler, fun
-    Core::command(:JOINCHANNEL,
-                  { :name     => channel,
-                    :handler  => Util::local_ref(handler),
-                    :callback => Util::cb(fun) })
+  def self.join_channel channel, handler, fun = nil
+    obj = { :name => svc, :handler => Util::local_ref(handler)}
+    if fun.respond_to? :call
+      obj[:callback] = Util::cb(fun)
+    end
+    Core::command(:JOINCHANNEL, obj)
   end
 
   # Leave a channel.
-  def self.leave_channel channel, handler, fun
-    Core::command(:LEAVECHANNEL,
-                  { :name     => channel,
-                    :handler  => Util::local_ref(handler),
-                    :callback => Util::cb(fun) })
+  def self.leave_channel channel, handler, fun = nil
+    obj = { :name => svc, :handler => Util::local_ref(handler)}
+    if fun.respond_to? :call
+      obj[:callback] = Util::cb(fun)
+    end
+    Core::command(:LEAVECHANNEL, obj)
   end
 
   # Returns a reference to the service specified by `svc`.
