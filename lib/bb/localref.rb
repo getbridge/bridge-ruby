@@ -15,7 +15,7 @@ module Bridge
       @mod.method(atom)
     end
 
-    def methods bool
+    def operations bool
       @mod.methods(bool)
     end
 
@@ -25,6 +25,13 @@ module Bridge
 
     def respond_to? atom
       @mod.respond_to? atom
+    end
+
+    def to_json *a
+      if @path[1].respond_to? :call
+        @path[1] = @path[1].call
+      end
+      {:ref => @path, :operations => @mod.methods(false)}.to_json *a
     end
   end
 end

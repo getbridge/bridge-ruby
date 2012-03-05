@@ -1,9 +1,8 @@
 module Bridge
   # Wrapper for callbacks passed in as arguments.
-  class CallbackRef < LocalRef
+  class Callback
     def initialize fun
       @fun = fun
-      super([fun.hash.to_s(36), 'callback'], self)
     end
 
     def callback *args
@@ -11,6 +10,7 @@ module Bridge
     end
 
     def call *args
+      @fun.call(*call)
     end
 
     def method atom
