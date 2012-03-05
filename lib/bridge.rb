@@ -1,8 +1,10 @@
+require 'bb/svc'
 require 'bb/conn'
 require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
-require 'bb/cbref'
+require 'bb/localref'
+require 'bb/callback'
 require 'bb/util'
 
 require 'eventmachine'
@@ -12,26 +14,36 @@ module Bridge
   # Expects to be called inside an EventMachine block in lieu of
   #   EM::connect.
   # @param [Hash] configuration options
+  @options = {
+    'reconnect'  => true,
+    'redir_host' => 'redirector.flotype.com',
+    'redir_port' => 80,
+    'log_level'  => 3, # 0 for no output.
+  }
   def self.initialize(options = {})
     Util::log 'initialize called.'
-    @options = {
-      :api_key    => nil,
-      :reconnect  => true,
-      :redir_host => '127.0.0.1',
-      :redir_port => 80
-    }.merge(options)
+    @options = @options.merge(options)
+
+    if !(@options.has_key? 'api_key')
+      raise ArgumentError, 'No API key specified.'
+    end
 
     if Util::has_keys?(@options, 'host', 'port')
       EM::connect(@options['host'], @options['port'], Bridge::Conn)
-    elsif Util::has_keys?(@options, 'api_key', 'redir_host', 'redir_port')
+    else
       # Support for redirector.
-      conn = EM::Protocols::HttpClient2.connect(@options[:redir_host],
-                                                @options[:redir_port])
-      req = conn.get({'uri' => "/redirect/#{@options[:api_key]}"})
-      req.callback {|obj|
-        obj = obj.to_json
-        EM::connect(obj['host'], obj['port'], Bridge::Conn)
-      }
+      conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
+                                                @options['redir_port'])
+      req = conn.get({:uri => "/redirect/#{@options['api_key']}"})
+      req.callback do |obj|
+        obj = JSON::parse obj.content
+        if obj.has_key?('data')
+          obj = obj['data']
+          EM::connect(obj['bridge_host'], obj['bridge_port'], Bridge::Conn)
+        else
+          raise Exception, 'Invalid API key.'
+        end
+      end
     end
   end
 
@@ -60,27 +72,37 @@ module Bridge
 
   # Broadcasts the availability of certain functionality specified by a
   #   proc `fun` under the name of `svc`.
-  def self.publish_service svc, fun
+  def self.publish_service svc, handler, fun = nil
     if svc == 'system'
       Util::err("Invalid service name: #{svc}")
     else
-      Core::command(:JOINWORKERPOOL,
-                    { :name     => svc,
-                      :callback => Util::cb(fun)
-                    })
+      obj = { :name => svc}
+      if fun.respond_to? :call
+        obj[:callback] = Util::cb(fun)
+      end
+      Core::command(:JOINWORKERPOOL, obj)
+      Core::store(svc, Bridge::LocalRef.new([svc], handler))
     end
-    Core::store(name, svc)
   end
 
   # Join the channel specified by `channel`. Messages from this channel
   #   will be passed in to a handler specified by `handler`. The callback
   #   `fun` is to be called to confirm successful joining of the channel.
-  def self.join_channel channel, handler, fun
-    Core::command(:JOINCHANNEL,
-                  { :name     => channel,
-                    :handler  => Util::cb(handler),
-                    :callback => Util::cb(fun)
-                  })
+  def self.join_channel channel, handler, fun = nil
+    obj = { :name => svc, :handler => Util::local_ref(handler)}
+    if fun.respond_to? :call
+      obj[:callback] = Util::cb(fun)
+    end
+    Core::command(:JOINCHANNEL, obj)
+  end
+
+  # Leave a channel.
+  def self.leave_channel channel, handler, fun = nil
+    obj = { :name => svc, :handler => Util::local_ref(handler)}
+    if fun.respond_to? :call
+      obj[:callback] = Util::cb(fun)
+    end
+    Core::command(:LEAVECHANNEL, obj)
   end
 
   # Returns a reference to the service specified by `svc`.
