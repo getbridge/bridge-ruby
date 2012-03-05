@@ -98,7 +98,7 @@ module Bridge
 
   # Leave a channel.
   def self.leave_channel channel, handler, fun = nil
-    obj = { :name => svc, :handler => Util::local_ref(handler)}
+    obj = { :name => channel, :handler => Util::local_ref(handler)}
     if fun.respond_to? :call
       obj[:callback] = Util::cb(fun)
     end
