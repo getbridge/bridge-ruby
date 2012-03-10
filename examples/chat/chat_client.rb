@@ -2,14 +2,14 @@ require 'flotype-bridge'
 require 'eventmachine'
 
 module MsgHandler
-  include Bridge::Service
+  include Flotype::Bridge::Service
   def self.msg(name, message)
     puts(name + ': ' + message)
   end
 end
 
 class LobbyHandler
-  include Bridge::Service
+  include Flotype::Bridge::Service
   def initialize(name)
     @name = name
     @lobby = nil
@@ -27,15 +27,13 @@ end
 
 start_client = lambda {
   lobby = LobbyHandler.new('Vedant')
-  chat = Bridge::get_service('chatserver')
+  chat = Flotype::Bridge::get_service('chatserver')
   puts 'sending a join.'
   chat.join('lobby', MsgHandler, lobby)
 }
 
 EM::run do
-  Bridge::initialize({ 'api_key'   => 'abcdefgh',
-                       'host'      => 'localhost',
-                       'port'      => 8090,
+  Flotype::Bridge::initialize({ 'api_key'   => 'abcdefgh',
                        'reconnect' => false })
-  Bridge::ready(start_client)
+  Flotype::Bridge::ready(start_client)
 end

@@ -4,7 +4,7 @@ module Flotype
     # unadvised, as the internal structure may vary greatly from that of
     # other language implementations.
     module Core
-      @@services, @@queue, @@sess = {'["system"]' => Bridge::Sys}, [], [nil, nil]
+      @@services, @@queue, @@sess = {'["system"]' => Sys}, [], [nil, nil]
       @@connected, @@len, @@buffer = false, 0, ''
       
       def self.session
@@ -65,7 +65,7 @@ module Flotype
           @@connected = true
           @@sess = [m[1], m[2]]
           Util::log "Received secret and session ID: #{@@sess.to_json}"
-          @@queue.each {|fun|
+            @@queue.each {|fun|
             fun.call
           }
           @@queue = []
@@ -81,10 +81,12 @@ module Flotype
       
       def self.command cmd, data
         if cmd == :CONNECT
-          Conn::send(Util::serialize({:command => cmd, :data => data}))
+          Conn::send(Util::serialize({ :command => cmd,
+                                       :data => data}))
         else
           Core::enqueue lambda {
-            Conn::send(Util::serialize({:command => cmd, :data => data}))
+            Conn::send(Util::serialize({ :command => cmd,
+                                         :data => data}))
           }
         end
       end
@@ -93,8 +95,8 @@ module Flotype
         opts = Bridge::options
         if opts[:reconnect]
           Util::log "Attempting to reconnect; waiting at most #{timeout.to_s}s."
-          EventMachine::connect(opts[:host], opts[:port], Conn)
-          EventMachine::Timer.new(timeout) do
+          EM::connect(opts[:host], opts[:port], Conn)
+          EM::Timer.new(timeout) do
             if not @@connected
               reconnect timeout * 2
             end

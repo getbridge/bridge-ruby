@@ -7,19 +7,19 @@ module Flotype
       def self.inflate obj
         if obj.is_a?(Array)
           obj.map do |v|
-            Util::bloat v
+            bloat v
           end
         else
           o = {}
           obj.each do |k, v|
-            o[k] = Util::bloat v
+            o[k] = bloat v
           end
           o
         end
       end
       
       def self.bloat v
-        if v.is_a?(Module) || v.is_a?(Bridge::Service)
+        if v.is_a?(Module) || v.is_a?(Flotype::Bridge::Service)
           local_ref(v)
         elsif v.respond_to?(:call) && !v.is_a?(Ref)
           cb(v)
@@ -66,15 +66,17 @@ module Flotype
       end
       
       def self.log msg, level = 3
-        opts = Bridge::options
+        opts = Flotype::Bridge::options
         if level <= opts['log_level']
           puts msg
         end
       end
       
       def self.cb fun
-        Core::store(fun.object_id.to_s(36),
-                    LocalRef.new([fun.hash.to_s(36)], Callback.new(fun)))
+        ref = LocalRef.new([fun.hash.to_s(36)],
+                           Callback.new(fun))
+        Core::store(fun.object_id.to_s(36), ref)
+        
       end
       
       def self.has_keys? obj, *keys
@@ -88,7 +90,7 @@ module Flotype
       
       def self.local_ref v
         key = v.object_id.to_s(36)
-        Core::store key, Bridge::LocalRef.new([key], v)
+        Core::store key, LocalRef.new([key], v)
       end
     end
   end

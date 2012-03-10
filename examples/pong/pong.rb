@@ -15,15 +15,15 @@ module EchoModule
 end
 
 EventMachine::run {
-  Bridge::initialize({ :reconnect => false,
+  Flotype::Bridge::initialize({ :reconnect => false,
                        :host => '127.0.0.1',
                        :port => 8090})
-  Bridge::ready lambda {
+  Flotype::Bridge::ready lambda {
     puts 'Connected.'
   }
   puts 'enqueued ready func'
-  Bridge::publish_service("pong", EchoModule)
+  Flotype::Bridge::publish_service("pong", EchoModule)
   puts 'published pong service'
-  Bridge::join_channel("duuuude", EchoModule, lambda {puts "Duuude."})
+  Flotype::Bridge::join_channel("duuuude", EchoModule, lambda {puts "Duuude."})
   puts 'joined channel'
 }
