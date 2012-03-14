@@ -18,12 +18,14 @@ module Bridge
     'reconnect'  => true,
     'redir_host' => 'redirector.flotype.com',
     'redir_port' => 80,
-    'log_level'  => 3, # 0 for no output.
+    'log_level'  => 2, # 0 for no output.
   }
-  def self.initialize(options = {})
+  def self.initialize(options = {}, &fun)
     Util::log 'initialize called.'
     @options = @options.merge(options)
 
+    self.ready fun if fun
+    
     if !(@options.has_key? 'api_key')
       raise ArgumentError, 'No API key specified.'
     end
@@ -44,7 +46,7 @@ module Bridge
           raise Exception, 'Invalid API key.'
         end
       end
-    end
+    end    
   end
 
   # Accessor for @options.
@@ -57,7 +59,7 @@ module Bridge
   #   callbacks that it will call when the connection handshake has been
   #   completed.
   # @param [#call] fun Callback to be called when the server connects.
-  def self.ready fun
+  def self.ready &fun
     Core::enqueue fun
   end
 
@@ -72,14 +74,12 @@ module Bridge
 
   # Broadcasts the availability of certain functionality specified by a
   #   proc `fun` under the name of `svc`.
-  def self.publish_service svc, handler, fun = nil
+  def self.publish_service svc, handler, &fun
     if svc == 'system'
       Util::err("Invalid service name: #{svc}")
     else
       obj = { :name => svc}
-      if fun.respond_to? :call
-        obj[:callback] = Util::cb(fun)
-      end
+      obj[:callback] = Util::cb(fun) if fun
       Core::command(:JOINWORKERPOOL, obj)
       Core::store(svc, Bridge::LocalRef.new([svc], handler))
     end
@@ -88,39 +88,31 @@ module Bridge
   # Join the channel specified by `channel`. Messages from this channel
   #   will be passed in to a handler specified by `handler`. The callback
   #   `fun` is to be called to confirm successful joining of the channel.
-  def self.join_channel channel, handler, fun = nil
+  def self.join_channel channel, handler, &fun
     obj = { :name => channel, :handler => Util::local_ref(handler)}
-    if fun.respond_to? :call
-      obj[:callback] = Util::cb(fun)
-    end
+    obj[:callback] = Util::cb(fun) if fun
     Core::command(:JOINCHANNEL, obj)
   end
 
   # Leave a channel.
-  def self.leave_channel channel, handler, fun = nil
+  def self.leave_channel channel, handler, &fun
     obj = { :name => channel, :handler => Util::local_ref(handler)}
-    if fun.respond_to? :call
-      obj[:callback] = Util::cb(fun)
-    end
+    obj[:callback] = Util::cb(fun) if fun
     Core::command(:LEAVECHANNEL, obj)
   end
-
-  # Leave a channel.
-  def self.leave_channel channel, handler, fun
-    Core::command(:LEAVECHANNEL,
-                  { :name     => channel,
-                    :handler  => Util::local_ref(handler),
-                    :callback => Util::cb(fun) })
-  end
-
+  
   # Returns a reference to the service specified by `svc`.
-  def self.get_service svc
-    Core::lookup ['named', svc, svc]
+  def self.get_service svc, &fun
+    ref = Core::lookup ['named', svc, svc]
+    fun.call(ref) if fun
   end
 
   # Returns a reference to the channel specified by `channel`.
-  def self.get_channel channel
-    Core::lookup ['channel', channel, "channel:#{channel}"]
+  def self.get_channel channel, &fun
+    Core::command(:GETCHANNEL, {:name => channel})
+    ref = Core::lookup ['channel', channel, "channel:#{channel}"]
+    fun.call(ref, channel) if fun
+    return ref
   end
 
   # The client's ID.
