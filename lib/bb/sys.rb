@@ -3,7 +3,7 @@ module Bridge
   # Erlang gateway.
   module Sys
     def self.hook_channel_handler name, handler, fun
-      fun.call(Core::store(name, handler, 'channel'), name)
+      fun.call(Core::store('channel:' + name, handler), name)
     end
 
     def self.remoteError msg

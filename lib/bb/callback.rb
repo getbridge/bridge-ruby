@@ -10,7 +10,7 @@ module Bridge
     end
 
     def call *args
-      @fun.call(*call)
+      @fun.call(*args)
     end
 
     def method atom

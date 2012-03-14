@@ -22,7 +22,7 @@ module Bridge
 
     def method_missing atom, *args, &blk
       args << blk if blk
-      Core::lookup(@path + [atom]).call args
+      Core::lookup(@path + [atom]).call *args
     end
  
     def method atom
