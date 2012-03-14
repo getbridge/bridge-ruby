@@ -45,6 +45,11 @@ module Bridge
         Ref.lookup ref
       end
     end
+    
+    def self.get ref
+      Util::log 'Getting ref ' + ref
+      @@services[ref]
+    end
 
     def self.process data
       if @@len == 0

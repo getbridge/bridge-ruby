@@ -10,8 +10,8 @@ module Bridge
       Util::err(msg)
     end
 
-    def self.get_service name, fun
-      fun.call(Core::lookup(name).methods(false))
+    def self.getservice name, fun
+      fun.call(Core::get(name).methods(false))
     end
   end
 end
