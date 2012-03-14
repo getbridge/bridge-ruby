@@ -16,7 +16,7 @@ module Flotype
         Util::log 'Starting handshake.'
         Core::command(:CONNECT,
                       { :session => Core::session,
-                        :api_key => Flotype::Bridge::options['api_key'] })
+                        :api_key => Bridge::options['api_key'] })
       end
       
       def receive_data data

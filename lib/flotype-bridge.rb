@@ -32,7 +32,7 @@ module Flotype
       end
       
       if Util::has_keys?(@options, 'host', 'port')
-        EM::connect(@options['host'], @options['port'], Conn)
+        EM::connect(@options['host'], @options['port'], Bridge::Conn)
       else
         # Support for redirector.
         conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
@@ -42,7 +42,7 @@ module Flotype
           obj = JSON::parse obj.content
           if obj.has_key?('data')
             obj = obj['data']
-            EM::connect(obj['bridge_host'], obj['bridge_port'], Conn)
+            EM::connect(obj['bridge_host'], obj['bridge_port'], Bridge::Conn)
           else
             raise Exception, 'Invalid API key.'
           end
@@ -84,7 +84,7 @@ module Flotype
           obj[:callback] = Util::cb(fun)
         end
         Core::command(:JOINWORKERPOOL, obj)
-        Core::store(svc, LocalRef.new([svc], handler))
+        Core::store(svc, Bridge::LocalRef.new([svc], handler))
       end
     end
     
