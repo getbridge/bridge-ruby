@@ -21,7 +21,8 @@ module Bridge
     end
 
     def method_missing atom, *args, &blk
-      Core::lookup(@path + [atom]).call *args
+      args << blk if blk
+      Core::lookup(@path + [atom]).call args
     end
  
     def method atom
@@ -29,8 +30,10 @@ module Bridge
     end
 
     def call *args
+      path = @path.dup
+      path << 'callback' if path.length == 3
       Core::command :SEND, {
-        :destination => {:ref => @path},
+        :destination => {:ref => path},
         :args        => Util::inflate(args)
       }
     end

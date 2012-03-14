@@ -3,7 +3,7 @@ module Bridge
   # unadvised, as the internal structure may vary greatly from that of
   # other language implementations.
   module Core
-    @@services, @@queue, @@sess = {'["system"]' => Bridge::Sys}, [], [nil, nil]
+    @@services, @@queue, @@sess = {'system' => Bridge::Sys}, [], [nil, nil]
     @@connected, @@len, @@buffer = false, 0, ''
 
     def self.session
@@ -27,16 +27,16 @@ module Bridge
       end
     end
 
-    def self.store svc, obj = nil, named = true
-      @@services[[named ? svc : "channel:#{svc}"].to_json] = obj
+    def self.store name, obj
+      @@services[name] = obj if obj
     end
 
     def self.lookup ref
       Util::log 'Looking up ref ' + ref.to_json
       ref = JSON::parse ref.to_json
-      svc = @@services[ref[2 .. -1].to_json] || @@services[[ref[2]].to_json]
-      if svc != nil
-        if ref[3] != nil
+      svc = @@services[ref[2]]
+      if svc
+        if ref[3]
           svc.method(ref[3])
         else
           svc

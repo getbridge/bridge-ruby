@@ -72,8 +72,9 @@ module Bridge
     end
 
     def self.cb fun
-      Core::store(fun.object_id.to_s(36),
-                  LocalRef.new([fun.hash.to_s(36)], Callback.new(fun)))
+      id = fun.object_id.to_s(36)
+      Core::store(id,
+                  LocalRef.new([id], Callback.new(fun)))
     end
 
     def self.has_keys? obj, *keys

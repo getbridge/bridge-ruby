@@ -89,14 +89,24 @@ module Bridge
   #   will be passed in to a handler specified by `handler`. The callback
   #   `fun` is to be called to confirm successful joining of the channel.
   def self.join_channel channel, handler, &fun
-    obj = { :name => channel, :handler => Util::local_ref(handler)}
+    obj = { :name => channel}
+    if handler.is_a? Ref
+      obj[:handler] = Ref
+    else
+      obj[:handler] = Util::local_ref(handler)
+    end
     obj[:callback] = Util::cb(fun) if fun
     Core::command(:JOINCHANNEL, obj)
   end
 
   # Leave a channel.
   def self.leave_channel channel, handler, &fun
-    obj = { :name => channel, :handler => Util::local_ref(handler)}
+    obj = { :name => channel }
+    if handler.is_a? Ref
+      obj[:handler] = Ref
+    else
+      obj[:handler] = Util::local_ref(handler)
+    end
     obj[:callback] = Util::cb(fun) if fun
     Core::command(:LEAVECHANNEL, obj)
   end

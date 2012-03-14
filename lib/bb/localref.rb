@@ -31,7 +31,7 @@ module Bridge
       if @path[1].respond_to? :call
         @path[1] = @path[1].call
       end
-      {:ref => @path, :operations => @mod.methods(false)}.to_json *a
+      {:ref => @path, :operations => operations(false)}.to_json *a
     end
   end
 end
