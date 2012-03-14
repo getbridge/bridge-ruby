@@ -1,4 +1,4 @@
-require 'flotype-bridge'
+require 'bridge'
 
 module ChatServer
   def self.join(name, handler, callback)

@@ -1,5 +1,5 @@
 require 'eventmachine'
-require 'flotype-bridge'
+require 'bridge'
 
 
 module EchoModule

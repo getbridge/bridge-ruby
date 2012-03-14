@@ -1,8 +1,8 @@
-require File.expand_path('../lib/flotype-bridge/version', __FILE__)
+require File.expand_path('../lib/bb/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'flotype-bridge'
-  s.version = Flotype::Bridge::VERSION
+  s.version = Bridge::VERSION
   s.homepage = 'http://flotype.com'
 
   s.authors = ["Flotype"]
@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.summary = 'Ruby/Bridge library'
   s.description = "Ruby client for Flotype Bridge."
 
-  s.rdoc_options = ["--title", "Flotype Bridge", "--main", "README.md", "-x", "lib/bb/version"]
+  s.rdoc_options = ["--title", "Bridge", "--main", "README.md", "-x", "lib/bb/version"]
   s.extra_rdoc_files = ["README.md"] + `git ls-files -- docs/*`.split("\n")
 end

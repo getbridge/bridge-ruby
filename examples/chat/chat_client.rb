@@ -1,4 +1,4 @@
-require 'flotype-bridge'
+require 'bridge' 
 require 'eventmachine'
 
 module MsgHandler
