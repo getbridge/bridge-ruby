@@ -13,12 +13,12 @@ module Bridge
       elsif obj.is_a? Hash
         o = {}
         obj.each do |k, v|
-          o[k] = serialize v
+          o[k] = serialize bridge, v
         end
         o
       elsif obj.is_a?(Array)
         obj.map do |v|
-          serialize v
+          serialize bridge, v
         end
         obj
       elsif obj.methods(false).length > 0
@@ -34,19 +34,21 @@ module Bridge
     def self.unserialize bridge, obj
       obj.each do |k, v|
         if v.is_a? Hash
-          if v.has_key? :ref
-            ref = Reference.new(bridge, v[:ref], v[:operations])
-            if v.has_key? operations and v[:operations].length == 1 and v[:operations][0] == 'callback'
+          puts '##', v, '##'
+          if v.has_key? 'ref'
+            ref = Reference.new(bridge, v['ref'], v['operations'])
+            if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
               obj[k] = CallbackReference.new(ref)
             else
               obj[k] = ref
             end
           else
-            obj[k] = unserialize bridge v
+            obj[k] = unserialize bridge, v
           end
+          puts '%%', obj[k], '%%'
         end
       end
-      o
+      obj
     end
 
     def self.info msg, level = 3
@@ -126,7 +128,7 @@ module Bridge
 
       def method atom
         if atom.to_s == 'callback'
-          @ref.callback
+          self
         else
           nil
         end

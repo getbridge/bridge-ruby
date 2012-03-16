@@ -1,6 +1,5 @@
 require 'bb/connection'
 require 'bb/reference'
-require 'bb/callback'
 require 'bb/util'
 
 require 'eventmachine'
@@ -11,7 +10,7 @@ module Bridge
     #   EM::connect.
     # @param [Hash] configuration options
 
-    attr_accessor :options, :connection, :queue
+    attr_accessor :options, :connection, :queue, :store
     
     def initialize(options = {}, &callback)
 
@@ -23,7 +22,8 @@ module Bridge
     
       @options = @options.merge(options)
   
-      @store = {'system' => System}
+      @store = {}
+      @store['system'] = SystemService.new(self)
       
       @ready = false
       
@@ -41,7 +41,7 @@ module Bridge
     def execute address, args
       obj = @store[address[2]]
       # TODO: make blocks + procs
-      func = obj.method[address[3]]
+      func = obj.method(address[3])
       if func
         func.call *args
       else
@@ -107,36 +107,41 @@ module Bridge
     #   completed.
     # @param [#call] callback Callback to be called when the server connects.
     def ready &callback
-      Core::enqueue callback
+      enqueue callback
     end
     
     # The queue is used primarily for Bridge::ready() callbacks.
-    def self.enqueue callback
+    def enqueue callback
       if @ready
         callback.call
       else
-        @queue << calback
+        @queue << callback
       end
     end
 
     # These are internal system functions, which should only be called by the
     # Erlang gateway.
-    module System
-      def self.hookChannelHandler name, handler, callback
+    class SystemService
+      def initialize bridge
+        @store = bridge.store
+      end
+      
+      def hookChannelHandler name, handler, callback
         obj = @store[handler.address[2]]
         @store["channel:#{name}"] = obj
         callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
       end
 
-      def self.getService name, callback
-        if @store.has? name
+      def getService name, callback
+        puts '**', callback, '**'
+        if @store.key? name
           callback.call(@store[name], name)
         else
           callback.call(nil, name)
         end
       end
       
-      def self.remoteError msg
+      def remoteError msg
         Util::warn(msg)
       end
     end

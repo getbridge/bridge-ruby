@@ -1,6 +1,8 @@
 module Bridge
   # Instances of this class represent references to remote services.
   class Reference
+   
+    attr_accessor :options, :address  
     
     def initialize bridge, address, operations = []
       
