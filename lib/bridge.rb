@@ -10,24 +10,24 @@ module Bridge
     # Expects to be called inside an EventMachine block in lieu of
     #   EM::connect.
     # @param [Hash] configuration options
-    @options = {
-      :redirector => 'http://redirector.flotype.com',
-      :reconnect  => true,
-      :log  => 2, # 0 for no output.
-    }
-    
+
+    attr_accessor :options, :connection, :queue
     
     def initialize(options = {}, &callback)
-      
-      
-      @options = @options.merge(options)
 
-      
-      @store = {'system' => Bridge::System}
+      @options = {
+        :redirector => 'http://redirector.flotype.com',
+        :reconnect  => true,
+        :log  => 2, # 0 for no output.
+      }    
+    
+      @options = @options.merge(options)
+  
+      @store = {'system' => System}
       
       @ready = false
       
-      @connection = Bridge::Connection.new(self)
+      @connection = Connection.new(self)
       
       @queue = []
 
@@ -52,7 +52,7 @@ module Bridge
     def store_object handler, ops
       name = Util.generateGuid
       @store[name] = handler
-      Bridge::Reference.new(self, ['client', @connection.client_id, name], ops)
+      Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
 
@@ -77,7 +77,7 @@ module Bridge
 
     # Returns a reference to the service specified by `svc`.
     def get_service name, &callback
-      ref = Bridge::Reference.new(self, ['named', name, name])
+      ref = Reference.new(self, ['named', name, name])
       callback.call(ref, name) if callback
       return ref
     end
@@ -85,7 +85,7 @@ module Bridge
     # Returns a reference to the channel specified by `channel`.
     def get_channel name, &callback
       @connection.send_command(:GETCHANNEL, {:name => name})
-      ref = Bridge::Reference.new(self, ['channel', name, "channel:#{name}"])
+      ref = Reference.new(self, ['channel', name, "channel:#{name}"])
       callback.call(ref, name) if callback
       return ref
     end
@@ -118,30 +118,30 @@ module Bridge
         @queue << calback
       end
     end
-    
-  end
-  
-  # These are internal system functions, which should only be called by the
-  # Erlang gateway.
-  module System
-    def self.hookChannelHandler name, handler, callback
-      obj = @store[handler.address[2]]
-      @store["channel:#{name}"] = obj
-      callback.call(Bridge::Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
-    end
 
-    def self.getService name, callback
-      if @store.has? name
-        callback.call(@store[name], name)
-      else
-        callback.call(nil, name)
+    # These are internal system functions, which should only be called by the
+    # Erlang gateway.
+    module System
+      def self.hookChannelHandler name, handler, callback
+        obj = @store[handler.address[2]]
+        @store["channel:#{name}"] = obj
+        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
+      end
+
+      def self.getService name, callback
+        if @store.has? name
+          callback.call(@store[name], name)
+        else
+          callback.call(nil, name)
+        end
+      end
+      
+      def self.remoteError msg
+        Util::warn(msg)
       end
     end
-    
-    def self.remoteError msg
-      Util::warn(msg)
-    end
-
+        
+  
   end
   
 end

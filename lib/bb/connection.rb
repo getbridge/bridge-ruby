@@ -1,6 +1,7 @@
 require 'uri'
 require 'bb/util'
 require 'bb/sockbuffer'
+require 'bb/tcp'
 
 module Bridge
   class Connection
@@ -11,7 +12,8 @@ module Bridge
 
       @options = bridge.options
       
-      @connected = false
+      @sock_buffer = SockBuffer.new
+      @sock = @sock_buffer
       
       if !@options.has_key? :host or !@options.has_key? :port
         redirector
@@ -22,7 +24,7 @@ module Bridge
     
     def redirector
       # Support for redirector.
-      uri = URI(@options.redirector)
+      uri = URI(@options[:redirector])
       conn = EventMachine::Protocols::HttpClient2.connect(uri.host, uri.port)
       req = conn.get({:uri => "/redirect/#{@options['api_key']}"})
       req.callback do |obj|
@@ -31,7 +33,8 @@ module Bridge
           obj = obj['data']
           @options[:host] = obj['bridge_host']
           @options[:port] = obj['bridge_port']
-          EventMachine::connect(@options[:host], @options[:port], @sock = Tcp.new(self))
+          @sock = Tcp.new(self)
+          EventMachine::connect(@options[:host], @options[:port], @sock.EventMachineCallback)
         else
           raise Exception, 'Invalid API key.'
         end
@@ -40,7 +43,7 @@ module Bridge
     
     def reconnect
       Util.info "Attempting to reconnect"
-      if not @connected and @interval < 12800
+      if @interval < 12800
         EventMachine::Timer.new(timeout) do
           EventMachine::connect(@options[:host], @options[:port], @sock = Tcp.new(self))
           @interval *= 2
@@ -55,7 +58,6 @@ module Bridge
       if not m
         process_message data
       else
-        @connected = true
         @client_id = m[1]
         @secret = m[2]
         @interval = 400
@@ -89,8 +91,8 @@ module Bridge
       @bridge.execute message.destination.address, message.args
     end
     
-    def sendCommand command, data
-      msg = Util.stringify command => command, data => data
+    def send_command command, data
+      msg = Util.stringify :command => command, :data => data
       Util.info "Sending #{msg}"
       @sock.send msg
     end
@@ -102,12 +104,26 @@ module Bridge
         @sock = @sock_buffer;
       end
       
-      @connected = false;
       if @options.reconnect
         reconnect
       end
     end
     
-    
+    class SockBuffer
+      def initialize
+        @buffer = []
+      end
+      
+      def send msg
+        @buffer << msg
+      end
+      
+      def process_queue sock, client_id
+        @buffer.each do |msg|
+          sock.send( msg.sub '"client",null"', '"client","'+ client_id + '"' )
+        end
+        @buffer = []
+      end
+    end 
   end
 end
