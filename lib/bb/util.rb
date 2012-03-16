@@ -2,66 +2,51 @@ require 'json'
 
 module Bridge
   module Util
-    # Traverses an object, replacing funs with refs.
-    def self.inflate obj
-      if obj.is_a?(Array)
-        obj.map do |v|
-          Util::bloat v
-        end
-      else
+    
+    def self.generateGuid
+      (0..12).map{ ('a'..'z').to_a[rand(26)] }.joi
+    end
+    
+    def self.serialize bridge obj
+      if obj.respond_to? :to_dict
+        obj.to_dict
+      elsif obj.is_a? Hash
         o = {}
         obj.each do |k, v|
-          o[k] = Util::bloat v
+          o[k] = serialize v
         end
         o
-      end
-    end
-
-    def self.bloat v
-      if v.is_a?(Module) || v.is_a?(Bridge::Service)
-        local_ref(v)
-      elsif v.respond_to?(:call) && !v.is_a?(Ref)
-        cb(v)
-      elsif v.is_a?(Hash) || v.is_a?(Array)
-        inflate v
-      else
-        v
-      end
-    end
-
-    def self.deflate obj
-      if obj.is_a?(Array)
+      elsif obj.is_a?(Array)
         obj.map do |v|
-          deflate v
+          serialize v
         end
-      elsif obj.is_a? Hash
-        if obj.has_key? 'ref'
-          Core::lookup obj['ref']
-        else
-          o = {}
-          obj.each do |k, v|
-            o[k] = deflate v
-          end
-          o
-        end
+        obj
+      elsif obj.methods(false).length > 0
+        # obj is a class instance or module
+        bridge.store_object(obj, obj.methods(false)).to_dict
+      elsif v.respond_to?(:call)
+        bridge.store_object(Callback.new(obj), ['callback']).to_dict
       else
         obj
       end
     end
 
-    def self.serialize obj
-      obj = inflate(obj)
-      str = JSON::generate obj
-      [str.length].pack("N") + str
-    end
-
-    def self.unserialize str
-      obj = deflate(JSON::parse str)
-      deflate obj
-    end
-
-    def self.err msg
-      $stderr.puts msg
+    def self.unserialize bridge obj
+      obj.each do |k, v|
+        if v.is_a? Hash
+          if v.has_key? :ref
+            ref = Reference.new(bridge, v[:ref}, v[:operations])
+            if v.has_key? operations and v[:operations].length == 1 and v[:operations][0] == 'callback'
+              obj[k] = CallbackReference.new(ref)
+            else
+              obj[k] = ref
+            end
+          else
+            obj[k] = unserialize bridge v
+          end
+        end
+      end
+      o
     end
 
     def self.log msg, level = 3
@@ -70,25 +55,28 @@ module Bridge
         puts msg
       end
     end
-
-    def self.cb fun
-      id = fun.object_id.to_s(36)
-      Core::store(id,
-                  LocalRef.new([id], Callback.new(fun)))
-    end
-
-    def self.has_keys? obj, *keys
-      keys.each do |k|
-        if !obj.has_key?(k) && !obj.has_key?(k.to_sym)
-          return false
-        end
+    
+    def self.warn msg, level = 2
+      opts = Bridge::options
+      if level <= opts['log_level']
+        puts msg
       end
-      true
     end
 
-    def self.local_ref v
-      key = v.object_id.to_s(36)
-      Core::store key, Bridge::LocalRef.new([key], v)
+    def self.error msg, level = 1
+      opts = Bridge::options
+      if level <= opts['log_level']
+        puts msg
+      end
     end
+   
+    def self.stringify obj
+      JSON::generate obj
+    end
+   
+    def self.parse str
+      JSON::parse str
+    end
+   
   end
 end

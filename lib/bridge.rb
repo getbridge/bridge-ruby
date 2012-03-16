@@ -1,5 +1,5 @@
 require 'bb/svc'
-require 'bb/conn'
+require 'bb/connection'
 require 'bb/ref'
 require 'bb/sys'
 require 'bb/core'
@@ -10,123 +10,142 @@ require 'bb/util'
 require 'eventmachine'
 
 module Bridge
-
-  # Expects to be called inside an EventMachine block in lieu of
-  #   EM::connect.
-  # @param [Hash] configuration options
-  @options = {
-    'reconnect'  => true,
-    'redir_host' => 'redirector.flotype.com',
-    'redir_port' => 80,
-    'log_level'  => 2, # 0 for no output.
-  }
-  def self.initialize(options = {}, &fun)
-    Util::log 'initialize called.'
-    @options = @options.merge(options)
-
-    self.ready fun if fun
+  class Bridge
+    # Expects to be called inside an EventMachine block in lieu of
+    #   EM::connect.
+    # @param [Hash] configuration options
+    @options = {
+      :redirector => 'http://redirector.flotype.com',
+      :reconnect  => true,
+      :log  => 2, # 0 for no output.
+    }
     
-    if !(@options.has_key? 'api_key')
-      raise ArgumentError, 'No API key specified.'
+    
+    def initialize(options = {}, &callback)
+      
+      
+      @options = @options.merge(options)
+
+      
+      @store = {'system' => Bridge::System}
+      
+      @ready = false
+      
+      @connection = Bridge::Connection.new(self)
+      
+      @queue = []
+
+      self.ready callback if callback
+      
     end
 
-    if Util::has_keys?(@options, 'host', 'port')
-      EM::connect(@options['host'], @options['port'], Bridge::Conn)
-    else
-      # Support for redirector.
-      conn = EM::Protocols::HttpClient2.connect(@options['redir_host'],
-                                                @options['redir_port'])
-      req = conn.get({:uri => "/redirect/#{@options['api_key']}"})
-      req.callback do |obj|
-        obj = JSON::parse obj.content
-        if obj.has_key?('data')
-          obj = obj['data']
-          EM::connect(obj['bridge_host'], obj['bridge_port'], Bridge::Conn)
-        else
-          raise Exception, 'Invalid API key.'
-        end
+    
+    
+
+    def execute address, args
+      obj = @store[address[2]]
+      # TODO: make blocks + procs
+      func = obj.method[address[3]]
+      if func
+        func.call *args
+      else
+        Util.warn 'Could not find object to handle', address
       end
-    end    
-  end
-
-  # Accessor for @options.
-  # @return [Object] options
-  def self.options
-    @options
-  end
-
-  # Similar to $(document).ready of jQuery as well as now.ready: takes
-  #   callbacks that it will call when the connection handshake has been
-  #   completed.
-  # @param [#call] fun Callback to be called when the server connects.
-  def self.ready &fun
-    Core::enqueue fun
-  end
-
-  # Calls a remote function specified by `dest` with `args`.
-  # @param [Ref] dest The identifier of the remote function to call.
-  # @param [Array] args Arguments to be passed to `dest`.
-  def self.send dest, args
-    Core::command(:SEND,
-                  { :args        => Util::serialize(args),
-                    :destination => dest })
-  end
-
-  # Broadcasts the availability of certain functionality specified by a
-  #   proc `fun` under the name of `svc`.
-  def self.publish_service svc, handler, &fun
-    if svc == 'system'
-      Util::err("Invalid service name: #{svc}")
-    else
-      obj = { :name => svc}
-      obj[:callback] = Util::cb(fun) if fun
-      Core::command(:JOINWORKERPOOL, obj)
-      Core::store(svc, Bridge::LocalRef.new([svc], handler))
     end
-  end
-
-  # Join the channel specified by `channel`. Messages from this channel
-  #   will be passed in to a handler specified by `handler`. The callback
-  #   `fun` is to be called to confirm successful joining of the channel.
-  def self.join_channel channel, handler, &fun
-    obj = { :name => channel}
-    if handler.is_a? Ref
-      obj[:handler] = Ref
-    else
-      obj[:handler] = Util::local_ref(handler)
+    
+    def store_object handler, ops
+      name = Util.generateGuid
+      @store[name] = handler
+      Bridge::Reference.new(self, ['client', @connection.client_id, name], ops)
     end
-    obj[:callback] = Util::cb(fun) if fun
-    Core::command(:JOINCHANNEL, obj)
-  end
+    
 
-  # Leave a channel.
-  def self.leave_channel channel, handler, &fun
-    obj = { :name => channel }
-    if handler.is_a? Ref
-      obj[:handler] = Ref
-    else
-      obj[:handler] = Util::local_ref(handler)
+
+    # Calls a remote function specified by `dest` with `args`.
+    # @param [Ref] dest The identifier of the remote function to call.
+    # @param [Array] args Arguments to be passed to `dest`.
+    def send args, destination
+      @connection.send_command(:SEND, { :args => Util::serialize(args), :destination => destination })
     end
-    obj[:callback] = Util::cb(fun) if fun
-    Core::command(:LEAVECHANNEL, obj)
+
+    # Broadcasts the availability of certain functionality specified by a
+    #   proc `fun` under the name of `name`.
+    def publish_service name, handler, &callback
+      if name == 'system'
+        Util::error("Invalid service name: #{name}")
+      else
+        @store[name] = handler
+        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback: Util::serialize(self, callback)})
+      end
+    end
+
+    # Returns a reference to the service specified by `svc`.
+    def get_service name, &callback
+      ref = Bridge::Reference.new(self, ['named', name, name])
+      callback.call(ref, name) if callback
+      return ref
+    end
+
+    # Returns a reference to the channel specified by `channel`.
+    def get_channel name, &callback
+      @connection.send_command(:GETCHANNEL, {:name => name})
+      ref = Bridge::Reference.new(self, ['channel', name, "channel:#{name}"])
+      callback.call(ref, name) if callback
+      return ref
+    end
+    
+    # Join the channel specified by `channel`. Messages from this channel
+    #   will be passed in to a handler specified by `handler`. The callback
+    #   `callback` is to be called to confirm successful joining of the channel.
+    def join_channel name, handler, &callback
+      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, handler)})
+    end
+
+    # Leave a channel.
+    def leave_channel channel, handler, &callback
+      @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, handler)})
+    end
+    
+    # Similar to $(document).ready of jQuery as well as now.ready: takes
+    #   callbacks that it will call when the connection handshake has been
+    #   completed.
+    # @param [#call] callback Callback to be called when the server connects.
+    def ready &callback
+      Core::enqueue callback
+    end
+    
+    # The queue is used primarily for Bridge::ready() callbacks.
+    def self.enqueue callback
+      if @ready
+        callback.call
+      else
+        @queue << calback
+      end
+    end
+    
   end
   
-  # Returns a reference to the service specified by `svc`.
-  def self.get_service svc, &fun
-    ref = Core::lookup ['named', svc, svc]
-    fun.call(ref) if fun
-  end
+  # These are internal system functions, which should only be called by the
+  # Erlang gateway.
+  module System
+    def self.hookChannelHandler name, handler, callback
+      obj = @store[handler.address[2]]
+      @store["channel:#{name}"] = obj
+      callback.call(Bridge::Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
+    end
 
-  # Returns a reference to the channel specified by `channel`.
-  def self.get_channel channel, &fun
-    Core::command(:GETCHANNEL, {:name => channel})
-    ref = Core::lookup ['channel', channel, "channel:#{channel}"]
-    fun.call(ref, channel) if fun
-    return ref
-  end
+    def self.getService name, callback
+      if @store.has? name
+        callback.call(@store[name], name)
+      else
+        callback.call(nil, name)
+      end
+    end
+    
+    def self.remoteError msg
+      Util::warn(msg)
+    end
 
-  # The client's ID.
-  def self.client_id
-    Core::client_id
   end
+  
 end

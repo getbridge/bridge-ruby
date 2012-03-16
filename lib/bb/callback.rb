@@ -1,7 +1,7 @@
 module Bridge
   # Wrapper for callbacks passed in as arguments.
   class Callback
-    def initialize fun
+    def initialize fun ref
       @fun = fun
     end
 
@@ -26,8 +26,7 @@ module Bridge
     end
 
     def respond_to? atom
-      atom = atom.to_s
-      atom == 'call' || atom == 'to_json'
+      atom.to_s == 'callback'
     end
   end
 end

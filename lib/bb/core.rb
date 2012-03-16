@@ -3,8 +3,7 @@ module Bridge
   # unadvised, as the internal structure may vary greatly from that of
   # other language implementations.
   module Core
-    @@services, @@queue, @@sess = {'system' => Bridge::Sys}, [], [nil, nil]
-    @@connected, @@len, @@buffer = false, 0, ''
+   @@len, @@buffer = false, 0, ''
 
     def self.session
       @@sess
