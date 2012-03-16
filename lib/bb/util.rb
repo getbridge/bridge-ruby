@@ -7,7 +7,7 @@ module Bridge
       (0..12).map{ ('a'..'z').to_a[rand(26)] }.joi
     end
     
-    def self.serialize bridge obj
+    def self.serialize bridge, obj
       if obj.respond_to? :to_dict
         obj.to_dict
       elsif obj.is_a? Hash
@@ -31,11 +31,11 @@ module Bridge
       end
     end
 
-    def self.unserialize bridge obj
+    def self.unserialize bridge, obj
       obj.each do |k, v|
         if v.is_a? Hash
           if v.has_key? :ref
-            ref = Reference.new(bridge, v[:ref}, v[:operations])
+            ref = Reference.new(bridge, v[:ref], v[:operations])
             if v.has_key? operations and v[:operations].length == 1 and v[:operations][0] == 'callback'
               obj[k] = CallbackReference.new(ref)
             else
@@ -49,22 +49,22 @@ module Bridge
       o
     end
 
-    def self.log msg, level = 3
-      opts = Bridge::options
+    def self.info msg, level = 3
+      #opts = Bridge::options
       if level <= opts['log_level']
         puts msg
       end
     end
     
     def self.warn msg, level = 2
-      opts = Bridge::options
+      #opts = Bridge::options
       if level <= opts['log_level']
         puts msg
       end
     end
 
     def self.error msg, level = 1
-      opts = Bridge::options
+      #opts = Bridge::options
       if level <= opts['log_level']
         puts msg
       end

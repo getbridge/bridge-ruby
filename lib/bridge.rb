@@ -1,9 +1,5 @@
-require 'bb/svc'
 require 'bb/connection'
-require 'bb/ref'
-require 'bb/sys'
-require 'bb/core'
-require 'bb/localref'
+require 'bb/reference'
 require 'bb/callback'
 require 'bb/util'
 
@@ -75,7 +71,7 @@ module Bridge
         Util::error("Invalid service name: #{name}")
       else
         @store[name] = handler
-        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback: Util::serialize(self, callback)})
+        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Util::serialize(self, callback)})
       end
     end
 

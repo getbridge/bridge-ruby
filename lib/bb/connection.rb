@@ -1,16 +1,10 @@
 require 'uri'
+require 'bb/util'
 require 'bb/sockbuffer'
 
 module Bridge
   class Connection
 
-
-
-      Util::log 'Starting handshake.'
-      Core::command(:CONNECT,
-                    { :session => Core::session,
-                      :api_key => Bridge::options['api_key'] })
-    
     def initialize bridge
 
       @bridge = bridge
@@ -45,7 +39,7 @@ module Bridge
     end
     
     def reconnect
-      Util::log "Attempting to reconnect"
+      Util.info "Attempting to reconnect"
       if not @connected and @interval < 12800
         EventMachine::Timer.new(timeout) do
           EventMachine::connect(@options[:host], @options[:port], @sock = Tcp.new(self))
@@ -65,7 +59,7 @@ module Bridge
         @client_id = m[1]
         @secret = m[2]
         @interval = 400
-        @sock_buffer.process_queue @sock @client_id
+        @sock_buffer.process_queue @sock, @client_id
         Util.info('Handshake complete');
         if !@bridge.ready
           @bridge.queue.each { |fun|
@@ -79,7 +73,7 @@ module Bridge
 
     def onopen
       util.info('Beginning handshake');
-      var msg = Util.stringify(command => 'CONNECT', data => {session: [@client_id || nil, @secret || nil], api_key: @options.api_key});
+      var msg = Util.stringify(command => :CONNECT, data => {session: [@client_id || nil, @secret || nil], api_key: @options.api_key});
       @sock.send msg
     end
     
@@ -104,14 +98,14 @@ module Bridge
     def onclose
       Util.warn('Connection closed');
       
-      if (@sock_buffer) {
+      if @sock_buffer
         @sock = @sock_buffer;
-      }
+      end
       
       @connected = false;
-      if (@options.reconnect) {
+      if @options.reconnect
         reconnect
-      }
+      end
     end
     
     

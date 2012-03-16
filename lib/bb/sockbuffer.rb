@@ -8,7 +8,7 @@ module Bridge
     
     def process_queue sock, client_id
       @buffer.each do |msg|
-        sock.send( msg.sub '"client",null"', '"client","'+client_id'"' )
+        sock.send( msg.sub '"client",null"', '"client","'+ client_id + '"' )
       end
       @buffer = []
     end
