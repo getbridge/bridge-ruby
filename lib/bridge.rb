@@ -1,6 +1,6 @@
-require 'bb/connection'
-require 'bb/reference'
-require 'bb/util'
+require './connection'
+require './reference'
+require './util'
 
 require 'eventmachine'
 
@@ -67,7 +67,7 @@ module Bridge
     # @param [Ref] dest The identifier of the remote function to call.
     # @param [Array] args Arguments to be passed to `dest`.
     def send args, destination
-      @connection.send_command(:SEND, { :args => Util.serialize(self, args), :destination => destination })
+      @connection.send_command(:SEND, { :args => Serializer.serialize(self, args), :destination => destination })
     end
 
     # Broadcasts the availability of certain functionality specified by a
@@ -77,7 +77,7 @@ module Bridge
         Util::error("Invalid service name: #{name}")
       else
         @store[name] = handler
-        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Util.serialize(self, callback)})
+        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Serializer.serialize(self, callback)})
       end
     end
 
@@ -100,12 +100,12 @@ module Bridge
     #   will be passed in to a handler specified by `handler`. The callback
     #   `callback` is to be called to confirm successful joining of the channel.
     def join_channel name, handler, &callback
-      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, callback)})
+      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Serializer.serialize(self, handler), :callback => Serializer.serialize(self, callback)})
     end
 
     # Leave a channel.
     def leave_channel channel, handler, &callback
-      @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, callback)})
+      @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Serializer.serialize(self, handler), :callback => Serializer.serialize(self, callback)})
     end
     
     # Similar to $(document).ready of jQuery as well as now.ready: takes

@@ -1,6 +1,6 @@
 require 'uri'
-require 'bb/util'
-require 'bb/tcp'
+require './util'
+require './tcp'
 
 module Bridge
   class Connection
@@ -85,7 +85,7 @@ module Bridge
     def process_message message
       message = Util.parse(message[:data])
       Util.info "Received #{message}"
-      Util.unserialize(@bridge, message)
+      Serializer.unserialize(@bridge, message)
       destination = message['destination']
       if !destination
         Util.warn("No destination in message #{message}")
