@@ -4,15 +4,19 @@ module Bridge
    
     attr_accessor :options, :address  
     
-    def initialize bridge, address, operations = []
+    def initialize bridge, address, operations
+    
+      operations = [] if operations.nil?
+      @operations = operations.map do |val|
+        val.to_s
+      end
       
-      @operations = operations
       @bridge = bridge
       @address = address
       
     end
 
-    def to_dict op
+    def to_dict op = nil
       result = {}
       address = @address
       if op
@@ -28,13 +32,13 @@ module Bridge
 
     def method_missing atom, *args, &blk
       args << blk if blk
-      Util.info "Calling #{@address} #{args}";
+      Util.info "Calling #{@address}.#{atom}";
       destination = self.to_dict atom
-      @bridge.send args destination
+      @bridge.send args, destination
     end
 
     def respond_to? atom
-      true
+      @operations.include?(atom.to_s) || atom == :to_dict || Class.respond_to?(atom)
     end
 
   end

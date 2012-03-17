@@ -4,7 +4,7 @@ module Bridge
   module Util
     
     def self.generateGuid
-      (0..12).map{ ('a'..'z').to_a[rand(26)] }.joi
+      (0..12).map{ ('a'..'z').to_a[rand(26)] }.join
     end
     
     def self.serialize bridge, obj
@@ -15,42 +15,56 @@ module Bridge
         obj.each do |k, v|
           o[k] = serialize bridge, v
         end
-        o
-      elsif obj.is_a?(Array)
-        obj.map do |v|
+      elsif obj.is_a? Array
+        obj.map! do |v|
           serialize bridge, v
         end
-        obj
-      elsif obj.methods(false).length > 0
-        # obj is a class instance or module
-        bridge.store_object(obj, obj.methods(false)).to_dict
       elsif obj.respond_to?(:call)
         bridge.store_object(Callback.new(obj), ['callback']).to_dict
-      else
+      elsif JSON::Ext::Generator::GeneratorMethods.constants.include? obj.class.name.to_sym
         obj
+      elsif obj.is_a? Module
+        # obj is a class instance or module
+        bridge.store_object(obj, obj.methods(false)).to_dict
+      else
+        bridge.store_object(obj, obj.class.instance_methods(false)).to_dict
       end
     end
 
     def self.unserialize bridge, obj
-      obj.each do |k, v|
-        if v.is_a? Hash
-          puts '##', v, '##'
-          if v.has_key? 'ref'
-            ref = Reference.new(bridge, v['ref'], v['operations'])
-            if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
-              obj[k] = CallbackReference.new(ref)
-            else
-              obj[k] = ref
-            end
-          else
-            obj[k] = unserialize bridge, v
-          end
-          puts '%%', obj[k], '%%'
+      if obj.is_a? Hash
+        obj.each do |k, v|
+          unserialize_helper bridge, obj, k, v
+        end
+      elsif obj.is_a? Array
+        obj.each_with_index do |v, k|
+          unserialize_helper bridge, obj, k, v
         end
       end
-      obj
+    end
+    
+    def self.unserialize_helper bridge, obj, k, v
+      if v.is_a? Hash
+        if v.has_key? 'ref'
+          ref = Reference.new(bridge, v['ref'], v['operations'])
+          if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
+            obj[k] = ref_callback ref
+          else
+            obj[k] = ref
+          end
+          return
+        end
+      end
+      unserialize bridge, v
     end
 
+    def self.ref_callback ref
+      CallbackReference.new ref do |*args, &blk|
+        args << blk if blk
+        self.call *args
+      end
+    end
+    
     def self.info msg, level = 3
       #opts = Bridge::options
       #if level <= opts['log_level']
@@ -82,7 +96,7 @@ module Bridge
     
       
     class Callback
-      def initialize fun, ref
+      def initialize fun
         @fun = fun
       end
 
@@ -98,7 +112,7 @@ module Bridge
         if atom.to_s == 'callback'
           @fun
         else
-          nil
+          Class.method atom
         end
       end
 
@@ -107,7 +121,7 @@ module Bridge
       end
 
       def respond_to? atom
-        atom.to_s == 'callback'
+        atom.to_s == 'callback' || Class.respond_to?(atom)
       end
     end
       
@@ -130,7 +144,7 @@ module Bridge
         if atom.to_s == 'callback'
           self
         else
-          nil
+          Class.method atom
         end
       end
 
@@ -138,13 +152,12 @@ module Bridge
         [:callback]
       end
 
-      def to_dict
-        @ref.to_dict 'callback'
+      def to_dict op = nil
+        @ref.to_dict op
       end
       
       def respond_to? atom
-        atom = atom.to_s
-        atom == 'callback' || atom == 'to_dict'
+        atom == :callback || atom == :to_dict || Class.respond_to?(atom)
       end
       
     end

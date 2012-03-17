@@ -5,6 +5,8 @@ require 'bb/tcp'
 module Bridge
   class Connection
 
+    attr_accessor :connected, :client_id, :sock
+  
     def initialize bridge
 
       @bridge = bridge
@@ -50,7 +52,6 @@ module Bridge
     end
     
     def onmessage data, sock
-      Util.info("clientId and secret received #{data[:data]}");
       # If this is the first message, set our SessionId and Secret.
       m = /^(\w+)\|(\w+)$/.match data[:data]
       if not m
@@ -119,7 +120,7 @@ module Bridge
       
       def process_queue sock, client_id
         @buffer.each do |msg|
-          sock.send( msg.sub '"client",null"', '"client","'+ client_id + '"' )
+          sock.send( msg.sub '"client",null', '"client","'+ client_id + '"' )
         end
         @buffer = []
       end

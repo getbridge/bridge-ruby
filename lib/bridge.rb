@@ -43,7 +43,16 @@ module Bridge
       # TODO: make blocks + procs
       func = obj.method(address[3])
       if func
-        func.call *args
+        last = args.last
+        if last.is_a? Util::CallbackReference and func.arity == args.length - 1
+          args.pop
+          func.call *args do |*args, &blk|
+            args << blk if blk
+            last.call *args
+          end
+        else
+          func.call *args
+        end
       else
         Util.warn 'Could not find object to handle', address
       end
@@ -61,7 +70,7 @@ module Bridge
     # @param [Ref] dest The identifier of the remote function to call.
     # @param [Array] args Arguments to be passed to `dest`.
     def send args, destination
-      @connection.send_command(:SEND, { :args => Util::serialize(args), :destination => destination })
+      @connection.send_command(:SEND, { :args => Util.serialize(self, args), :destination => destination })
     end
 
     # Broadcasts the availability of certain functionality specified by a
@@ -71,7 +80,7 @@ module Bridge
         Util::error("Invalid service name: #{name}")
       else
         @store[name] = handler
-        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Util::serialize(self, callback)})
+        @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Util.serialize(self, callback)})
       end
     end
 
@@ -94,12 +103,12 @@ module Bridge
     #   will be passed in to a handler specified by `handler`. The callback
     #   `callback` is to be called to confirm successful joining of the channel.
     def join_channel name, handler, &callback
-      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, handler)})
+      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, callback)})
     end
 
     # Leave a channel.
     def leave_channel channel, handler, &callback
-      @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, handler)})
+      @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Util.serialize(self, handler), :callback => Util.serialize(self, callback)})
     end
     
     # Similar to $(document).ready of jQuery as well as now.ready: takes
@@ -126,14 +135,13 @@ module Bridge
         @store = bridge.store
       end
       
-      def hookChannelHandler name, handler, callback
+      def hookChannelHandler name, handler, callback = nil
         obj = @store[handler.address[2]]
         @store["channel:#{name}"] = obj
         callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
       end
 
       def getService name, callback
-        puts '**', callback, '**'
         if @store.key? name
           callback.call(@store[name], name)
         else

@@ -9,7 +9,6 @@ module Bridge
     end
     
     def send arg
-      puts 'Sending ' + arg
       send_data([arg.length].pack("N") + arg)
     end
     
