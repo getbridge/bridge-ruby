@@ -10,7 +10,7 @@ module Bridge
     #   EM::connect.
     # @param [Hash] configuration options
 
-    attr_accessor :options, :connection, :queue, :store
+    attr_accessor :options, :connection, :queue, :store, :is_ready
     
     def initialize(options = {}, &callback)
 
@@ -25,18 +25,15 @@ module Bridge
       @store = {}
       @store['system'] = SystemService.new(self)
       
-      @ready = false
+      @is_ready = false
       
       @connection = Connection.new(self)
       
       @queue = []
 
-      self.ready callback if callback
+      self.ready &callback if callback
       
     end
-
-    
-    
 
     def execute address, args
       obj = @store[address[2]]
@@ -116,12 +113,8 @@ module Bridge
     #   completed.
     # @param [#call] callback Callback to be called when the server connects.
     def ready &callback
-      enqueue callback
-    end
-    
-    # The queue is used primarily for Bridge::ready() callbacks.
-    def enqueue callback
-      if @ready
+      puts 'adding'
+      if @is_ready
         callback.call
       else
         @queue << callback

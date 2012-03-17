@@ -14,7 +14,10 @@ module Bridge
       @options = bridge.options
       
       @sock_buffer = SockBuffer.new
+      
       @sock = @sock_buffer
+      
+      @interval = 0.4
       
       if !@options.has_key? :host or !@options.has_key? :port
         redirector
@@ -43,8 +46,8 @@ module Bridge
     
     def reconnect
       Util.info "Attempting to reconnect"
-      if @interval < 12800
-        EventMachine::Timer.new(timeout) do
+      if @interval < 1000000
+        EventMachine::Timer.new(@interval) do
           EventMachine::connect(@options[:host], @options[:port], Tcp, self)
           @interval *= 2
         end
@@ -59,16 +62,16 @@ module Bridge
       else
         @client_id = m[1]
         @secret = m[2]
-        @interval = 400
+        @interval = 0.4
         @sock = sock
         @sock_buffer.process_queue @sock, @client_id
         Util.info('Handshake complete');
-        if !@bridge.ready
+        if not @bridge.is_ready
           @bridge.queue.each { |fun|
             fun.call
           }
           @bridge.queue = []
-          @bridge.ready = true
+          @bridge.is_ready = true
         end
       end
     end
@@ -104,7 +107,7 @@ module Bridge
         @sock = @sock_buffer;
       end
       
-      if @options.reconnect
+      if @options[:reconnect]
         reconnect
       end
     end
