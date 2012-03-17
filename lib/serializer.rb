@@ -1,4 +1,5 @@
 require 'json'
+require 'util.rb'
 
 module Bridge
   module Serializer
@@ -44,7 +45,7 @@ module Bridge
         if v.has_key? 'ref'
           ref = Reference.new(bridge, v['ref'], v['operations'])
           if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
-            obj[k] = ref_callback ref
+            obj[k] = Util.ref_callback ref
           else
             obj[k] = ref
           end
