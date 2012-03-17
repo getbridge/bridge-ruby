@@ -1,6 +1,7 @@
-require './connection'
-require './reference'
-require './util'
+require 'connection.rb'
+require 'reference.rb'
+require 'util.rb'
+require 'serializer.rb'
 
 require 'eventmachine'
 

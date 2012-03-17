@@ -1,6 +1,7 @@
 require 'uri'
-require './util'
-require './tcp'
+require 'util.rb'
+require 'tcp.rb'
+require 'serializer.rb'
 
 module Bridge
   class Connection
