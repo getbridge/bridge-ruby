@@ -83,8 +83,8 @@ module Bridge
       def respond_to? atom
         atom.to_s == 'callback' || Class.respond_to?(atom)
       end
+      
     end
     
   end
-  
 end

@@ -5,7 +5,6 @@ module Bridge
     attr_accessor :options, :address  
     
     def initialize bridge, address, operations
-    
       operations = [] if operations.nil?
       @operations = operations.map do |val|
         val.to_s
@@ -13,7 +12,6 @@ module Bridge
       
       @bridge = bridge
       @address = address
-      
     end
 
     def to_dict op = nil

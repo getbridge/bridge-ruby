@@ -63,8 +63,6 @@ module Bridge
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
-
-
     # Calls a remote function specified by `dest` with `args`.
     # @param [Ref] dest The identifier of the remote function to call.
     # @param [Array] args Arguments to be passed to `dest`.

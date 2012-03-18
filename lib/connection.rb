@@ -9,7 +9,6 @@ module Bridge
     attr_accessor :connected, :client_id, :sock
   
     def initialize bridge
-
       @bridge = bridge
 
       @options = bridge.options
@@ -47,7 +46,7 @@ module Bridge
     
     def reconnect
       Util.info "Attempting to reconnect"
-      if @interval < 1000000
+      if @interval < 32768
         EventMachine::Timer.new(@interval) do
           EventMachine::connect(@options[:host], @options[:port], Tcp, self)
           @interval *= 2
@@ -84,20 +83,25 @@ module Bridge
     end
     
     def process_message message
-      message = Util.parse(message[:data])
-      Util.info "Received #{message}"
-      Serializer.unserialize(@bridge, message)
-      destination = message['destination']
-      if !destination
-        Util.warn("No destination in message #{message}")
-        return
+      begin
+        message = Util.parse(message[:data])
+        Util.info "Received #{message}"
+        Serializer.unserialize(@bridge, message)
+        destination = message['destination']
+        if !destination
+          Util.warn("No destination in message #{message}")
+          return
+        end
+        @bridge.execute message['destination'].address, message['args']
+      rescue Exception => e
+        Util.error e.message
       end
-      @bridge.execute message['destination'].address, message['args']
     end
     
     def send_command command, data
       data.delete :callback if data.key? :callback and data[:callback].nil?
       msg = Util.stringify :command => command, :data => data
+      Util.info('Sending ' + msg)
       @sock.send msg
     end
 
@@ -128,6 +132,7 @@ module Bridge
         end
         @buffer = []
       end
-    end 
+    end
+    
   end
 end

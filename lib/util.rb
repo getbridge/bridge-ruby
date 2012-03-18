@@ -9,28 +9,18 @@ module Bridge
     @log = Logger.new(STDOUT)
     
     def self.generateGuid
-      (0..12).map{ ('a'..'z').to_a[rand(26)] }.join
+      chars = (('a'..'z').to_a + (0..9).to_a)
+      (0..12).map{ chars[rand(26)] }.join
     end
-    
-    def self.ref_callback ref
-      CallbackReference.new ref do |*args, &blk|
-        args << blk if blk
-        self.call *args
-      end
+   
+    def self.stringify obj
+      JSON::generate obj
     end
-    
-    def self.set_log_level level
-      if level > 2
-        @log.level = Logger::INFO
-      elsif level == 2
-        @log.level = Logger::WARN
-      elsif level == 1
-        @log.level = Logger::ERROR
-      else
-        @log.level = Logger::FATAL
-      end
-    end
-    
+   
+    def self.parse str
+      JSON::parse str
+    end 
+   
     def self.info msg
       @log.info msg
     end
@@ -43,13 +33,24 @@ module Bridge
       @log.error msg
     end
    
-    def self.stringify obj
-      JSON::generate obj
+    def self.set_log_level level
+      if level > 2
+        @log.level = Logger::INFO
+      elsif level == 2
+        @log.level = Logger::WARN
+      elsif level == 1
+        @log.level = Logger::ERROR
+      else
+        @log.level = Logger::FATAL
+      end
     end
    
-    def self.parse str
-      JSON::parse str
-    end 
+    def self.ref_callback ref
+      CallbackReference.new ref do |*args, &blk|
+        args << blk if blk
+        self.call *args
+      end
+    end
     
     class CallbackReference < Proc
       def initialize ref
@@ -89,5 +90,4 @@ module Bridge
     end
     
   end
-  
 end

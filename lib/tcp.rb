@@ -2,14 +2,11 @@ require 'eventmachine'
 
 module Bridge
   class Tcp < EventMachine::Connection
+  
     def initialize connection
       @left = 0
       @chunk = ''
       @connection = connection
-    end
-    
-    def send arg
-      send_data([arg.length].pack("N") + arg)
     end
     
     def post_init
@@ -39,9 +36,13 @@ module Bridge
       end
     end
 
+    def send arg
+      send_data([arg.length].pack("N") + arg)
+    end
+    
     def unbind
       @connection.onclose
     end
-  end
-  
+    
+  end  
 end
