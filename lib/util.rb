@@ -1,7 +1,12 @@
 require 'json'
+require 'logger'
+
+
 
 module Bridge
   module Util
+    
+    @log = Logger.new(STDOUT)
     
     def self.generateGuid
       (0..12).map{ ('a'..'z').to_a[rand(26)] }.join
@@ -14,25 +19,28 @@ module Bridge
       end
     end
     
-    def self.info msg, level = 3
-      #opts = Bridge::options
-      #if level <= opts['log_level']
-        puts msg
-      #end
+    def self.set_log_level level
+      if level > 2
+        @log.level = Logger::INFO
+      elsif level == 2
+        @log.level = Logger::WARN
+      elsif level == 1
+        @log.level = Logger::ERROR
+      else
+        @log.level = Logger::FATAL
+      end
     end
     
-    def self.warn msg, level = 2
-      #opts = Bridge::options
-      #if level <= opts['log_level']
-        puts msg
-      #end
+    def self.info msg
+      @log.info msg
+    end
+    
+    def self.warn msg
+      @log.warn msg
     end
 
-    def self.error msg, level = 1
-      #opts = Bridge::options
-      #if level <= opts['log_level']
-        puts msg
-      #end
+    def self.error msg
+      @log.error msg
     end
    
     def self.stringify obj

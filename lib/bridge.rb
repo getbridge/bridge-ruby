@@ -1,7 +1,7 @@
-require 'connection.rb'
-require 'reference.rb'
 require 'util.rb'
 require 'serializer.rb'
+require 'connection.rb'
+require 'reference.rb'
 
 require 'eventmachine'
 
@@ -18,10 +18,12 @@ module Bridge
       @options = {
         :redirector => 'http://redirector.flotype.com',
         :reconnect  => true,
-        :log  => 2, # 0 for no output.
+        :log  => 2, # 0 for no output
       }    
     
       @options = @options.merge(options)
+  
+      Util.set_log_level(@options[:log]);
   
       @store = {}
       @store['system'] = SystemService.new(self)
@@ -38,7 +40,6 @@ module Bridge
 
     def execute address, args
       obj = @store[address[2]]
-      # TODO: make blocks + procs
       func = obj.method(address[3])
       if func
         last = args.last
@@ -75,7 +76,7 @@ module Bridge
     #   proc `fun` under the name of `name`.
     def publish_service name, handler, &callback
       if name == 'system'
-        Util::error("Invalid service name: #{name}")
+        Util.error("Invalid service name: #{name}")
       else
         @store[name] = handler
         @connection.send_command(:JOINWORKERPOOL, {:name => name, :callback => Serializer.serialize(self, callback)})
@@ -144,7 +145,7 @@ module Bridge
       end
       
       def remoteError msg
-        Util::warn(msg)
+        Util.warn(msg)
       end
     end
         
