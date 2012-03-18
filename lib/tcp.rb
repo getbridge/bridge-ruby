@@ -1,7 +1,7 @@
 require 'eventmachine'
 
 module Bridge
-  class Tcp < EventMachine::Connection
+  class Tcp < EventMachine::Connection #:nodoc: all
   
     def initialize connection
       @left = 0

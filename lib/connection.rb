@@ -4,7 +4,7 @@ require 'tcp.rb'
 require 'serializer.rb'
 
 module Bridge
-  class Connection
+  class Connection #:nodoc: all
 
     attr_accessor :connected, :client_id, :sock
   

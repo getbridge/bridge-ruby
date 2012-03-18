@@ -4,7 +4,7 @@ require 'logger'
 
 
 module Bridge
-  module Util
+  module Util #:nodoc: all
     
     @log = Logger.new(STDOUT)
     

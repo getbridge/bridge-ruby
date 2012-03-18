@@ -1,6 +1,6 @@
 module Bridge
   # Instances of this class represent references to remote services.
-  class Reference
+  class Reference #:nodoc: all
    
     attr_accessor :options, :address  
     

@@ -2,7 +2,7 @@ require 'json'
 require 'util.rb'
 
 module Bridge
-  module Serializer
+  module Serializer #:nodoc: all
     
      def self.serialize bridge, obj
       if obj.respond_to? :to_dict

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=IBM437" http-equiv="Content-Type">
+
+<title>class Bridge::Bridge - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/bridge.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-get_channel">#get_channel</a>
+    
+    <li><a href="#method-i-get_service">#get_service</a>
+    
+    <li><a href="#method-i-join_channel">#join_channel</a>
+    
+    <li><a href="#method-i-leave_channel">#leave_channel</a>
+    
+    <li><a href="#method-i-publish_service">#publish_service</a>
+    
+    <li><a href="#method-i-ready">#ready</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Bridge.html">Bridge</a>
+  
+    <li><a href="../Bridge/Bridge.html">Bridge::Bridge</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Bridge::Bridge</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            new(options={})
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            new(options={}) { block }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create an instance of the <a href="Bridge.html">Bridge</a> object. This
+object will be used for <a href="Bridge.html">Bridge</a> interactions</p>
+
+<p>If a block is given, calls the given block when <a
+href="Bridge.html">Bridge</a> is connected and ready for use</p>
+
+<h3 id="method-c-new-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>options</code>
+<dd>
+<p>Optional hash of arguments specified below</p>
+</dd></dl>
+
+<h3 id="method-c-new-label-Options++">Options  </h3>
+
+<p>Options hash passed to initialize to modify <a
+href="Bridge.html">Bridge</a> behavior</p>
+<dl class="rdoc-list note-list"><dt><code>:redirector =&gt; 'http://redirector.flotype.com'</code>
+<dd>
+<p>Address to specify <a href="Bridge.html">Bridge</a> redirector server. The
+redirector server helps route the client to the appropriate <a
+href="Bridge.html">Bridge</a> server</p>
+</dd><dt><code>:reconnect =&gt; true</code>
+<dd>
+<p>Enable automatic reconnection to <a href="Bridge.html">Bridge</a> server</p>
+</dd><dt><code>:log =&gt; 2</code>
+<dd>
+<p>An integer specifying log level. 3 =&gt; Log all, 2 =&gt; Log warnings, 1
+=&gt; Log errors, 0 =&gt; No logging output</p>
+</dd><dt><code>:host =&gt; nil</code>
+<dd>
+<p>The hostname of the <a href="Bridge.html">Bridge</a> server to connect to.
+Overrides :redirector when both host and port are specified</p>
+</dd><dt><code>:port =&gt; nil</code>
+<dd>
+<p>An integer specifying the port of the <a href="Bridge.html">Bridge</a>
+server to connect to. Overrides :redirector when both host and port are
+specified</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {}, &amp;<span class="ruby-identifier">callback</span>)
+
+  <span class="ruby-ivar">@options</span> = {
+    <span class="ruby-value">:redirector</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'http://redirector.flotype.com'</span>,
+    <span class="ruby-value">:reconnect</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:log</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>, <span class="ruby-comment"># 0 for no output</span>
+  }    
+
+  <span class="ruby-ivar">@options</span> = <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+  
+  <span class="ruby-constant">Util</span>.<span class="ruby-identifier">set_log_level</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:log</span>]);
+  
+  <span class="ruby-ivar">@store</span> = {}
+  <span class="ruby-ivar">@store</span>[<span class="ruby-string">'system'</span>] = <span class="ruby-constant">SystemService</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+  
+  <span class="ruby-ivar">@is_ready</span> = <span class="ruby-keyword">false</span>
+  
+  <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+  
+  <span class="ruby-ivar">@queue</span> = []
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ready</span> &amp;<span class="ruby-identifier">callback</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
+  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_channel" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_channel(name) &rarr; channel
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_channel(name) { |channel, name| block }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Retrives a channel from <a href="Bridge.html">Bridge</a> with the given
+name.</p>
+
+<p>Calling a method on the channel object will result in the given method
+being executed on all clients that have been joined to the channel.</p>
+
+<p>Note that if the requested channel does not exist or is empty, an object is
+still returned, however attempts to make method calls on the object will
+result in a remote error.</p>
+
+<p>Returns the requested channel.</p>
+
+<p>If a block is given, calls the given block with the requested channel and
+channel name.</p>
+
+<h3 id="method-i-get_channel-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the <a href="Bridge.html">Bridge</a> channel being requested</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="get_channel-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_channel</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:GETCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>})
+  <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'channel'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-node">&quot;channel:#{name}&quot;</span>])
+  <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ref</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_channel-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_channel-method -->
+
+    
+      <div id="method-i-get_service" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_service(name) &rarr; service
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_service(name) { |service, name| block }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Retrives a service published to <a href="Bridge.html">Bridge</a> with the
+given name.</p>
+
+<p>If multiple <a href="Bridge.html">Bridge</a> clients have a published a
+service, the service is retrieved from one of the publishers round-robin.</p>
+
+<p>Note that if the requested service does not exist, an object is still
+returned, however attempts to make method calls on the object will result
+in a remote error.</p>
+
+<p>Returns the requested service.</p>
+
+<p>If a block is given, calls the given block with the requested service and
+service name.</p>
+
+<h3 id="method-i-get_service-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the <a href="Bridge.html">Bridge</a> service being requested</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="get_service-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_service</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'named'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">name</span>])
+  <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ref</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_service-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_service-method -->
+
+    
+      <div id="method-i-join_channel" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            join_channel(name, handler) { |channel, name| block }
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Provides a remote object, ruby object or module as a receiver for methods
+calls on a <a href="Bridge.html">Bridge</a> channel.</p>
+
+<p>The given handler can be a remote object, in which case the <a
+href="Bridge.html">Bridge</a> client that created the remote object will be
+joined to the channel. Method calls to the channel will be not be proxied
+through this client but go directly to the source of the remote object.</p>
+
+<p>If a block is given, calls the given block with the joined channel and
+channel name.</p>
+
+<h3 id="method-i-join_channel-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the <a href="Bridge.html">Bridge</a> channel the handler will
+recieve methods calls for</p>
+</dd><dt><code>handler</code>
+<dd>
+<p>A remote object, ruby object or module to handle method calls from the
+channel</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="join_channel-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">join_channel</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:JOINCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- join_channel-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- join_channel-method -->
+
+    
+      <div id="method-i-leave_channel" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            leave_channel(name, handler)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            leave_channel(name, handler) { |name| block }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Leaves a <a href="Bridge.html">Bridge</a> channel with the given name and
+handler object.</p>
+
+<p>The given handler can be a remote object, in which case the <a
+href="Bridge.html">Bridge</a> client that created the remote object will be
+removed from the channel.</p>
+
+<p>If a block is given, calls the given block with the name of the channel
+left.</p>
+
+<h3 id="method-i-leave_channel-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the <a href="Bridge.html">Bridge</a> channel to leave</p>
+</dd><dt><code>handler</code>
+<dd>
+<p>A remote object, ruby object or module that was used to handle moethod
+calls from the channel</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="leave_channel-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">leave_channel</span> <span class="ruby-identifier">channel</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:LEAVECHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- leave_channel-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- leave_channel-method -->
+
+    
+      <div id="method-i-publish_service" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            publish_service(name, handler) &rarr; service
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            publish_service(name, handler) { |service, name| block }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Publishes a ruby object or module as a <a href="Bridge.html">Bridge</a>
+service with the given name.</p>
+
+<p>Returns the published service.</p>
+
+<p>If a block is given, calls the given block with the published service and
+service name.</p>
+
+<h3 id="method-i-publish_service-label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the <a href="Bridge.html">Bridge</a> service the handler will
+be published with</p>
+</dd><dt><code>handler</code>
+<dd>
+<p>A ruby object or module to publish</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="publish_service-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish_service</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'system'</span>
+    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Invalid service name: #{name}&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@store</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">handler</span>
+    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:JOINWORKERPOOL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- publish_service-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- publish_service-method -->
+
+    
+      <div id="method-i-ready" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            ready { block }
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Calls the given block when <a href="Bridge.html">Bridge</a> is connected
+and ready Calls the given block immediate if <a
+href="Bridge.html">Bridge</a> is already ready</p>
+          
+
+          
+          <div class="method-source-code" id="ready-source">
+            <pre><span class="ruby-comment"># File lib/bridge.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ready</span> &amp;<span class="ruby-identifier">callback</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">'adding'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@is_ready</span>
+    <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@queue</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">callback</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ready-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ready-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

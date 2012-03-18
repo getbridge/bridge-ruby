@@ -5,14 +5,42 @@ require 'reference.rb'
 
 require 'eventmachine'
 
-module Bridge
-  class Bridge
-    # Expects to be called inside an EventMachine block in lieu of
-    #   EM::connect.
-    # @param [Hash] configuration options
+# == Flotype Bridge
+#
+# Bridge is a cross-language and platform framework for realtime communication and RPC
+#
+# The Bridge ruby client is fully featured and has full compatibility with all other Bridge clients
+# 
+# Bridge::Bridge
 
-    attr_accessor :options, :connection, :queue, :store, :is_ready
+module Bridge
+
+  class Bridge
+
+    attr_accessor :options, :connection, :queue, :store, :is_ready #:nodoc: 
     
+    # :call-seq:
+    #   new(options={})
+    #   new(options={}) { block } 
+    #
+    # Create an instance of the Bridge object. This object will be used for Bridge interactions
+    #  
+    # If a block is given, calls the given block when Bridge is connected and ready for use 
+    #
+    # === Attributes  
+    #  
+    # +options+:: Optional hash of arguments specified below
+    #  
+    # === Options  
+    #  
+    # Options hash passed to initialize to modify Bridge behavior
+    #  
+    # <tt>:redirector => 'http://redirector.flotype.com'</tt>:: Address to specify Bridge redirector server. The redirector server helps route the client to the appropriate Bridge server 
+    # <tt>:reconnect => true</tt>:: Enable automatic reconnection to Bridge server
+    # <tt>:log => 2</tt>:: An integer specifying log level. 3 => Log all, 2 => Log warnings, 1 => Log errors, 0 => No logging output
+    # <tt>:host => nil</tt>:: The hostname of the Bridge server to connect to. Overrides :redirector when both host and port are specified
+    # <tt>:port => nil</tt>:: An integer specifying the port of the Bridge server to connect to. Overrides :redirector when both host and port are specified
+    #  
     def initialize(options = {}, &callback)
 
       @options = {
@@ -38,7 +66,7 @@ module Bridge
       
     end
 
-    def execute address, args
+    def execute address, args #:nodoc:
       obj = @store[address[2]]
       func = obj.method(address[3])
       if func
@@ -57,21 +85,31 @@ module Bridge
       end
     end
     
-    def store_object handler, ops
+    def store_object handler, ops #:nodoc:
       name = Util.generateGuid
       @store[name] = handler
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
-    # Calls a remote function specified by `dest` with `args`.
-    # @param [Ref] dest The identifier of the remote function to call.
-    # @param [Array] args Arguments to be passed to `dest`.
-    def send args, destination
+    def send args, destination #:nodoc:
       @connection.send_command(:SEND, { :args => Serializer.serialize(self, args), :destination => destination })
     end
 
-    # Broadcasts the availability of certain functionality specified by a
-    #   proc `fun` under the name of `name`.
+    # :call-seq:
+    #   publish_service(name, handler) -> service
+    #   publish_service(name, handler) { |service, name| block }
+    #
+    # Publishes a ruby object or module as a Bridge service with the given name.
+    #    
+    # Returns the published service.
+    #
+    # If a block is given, calls the given block with the published service and service name.
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge service the handler will be published with
+    # +handler+:: A ruby object or module to publish
+    #  
     def publish_service name, handler, &callback
       if name == 'system'
         Util.error("Invalid service name: #{name}")
@@ -81,14 +119,48 @@ module Bridge
       end
     end
 
-    # Returns a reference to the service specified by `svc`.
+    # :call-seq:
+    #   get_service(name) -> service
+    #   get_service(name) { |service, name| block }
+    #
+    # Retrives a service published to Bridge with the given name.
+    #
+    # If multiple Bridge clients have a published a service, the service is retrieved from one of the publishers round-robin.
+    #
+    # Note that if the requested service does not exist, an object is still returned, however attempts to make method calls on the object will result in a remote error.
+    #
+    # Returns the requested service.
+    #
+    # If a block is given, calls the given block with the requested service and service name.
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge service being requested
+    #  
     def get_service name, &callback
       ref = Reference.new(self, ['named', name, name])
       callback.call(ref, name) if callback
       return ref
     end
 
-    # Returns a reference to the channel specified by `channel`.
+    # :call-seq:
+    #   get_channel(name) -> channel
+    #   get_channel(name) { |channel, name| block }
+    #
+    # Retrives a channel from Bridge with the given name.
+    #
+    # Calling a method on the channel object will result in the given method being executed on all clients that have been joined to the channel.
+    #
+    # Note that if the requested channel does not exist or is empty, an object is still returned, however attempts to make method calls on the object will result in a remote error.
+    #
+    # Returns the requested channel.
+    #
+    # If a block is given, calls the given block with the requested channel and channel name.
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge channel being requested
+    #  
     def get_channel name, &callback
       @connection.send_command(:GETCHANNEL, {:name => name})
       ref = Reference.new(self, ['channel', name, "channel:#{name}"])
@@ -96,22 +168,49 @@ module Bridge
       return ref
     end
     
-    # Join the channel specified by `channel`. Messages from this channel
-    #   will be passed in to a handler specified by `handler`. The callback
-    #   `callback` is to be called to confirm successful joining of the channel.
+    # :call-seq:
+    #   join_channel(name, handler) { |channel, name| block }
+    #
+    # Provides a remote object, ruby object or module as a receiver for methods calls on a Bridge channel.
+    #    
+    # The given handler can be a remote object, in which case the Bridge client that created the remote object will be joined to the channel. Method calls to the channel will be not be proxied through this client but go directly to the source of the remote object.
+    #
+    # If a block is given, calls the given block with the joined channel and channel name.
+    # 
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge channel the handler will recieve methods calls for
+    # +handler+:: A remote object, ruby object or module to handle method calls from the channel
+    #  
     def join_channel name, handler, &callback
       @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Serializer.serialize(self, handler), :callback => Serializer.serialize(self, callback)})
     end
 
-    # Leave a channel.
+    # :call-seq:
+    #   leave_channel(name, handler)
+    #   leave_channel(name, handler) { |name| block }
+    #
+    # Leaves a Bridge channel with the given name and handler object.
+    #    
+    # The given handler can be a remote object, in which case the Bridge client that created the remote object will be removed from the channel.
+    #
+    # If a block is given, calls the given block with the name of the channel left.
+    # 
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge channel to leave
+    # +handler+:: A remote object, ruby object or module that was used to handle moethod calls from the channel
+    #  
     def leave_channel channel, handler, &callback
       @connection.send_command(:LEAVECHANNEL, {:name => name, :handler => Serializer.serialize(self, handler), :callback => Serializer.serialize(self, callback)})
     end
     
-    # Similar to $(document).ready of jQuery as well as now.ready: takes
-    #   callbacks that it will call when the connection handshake has been
-    #   completed.
-    # @param [#call] callback Callback to be called when the server connects.
+    # :call-seq:
+    #   ready { block }
+    #
+    # Calls the given block when Bridge is connected and ready
+    # Calls the given block immediate if Bridge is already ready
+    # 
     def ready &callback
       puts 'adding'
       if @is_ready
@@ -123,7 +222,7 @@ module Bridge
 
     # These are internal system functions, which should only be called by the
     # Erlang gateway.
-    class SystemService
+    class SystemService #:nodoc:
       def initialize bridge
         @store = bridge.store
       end
