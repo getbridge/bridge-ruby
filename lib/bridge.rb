@@ -86,7 +86,7 @@ module Bridge
     end
     
     def store_object handler, ops #:nodoc:
-      name = Util.generateGuid
+      name = Util.generate_guid
       @store[name] = handler
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
