@@ -31,7 +31,7 @@ module Bridge
     def method_missing atom, *args, &blk
       args << blk if blk
       Util.info "Calling #{@address}.#{atom}";
-      destination = self.to_dict atom
+      destination = self.to_dict atom.to_s
       @bridge.send args, destination
     end
 
