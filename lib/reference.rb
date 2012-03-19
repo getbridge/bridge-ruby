@@ -2,7 +2,7 @@ module Bridge
   # Instances of this class represent references to remote services.
   class Reference #:nodoc: all
    
-    attr_accessor :options, :address  
+    attr_accessor :operations, :address  
     
     def initialize bridge, address, operations = nil
       operations = [] if operations.nil?
