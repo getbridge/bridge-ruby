@@ -13,7 +13,7 @@ class TestTcp < Test::Unit::TestCase
   end
  
   
-  def test_ref_callback
+  def test_receive_data
     dummy = ConnectionDummy.new
     tcp = Bridge::Tcp.new nil, dummy
     
