@@ -8,9 +8,8 @@ module Bridge
       if obj.respond_to? :to_dict
         obj.to_dict
       elsif obj.is_a? Hash
-        o = {}
         obj.each do |k, v|
-          o[k] = serialize bridge, v
+          obj[k] = serialize bridge, v
         end
       elsif obj.is_a? Array
         obj.map! do |v|
