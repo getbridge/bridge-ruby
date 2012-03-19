@@ -4,7 +4,7 @@ module Bridge
    
     attr_accessor :options, :address  
     
-    def initialize bridge, address, operations
+    def initialize bridge, address, operations = nil
       operations = [] if operations.nil?
       @operations = operations.map do |val|
         val.to_s
