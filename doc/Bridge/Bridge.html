@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/bridge.rb
+    <li>.\lib\bridge.rb
   </ul>
 </nav>
 
@@ -185,18 +185,19 @@ href="Bridge.html">Bridge</a> server</p>
 </dd><dt><code>:host =&gt; nil</code>
 <dd>
 <p>The hostname of the <a href="Bridge.html">Bridge</a> server to connect to.
-Overrides :redirector when both host and port are specified</p>
+Overrides <code>:redirector</code> when both <code>:host</code> and
+<code>:port</code> are specified</p>
 </dd><dt><code>:port =&gt; nil</code>
 <dd>
 <p>An integer specifying the port of the <a href="Bridge.html">Bridge</a>
-server to connect to. Overrides :redirector when both host and port are
-specified</p>
+server to connect to. Overrides <code>:redirector</code> when both
+<code>:host</code> and <code>:port</code> are specified</p>
 </dd></dl>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 44</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {}, &amp;<span class="ruby-identifier">callback</span>)
 
   <span class="ruby-ivar">@options</span> = {
@@ -284,7 +285,7 @@ channel name.</p>
 
           
           <div class="method-source-code" id="get_channel-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 164</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 164</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_channel</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:GETCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>})
   <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'channel'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-node">&quot;channel:#{name}&quot;</span>])
@@ -348,7 +349,7 @@ service name.</p>
 
           
           <div class="method-source-code" id="get_service-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 140</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_service</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'named'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">name</span>])
   <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
@@ -405,7 +406,7 @@ channel</p>
 
           
           <div class="method-source-code" id="join_channel-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 185</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 185</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">join_channel</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:JOINCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
 <span class="ruby-keyword">end</span></pre>
@@ -465,7 +466,7 @@ calls from the channel</p>
 
           
           <div class="method-source-code" id="leave_channel-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 204</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 204</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">leave_channel</span> <span class="ruby-identifier">channel</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:LEAVECHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
 <span class="ruby-keyword">end</span></pre>
@@ -523,7 +524,7 @@ be published with</p>
 
           
           <div class="method-source-code" id="publish_service-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 113</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">publish_service</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'system'</span>
     <span class="ruby-constant">Util</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Invalid service name: #{name}&quot;</span>)
@@ -559,13 +560,13 @@ be published with</p>
         <div class="method-description">
           
           <p>Calls the given block when <a href="Bridge.html">Bridge</a> is connected
-and ready Calls the given block immediate if <a
-href="Bridge.html">Bridge</a> is already ready</p>
+and ready. Calls the given block immediately if <a
+href="Bridge.html">Bridge</a> is already ready.</p>
           
 
           
           <div class="method-source-code" id="ready-source">
-            <pre><span class="ruby-comment"># File lib/bridge.rb, line 214</span>
+            <pre><span class="ruby-comment"># File .\lib\bridge.rb, line 214</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">ready</span> &amp;<span class="ruby-identifier">callback</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">'adding'</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@is_ready</span>

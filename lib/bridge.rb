@@ -38,8 +38,8 @@ module Bridge
     # <tt>:redirector => 'http://redirector.flotype.com'</tt>:: Address to specify Bridge redirector server. The redirector server helps route the client to the appropriate Bridge server 
     # <tt>:reconnect => true</tt>:: Enable automatic reconnection to Bridge server
     # <tt>:log => 2</tt>:: An integer specifying log level. 3 => Log all, 2 => Log warnings, 1 => Log errors, 0 => No logging output
-    # <tt>:host => nil</tt>:: The hostname of the Bridge server to connect to. Overrides :redirector when both host and port are specified
-    # <tt>:port => nil</tt>:: An integer specifying the port of the Bridge server to connect to. Overrides :redirector when both host and port are specified
+    # <tt>:host => nil</tt>:: The hostname of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
+    # <tt>:port => nil</tt>:: An integer specifying the port of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
     #  
     def initialize(options = {}, &callback)
 
@@ -208,8 +208,8 @@ module Bridge
     # :call-seq:
     #   ready { block }
     #
-    # Calls the given block when Bridge is connected and ready
-    # Calls the given block immediate if Bridge is already ready
+    # Calls the given block when Bridge is connected and ready.
+    # Calls the given block immediately if Bridge is already ready.
     # 
     def ready &callback
       puts 'adding'
