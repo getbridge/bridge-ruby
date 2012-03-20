@@ -103,7 +103,7 @@ module Bridge
     #    
     # Returns the published service.
     #
-    # If a block is given, calls the given block with the name of the published service
+    # If a block is given, calls the given block with the name of the published service upon publish success
     #  
     # === Attributes  
     #  
