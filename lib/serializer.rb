@@ -6,25 +6,27 @@ module Bridge
     
      def self.serialize bridge, obj
       if obj.respond_to? :to_dict
-        obj.to_dict
+        result = obj.to_dict
       elsif obj.is_a? Hash
+        result = {}
         obj.each do |k, v|
-          obj[k] = serialize bridge, v
+          result[k] = serialize bridge, v
         end
       elsif obj.is_a? Array
-        obj.map! do |v|
+        result = obj.map do |v|
           serialize bridge, v
         end
       elsif obj.respond_to?(:call)
-        bridge.store_object(Callback.new(obj), ['callback']).to_dict
+        result = bridge.store_object(Callback.new(obj), ['callback']).to_dict
       elsif JSON::Ext::Generator::GeneratorMethods.constants.include? obj.class.name.to_sym
-        obj
+        result = obj
       elsif obj.is_a? Module
         # obj is a class instance or module
-        bridge.store_object(obj, obj.methods(false)).to_dict
+        result = bridge.store_object(obj, obj.methods(false)).to_dict
       else
-        bridge.store_object(obj, obj.class.instance_methods(false)).to_dict
+        result = bridge.store_object(obj, obj.class.instance_methods(false)).to_dict
       end
+      return result
     end
 
     def self.unserialize bridge, obj
