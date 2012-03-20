@@ -2,9 +2,14 @@ require_relative "reference_dummy.rb"
 
 class BridgeDummy
 
-  attr_accessor  :last_args, :last_dest, :stored
+  attr_accessor  :last_args, :last_dest, :stored, :options
   
   def initialize
+    @options = {
+      :redirector => 'http://redirector.flotype.com',
+      :reconnect  => true,
+      :log  => 2, # 0 for no output
+    } 
     @stored = []
   end
   
