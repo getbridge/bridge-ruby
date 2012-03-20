@@ -96,8 +96,7 @@ module Bridge
     end
 
     # :call-seq:
-    #   publish_service(name, handler) -> service
-    #   publish_service(name, handler) { |service, name| block }
+    #   publish_service(name, handler) { |name| block }
     #
     # Publishes a ruby object or module as a Bridge service with the given name.
     #    
