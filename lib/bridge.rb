@@ -99,8 +99,6 @@ module Bridge
     #   publish_service(name, handler) { |name| block }
     #
     # Publishes a ruby object or module as a Bridge service with the given name.
-    #    
-    # Returns the published service.
     #
     # If a block is given, calls the given block with the name of the published service upon publish success
     #  
