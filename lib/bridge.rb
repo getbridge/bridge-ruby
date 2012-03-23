@@ -25,7 +25,7 @@ module Bridge
     #
     # Create an instance of the Bridge object. This object will be used for Bridge interactions
     #  
-    # If a block is given, calls the given block when Bridge is connected and ready for use 
+    # Bridge#connect must be called to connect to the Bridge server
     #
     # === Attributes  
     #  
@@ -41,7 +41,7 @@ module Bridge
     # <tt>:host => nil</tt>:: The hostname of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
     # <tt>:port => nil</tt>:: An integer specifying the port of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
     #  
-    def initialize(options = {}, &callback)
+    def initialize(options = {})
 
       @options = {
         :redirector => 'http://redirector.flotype.com',
@@ -62,8 +62,6 @@ module Bridge
       
       @queue = []
 
-      self.ready &callback if callback
-      
     end
 
     def execute address, args #:nodoc:
@@ -215,6 +213,19 @@ module Bridge
       else
         @queue << callback
       end
+    end
+    
+    # :call-seq:
+    #   connect { block }
+    #
+    # Starts the connection to the Bridge server.
+    #
+    # If a block is given, calls the given block when Bridge is connected and ready.
+    #
+    def connect &callback
+      self.ready &callback if callback
+      @connection.start
+      return self
     end
 
     # These are internal system functions, which should only be called by the

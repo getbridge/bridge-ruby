@@ -18,12 +18,6 @@ module Bridge
       @sock = @sock_buffer
       
       @interval = 0.4
-      
-      if !@options.has_key? :host or !@options.has_key? :port
-        redirector
-      else
-        EventMachine::connect(@options[:host], @options[:port], Tcp, self)
-      end
     end
     
     def redirector
@@ -114,6 +108,14 @@ module Bridge
       
       if @options[:reconnect]
         reconnect
+      end
+    end
+    
+    def start 
+      if !@options.has_key? :host or !@options.has_key? :port
+        redirector
+      else
+        EventMachine::connect(@options[:host], @options[:port], Tcp, self)
       end
     end
     
