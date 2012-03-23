@@ -17,7 +17,9 @@ EventMachine.run do
     end
   end
     
-  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh') 
+  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh').connect do
+    puts 'Connected to Bridge'
+  end
   
   bridge.publish_service("chatserver", Writik.new(bridge)) do 
     puts('started chatserver')
