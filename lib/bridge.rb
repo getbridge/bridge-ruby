@@ -21,7 +21,6 @@ module Bridge
     
     # :call-seq:
     #   new(options={})
-    #   new(options={}) { block } 
     #
     # Create an instance of the Bridge object. This object will be used for Bridge interactions
     #  
@@ -207,7 +206,6 @@ module Bridge
     # Calls the given block immediately if Bridge is already ready.
     # 
     def ready &callback
-      puts 'adding'
       if @is_ready
         callback.call
       else
