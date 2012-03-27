@@ -9,7 +9,6 @@ module Bridge
       @pos = 0
       @callback = nil
       @connection = connection
-      
       start
     end
     
