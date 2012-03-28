@@ -36,15 +36,20 @@ module Bridge
     end
     
     def start
+      # Read header bytes
       read 4 do |data|
+        # Read body bytes
         read data.unpack('N')[0] do |data|
+          # Call message handler
           @connection.onmessage({:data => data}, self)
+          # Await next message
           start
         end
       end
     end
 
     def send arg
+      # Prepend length header to message
       send_data([arg.length].pack("N") + arg)
     end
     

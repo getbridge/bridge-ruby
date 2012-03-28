@@ -42,32 +42,40 @@ module Bridge
     #  
     def initialize(options = {})
 
+      # Set default options
       @options = {
         :redirector => 'http://redirector.flotype.com',
         :reconnect  => true,
         :log  => 2, # 0 for no output
       }    
-    
+      
       @options = @options.merge(options)
   
-      Util.set_log_level(@options[:log]);
+      Util.set_log_level(@options[:log])
   
       @store = {}
+      # Initialize system service call
       @store['system'] = SystemService.new(self)
       
+      # Indicates whether server is connected and handshaken
       @is_ready = false
       
+      # Create connection object
       @connection = Connection.new(self)
       
+      # Store ready event handler
       @queue = []
 
     end
 
     def execute address, args #:nodoc:
+      # Retrieve stored handler
       obj = @store[address[2]]
+      # Retrieve function in handler
       func = obj.method(address[3])
       if func
         last = args.last
+        # If last argument is callable and function arity is one less than args length, pass in as block
         if last.is_a? Util::CallbackReference and func.arity == args.length - 1
           args.pop
           func.call *args do |*args, &blk|
@@ -83,8 +91,10 @@ module Bridge
     end
     
     def store_object handler, ops #:nodoc:
+      # Generate random id for callback being stored
       name = Util.generate_guid
       @store[name] = handler
+      # Return reference to stored callback
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
@@ -156,6 +166,7 @@ module Bridge
     # +name+:: The name of the Bridge channel being requested
     #  
     def get_channel name, &callback
+      # Send GETCHANNEL command in order to establih link for channel if client is not member
       @connection.send_command(:GETCHANNEL, {:name => name})
       ref = Reference.new(self, ['channel', name, "channel:#{name}"])
       callback.call(ref, name) if callback
@@ -234,9 +245,12 @@ module Bridge
       end
       
       def hookChannelHandler name, handler, callback = nil
+        # Retrieve requested handler
         obj = @store[handler.address[2]]
+        # Store under channel name
         @store["channel:#{name}"] = obj
-        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
+        # Send callback with reference to channel and handler operations
+        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], util.find_ops(obj)), name) if callback
       end
 
       def getService name, callback
@@ -249,7 +263,7 @@ module Bridge
       
       def remoteError msg
         Util.warn(msg)
-      end
+      end 
     end
         
   

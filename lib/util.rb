@@ -52,6 +52,14 @@ module Bridge
       end
     end
     
+    def self.find_ops obj
+      if obj.is_a? Module
+        return obj.methods false
+      else
+        return obj.class.instance_methods false
+      end
+    end
+    
     class CallbackReference < Proc
       def initialize ref
         @ref = ref
