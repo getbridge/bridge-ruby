@@ -6,7 +6,7 @@ require 'thin'
 
 EventMachine.run do
   
-  class Writik
+  class ChatServer
 
     def initialize bridge
       @bridge = bridge
@@ -17,11 +17,11 @@ EventMachine.run do
     end
   end
     
-  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh').connect do
+  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh', :log => 5).connect do
     puts 'Connected to Bridge'
   end
   
-  bridge.publish_service("chatserver", Writik.new(bridge)) do 
+  bridge.publish_service("chatserver", ChatServer.new(bridge)) do 
     puts('started chatserver')
   end
   
