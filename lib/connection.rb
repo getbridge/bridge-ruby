@@ -29,14 +29,19 @@ module Bridge
       conn = EventMachine::Protocols::HttpClient2.connect(uri.host, uri.port)
       req = conn.get({:uri => "/redirect/#{@options[:api_key]}"})
       req.callback do |obj|
-        obj = JSON::parse obj.content
-        if obj.has_key?('data')
+        begin
+          obj = JSON::parse obj.content
+        rescue Exception => e
+          Util.error "Unable to parse redirector response #{obj.content}"
+          return
+        end
+        if obj.has_key?('data') and obj['data'].has_key?('bridge_host') and obj['data'].has_key?('bridge_port')
           obj = obj['data']
           @options[:host] = obj['bridge_host']
           @options[:port] = obj['bridge_port']
           establish_connection
         else
-          raise Exception, 'Invalid API key.'
+          Util.error "Could not find host and port in JSON body"
         end
       end
     end
@@ -85,13 +90,13 @@ module Bridge
     end
 
     def onopen sock
-      Util.info('Beginning handshake')
+      Util.info 'Beginning handshake' 
       msg = Util.stringify(:command => :CONNECT, :data => {:session => [@client_id || nil, @secret || nil], :api_key => @options[:api_key]})
       sock.send msg
     end
     
     def onclose
-      Util.warn('Connection closed')
+      Util.warn 'Connection closed'
       # Restore preconnect buffer as socket connection
       @sock = @sock_buffer
       if @options[:reconnect]
@@ -103,18 +108,18 @@ module Bridge
       begin
         Util.info "Received #{message[:data]}"
         message = Util.parse(message[:data])
+      rescue Exception => e
+        Util.error "Message parsing failed"
+      end
         # Convert serialized ref objects to callable references
         Serializer.unserialize(@bridge, message)
         # Extract RPC destination address
         destination = message['destination']
         if !destination
-          Util.warn("No destination in message #{message}")
+          Util.warn "No destination in message #{message}"
           return
         end
         @bridge.execute message['destination'].address, message['args']
-      rescue Exception => e
-        Util.error e.message
-      end
     end
     
     def send_command command, data

@@ -86,7 +86,7 @@ module Bridge
           func.call *args
         end
       else
-        Util.warn 'Could not find object to handle', address
+        Util.warn "Could not find object to handle, #{address}"
       end
     end
     
@@ -262,7 +262,7 @@ module Bridge
       end
       
       def remoteError msg
-        Util.warn(msg)
+        Util.warn msg
       end 
     end
         
