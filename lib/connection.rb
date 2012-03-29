@@ -34,7 +34,7 @@ module Bridge
           obj = obj['data']
           @options[:host] = obj['bridge_host']
           @options[:port] = obj['bridge_port']
-          EventMachine::connect(@options[:host], @options[:port], Tcp, self)
+          establish_connection
         else
           raise Exception, 'Invalid API key.'
         end
@@ -45,11 +45,16 @@ module Bridge
       Util.info "Attempting to reconnect"
       if @interval < 32768
         EventMachine::Timer.new(@interval) do
-          EventMachine::connect(@options[:host], @options[:port], Tcp, self)
+          establish_connection
           # Grow timeout for next reconnect attempt
           @interval *= 2
         end
       end
+    end
+    
+    def establish_connection
+      Util.info "Starting TCP connection #{@options[:host]}, #{@options[:port]}"
+      EventMachine::connect(@options[:host], @options[:port], Tcp, self)
     end
     
     def onmessage data, sock
@@ -59,6 +64,7 @@ module Bridge
         # Handle message normally if not a correct CONNECT response
         process_message data
       else
+        Util.info "client_id received, #{m[1]}"
         @client_id = m[1]
         @secret = m[2]
         # Reset reconnect interval
@@ -95,8 +101,8 @@ module Bridge
     
     def process_message message
       begin
+        Util.info "Received #{message[:data]}"
         message = Util.parse(message[:data])
-        Util.info "Received #{message}"
         # Convert serialized ref objects to callable references
         Serializer.unserialize(@bridge, message)
         # Extract RPC destination address
@@ -114,7 +120,7 @@ module Bridge
     def send_command command, data
       data.delete :callback if data.key? :callback and data[:callback].nil?
       msg = Util.stringify :command => command, :data => data
-      Util.info('Sending ' + msg)
+      Util.info "Sending #{msg}"
       @sock.send msg
     end
     
@@ -123,7 +129,7 @@ module Bridge
         redirector
       else
         # Host and port are specified
-        EventMachine::connect(@options[:host], @options[:port], Tcp, self)
+        establish_connection
       end
     end
     
