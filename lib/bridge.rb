@@ -78,7 +78,12 @@ module Bridge
             last.call *args
           end
         else
-          func.call *args
+          begin
+	    func.call *args
+	  rescue StandardError => err
+	    Util.error err
+	    Util.error 'Exception while calling #{address[3]}(#{args})' 
+	  end
         end
       else
         Util.warn 'Could not find object to handle', address
