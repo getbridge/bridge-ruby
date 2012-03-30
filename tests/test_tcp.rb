@@ -21,6 +21,7 @@ class TestTcp < Test::Unit::TestCase
     messages_packed = messages.map do |arg|
       [arg.length].pack("N") + arg
     end
+    message = messages_packed.join
     
     messages_packed.each do |arg|
       tcp.receive_data arg
@@ -37,7 +38,6 @@ class TestTcp < Test::Unit::TestCase
       
       pieces = rand(message.length) + 1
       each_piece = message.length / pieces
-       
       while message.length > 0
         if message.length > each_piece
           tcp.receive_data(message.slice!(0, each_piece))

@@ -10,7 +10,7 @@ module Bridge
     
     def self.generate_guid
       chars = (('a'..'z').to_a + (0..9).to_a)
-      (0..12).map{ chars[rand(26)] }.join
+      (0...12).map{ chars[rand(26)] }.join
     end
    
     def self.stringify obj
@@ -49,6 +49,14 @@ module Bridge
       CallbackReference.new ref do |*args, &blk|
         args << blk if blk
         self.call *args
+      end
+    end
+    
+    def self.find_ops obj
+      if obj.is_a? Module
+        return obj.methods false
+      else
+        return obj.class.instance_methods false
       end
     end
     

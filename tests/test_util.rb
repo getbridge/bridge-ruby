@@ -16,7 +16,7 @@ class TestUtil < Test::Unit::TestCase
     ids = {}
     (1..10).each do
       id = Bridge::Util.generate_guid
-      assert_equal(13, id.length)        
+      assert_equal(12, id.length)        
       assert(!ids.key?(id))
       ids[id] = true
     end

@@ -4,10 +4,12 @@ module Bridge
   class Tcp < EventMachine::Connection #:nodoc: all
   
     def initialize connection
-      @left = 0
-      @chunk = ''
-      @head_chunk = ''
+      @buffer = ''
+      @len = 0
+      @pos = 0
+      @callback = nil
       @connection = connection
+      start
     end
     
     def post_init
@@ -15,38 +17,39 @@ module Bridge
     end
 
     def receive_data data
-      if @left == 0
-        data = @head_chunk + data
-        if data.length >= 4
-          @left = data.unpack('N')[0]
-          data = data[4 .. -1]
-          @chunk = ''
-          @head_chunk = ''
-        else
-          @head_chunk = data
-          return
-        end
+      left = @len - @pos
+      if data.length >= left
+        @buffer << data.slice(0, left)
+        @callback.call @buffer
+        receive_data data.slice(left..-1) unless data.nil?
+      else
+        @buffer << data
+        @pos = @pos + data.length
       end
-
-      if data.length == 0
-        return
-      elsif data.length < @left
-        @chunk << data
-        @left -= data.length
-      elsif data.length == @left
-        @chunk << data
-        @connection.onmessage({:data => @chunk}, self)
-        @left = 0
-      elsif data.length > @left
-        @chunk << data[0 ... @left]
-        @connection.onmessage({:data => @chunk}, self)
-        data = data[@left .. -1]
-        @left = 0
-        receive_data data
+    end
+    
+    def read len, &cb
+      @buffer = ''
+      @len = len
+      @pos = 0
+      @callback = cb
+    end
+    
+    def start
+      # Read header bytes
+      read 4 do |data|
+        # Read body bytes
+        read data.unpack('N')[0] do |data|
+          # Call message handler
+          @connection.onmessage({:data => data}, self)
+          # Await next message
+          start
+        end
       end
     end
 
     def send arg
+      # Prepend length header to message
       send_data([arg.length].pack("N") + arg)
     end
     

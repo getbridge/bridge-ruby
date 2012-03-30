@@ -21,11 +21,10 @@ module Bridge
     
     # :call-seq:
     #   new(options={})
-    #   new(options={}) { block } 
     #
     # Create an instance of the Bridge object. This object will be used for Bridge interactions
     #  
-    # If a block is given, calls the given block when Bridge is connected and ready for use 
+    # Bridge#connect must be called to connect to the Bridge server
     #
     # === Attributes  
     #  
@@ -41,36 +40,42 @@ module Bridge
     # <tt>:host => nil</tt>:: The hostname of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
     # <tt>:port => nil</tt>:: An integer specifying the port of the Bridge server to connect to. Overrides +:redirector+ when both +:host+ and +:port+ are specified
     #  
-    def initialize(options = {}, &callback)
+    def initialize(options = {})
 
+      # Set default options
       @options = {
         :redirector => 'http://redirector.flotype.com',
         :reconnect  => true,
         :log  => 2, # 0 for no output
       }    
-    
+      
       @options = @options.merge(options)
   
-      Util.set_log_level(@options[:log]);
+      Util.set_log_level(@options[:log])
   
       @store = {}
+      # Initialize system service call
       @store['system'] = SystemService.new(self)
       
+      # Indicates whether server is connected and handshaken
       @is_ready = false
       
+      # Create connection object
       @connection = Connection.new(self)
       
+      # Store ready event handler
       @queue = []
 
-      self.ready &callback if callback
-      
     end
 
     def execute address, args #:nodoc:
+      # Retrieve stored handler
       obj = @store[address[2]]
+      # Retrieve function in handler
       func = obj.method(address[3])
       if func
         last = args.last
+        # If last argument is callable and function arity is one less than args length, pass in as block
         if last.is_a? Util::CallbackReference and func.arity == args.length - 1
           args.pop
           func.call *args do |*args, &blk|
@@ -86,13 +91,15 @@ module Bridge
 	  end
         end
       else
-        Util.warn 'Could not find object to handle', address
+        Util.warn "Could not find object to handle, #{address}"
       end
     end
     
     def store_object handler, ops #:nodoc:
+      # Generate random id for callback being stored
       name = Util.generate_guid
       @store[name] = handler
+      # Return reference to stored callback
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
@@ -164,6 +171,7 @@ module Bridge
     # +name+:: The name of the Bridge channel being requested
     #  
     def get_channel name, &callback
+      # Send GETCHANNEL command in order to establih link for channel if client is not member
       @connection.send_command(:GETCHANNEL, {:name => name})
       ref = Reference.new(self, ['channel', name, "channel:#{name}"])
       callback.call(ref, name) if callback
@@ -214,12 +222,24 @@ module Bridge
     # Calls the given block immediately if Bridge is already ready.
     # 
     def ready &callback
-      puts 'adding'
       if @is_ready
         callback.call
       else
         @queue << callback
       end
+    end
+    
+    # :call-seq:
+    #   connect { block }
+    #
+    # Starts the connection to the Bridge server.
+    #
+    # If a block is given, calls the given block when Bridge is connected and ready.
+    #
+    def connect &callback
+      self.ready &callback if callback
+      @connection.start
+      return self
     end
 
     # These are internal system functions, which should only be called by the
@@ -230,9 +250,12 @@ module Bridge
       end
       
       def hookChannelHandler name, handler, callback = nil
+        # Retrieve requested handler
         obj = @store[handler.address[2]]
+        # Store under channel name
         @store["channel:#{name}"] = obj
-        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], obj.methods), name) if callback
+        # Send callback with reference to channel and handler operations
+        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], util.find_ops(obj)), name) if callback
       end
 
       def getService name, callback
@@ -244,8 +267,8 @@ module Bridge
       end
       
       def remoteError msg
-        Util.warn(msg)
-      end
+        Util.warn msg
+      end 
     end
         
   
