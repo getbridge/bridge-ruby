@@ -1,5 +1,5 @@
-require '../../lib/bridge'
-require './test'
+require_relative '../../lib/bridge'
+require_relative './test'
 
 description = 'Reconnects';
 failureMessage = 'This implementation of the Bridge API does not support reconnects.';

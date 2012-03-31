@@ -20,6 +20,9 @@ class Test
       @stage += 1
       @timer.cancel
       @timer = EM::Timer.new(3) { self.fail "timeout" }
+      if @logLevel > 0
+        puts "Advancing to stage #{@stage}"
+      end
     end
   end
 

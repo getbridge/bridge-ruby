@@ -1,5 +1,5 @@
-require '../../lib/bridge'
-require './test'
+require_relative '../../lib/bridge'
+require_relative './test'
 
 description = 'Basic RPC';
 failureMessage = 'This implementation of the Bridge API is incapable of RPC.';
