@@ -5,26 +5,29 @@ module Bridge
   module Serializer #:nodoc: all
     
      def self.serialize bridge, obj
+      # Serialize immediately if obj responds to to_dict
       if obj.respond_to? :to_dict
         result = obj.to_dict
+      # Enumerate hash and serialize each member
       elsif obj.is_a? Hash
         result = {}
         obj.each do |k, v|
           result[k] = serialize bridge, v
         end
+      # Enumerate array and serialize each member
       elsif obj.is_a? Array
         result = obj.map do |v|
           serialize bridge, v
         end
+      # Store as callback if callable
       elsif obj.respond_to?(:call)
         result = bridge.store_object(Callback.new(obj), ['callback']).to_dict
+      # Return obj itself is JSON serializable
       elsif JSON::Ext::Generator::GeneratorMethods.constants.include? obj.class.name.to_sym
         result = obj
-      elsif obj.is_a? Module
-        # obj is a class instance or module
-        result = bridge.store_object(obj, obj.methods(false)).to_dict
+      # Otherwise store as service. Obj is a class instance or module
       else
-        result = bridge.store_object(obj, obj.class.instance_methods(false)).to_dict
+        result = bridge.store_object(obj, Util.find_ops(obj)).to_dict  
       end
       return result
     end
@@ -43,9 +46,12 @@ module Bridge
     
     def self.unserialize_helper bridge, obj, k, v
       if v.is_a? Hash
+        # If object has ref key, convert to reference
         if v.has_key? 'ref'
+          # Create reference
           ref = Reference.new(bridge, v['ref'], v['operations'])
           if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
+            # Callback wrapper
             obj[k] = Util.ref_callback ref
           else
             obj[k] = ref
