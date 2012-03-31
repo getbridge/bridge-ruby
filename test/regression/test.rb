@@ -1,12 +1,12 @@
 require 'eventmachine'
-messages = []
 
 class Test 
   def initialize failureMessage, logLevel, stages
+    @messages = []
     @stages = stages
     @stage = 0
     @failureMessage = failureMessage
-    @timer = EM::Timer.new(3) { self.fail "timeout" }
+    @timer = EM::Timer.new(5) { self.fail "timeout" }
     if !(logLevel == 0 || logLevel == 1 || logLevel == 2)
       raise "Invalid log level #{logLevel}"
     end
@@ -19,7 +19,7 @@ class Test
     else
       @stage += 1
       @timer.cancel
-      @timer = EM::Timer.new(3) { self.fail "timeout" }
+      @timer = EM::Timer.new(5) { self.fail "timeout" }
       if @logLevel > 0
         puts "Advancing to stage #{@stage}"
       end
@@ -36,16 +36,16 @@ class Test
   def fail(m = failureMessage)
     puts "============================================"
     puts " Description: ", m
-    if logLevel != 0
+    if @logLevel != 0
       puts " Message stack: "
-      messages.each {|msg| puts msg}
+      @messages.each {|msg| puts msg}
     end
     self.close
   end
 
   def log msg
-    if logLevel != 0
-      messages += msg
+    if @logLevel != 0
+      @messages += msg
       if logLevel == 2
         puts msg
       end

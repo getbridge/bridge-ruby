@@ -16,30 +16,31 @@ EM::run do
   test = Test.new(failureMessage, 1, 4)
 
   class T
-    def initialize id
+    def initialize(test, id)
       @id = id
-      test.advance 1
+      @test = test
+      @test.advance 1
     end
 
-    def cb id
+    def cb(id)
       if id != @id
-        fail "ID not preserved."
+        @test.fail "ID not preserved."
       end
-      advance 3
-      test.close
+      @test.advance 3
+      @test.close
     end
   end
 
-  bridge = Bridge::Bridge.new({:apiKey => 'abcdefgh'}).connect {
+  bridge = Bridge::Bridge.new({:log => 3, :api_key => 'abcdefgh'}).connect {
     test.advance 0
   }
 
   bridge.ready {
-    svc = T.new(bridge.connection.client_id)
-    bridge.publishService('test_reconn', svc) {
+    svc = T.new(test, bridge.connection.client_id)
+    bridge.publish_service('test_reconn', svc) {
       test.advance 2
       bridge.connection.sock.close_connection
-      bridge.getService('test_reconn') {|service| service.cb(bridge.connection.client_id)}
+      bridge.get_service('test_reconn') {|service| service.cb(bridge.connection.client_id)}
     }
   }
 end

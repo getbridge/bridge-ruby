@@ -87,7 +87,7 @@ module Bridge
 	    func.call *args
 	  rescue StandardError => err
 	    Util.error err
-	    Util.error 'Exception while calling #{address[3]}(#{args})' 
+	    Util.error "Exception while calling #{address[3]}(#{args})"
 	  end
         end
       else
