@@ -29,7 +29,10 @@ class Test
   def close
     if @stage != @stages
       puts "Failure: reached stage #{@stage} of #{@stages}"
+    else
+      puts "Success; passed this test."
     end
+    
     Process::exit
   end
 

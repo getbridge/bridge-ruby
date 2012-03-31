@@ -31,7 +31,7 @@ EM::run do
     end
   end
 
-  bridge = Bridge::Bridge.new({:log => 3, :api_key => 'abcdefgh'}).connect {
+  bridge = Bridge::Bridge.new({:api_key => 'abcdefgh'}).connect {
     test.advance 0
   }
 
@@ -40,7 +40,9 @@ EM::run do
     bridge.publish_service('test_reconn', svc) {
       test.advance 2
       bridge.connection.sock.close_connection
-      bridge.get_service('test_reconn') {|service| service.cb(bridge.connection.client_id)}
+      EM::Timer.new(0) {
+        bridge.get_service('test_reconn') {|service| service.cb(bridge.connection.client_id)}
+      }
     }
   }
 end
