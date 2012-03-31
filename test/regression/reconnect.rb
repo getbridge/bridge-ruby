@@ -30,7 +30,7 @@ EM::run do
     end
   end
 
-  bridge = Bridge::Bridge.new({:host => 'localhost', :port => 8090, :apiKey => 'abcdefgh'}).connect {
+  bridge = Bridge::Bridge.new({:apiKey => 'abcdefgh'}).connect {
     test.advance 0
   }
 

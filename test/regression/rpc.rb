@@ -15,7 +15,7 @@ publishService is called, and calling a method of getService works.
 EM::run do
   test = Test.new(failureMessage, 1, 3)
 
-  bridge = Bridge::Bridge.new({:host => 'localhost', :port => 8090, :apiKey => 'abcdefgh'}).connect {
+  bridge = Bridge::Bridge.new({:apiKey => 'abcdefgh'}).connect {
     test.advance 0
   }
 
