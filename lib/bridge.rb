@@ -255,7 +255,7 @@ module Bridge
         # Store under channel name
         @store["channel:#{name}"] = obj
         # Send callback with reference to channel and handler operations
-        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], util.find_ops(obj)), name) if callback
+        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], Util.find_ops(obj)), name) if callback
       end
 
       def getService name, callback
