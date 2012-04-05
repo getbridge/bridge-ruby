@@ -151,7 +151,7 @@ module Bridge
       def process_queue sock, client_id
         @buffer.each do |msg|
           # Replace null client ids with actual client_id after handshake
-          sock.send( msg.sub '"client",null', '"client","'+ client_id + '"' )
+          sock.send( msg.gsub '"client",null', '"client","'+ client_id + '"' )
         end
         @buffer = []
       end
