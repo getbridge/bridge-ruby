@@ -11,7 +11,7 @@ EventMachine.run do
   end
   
   
-  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh').connect
+  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh').connect
   
   bridge.join_channel('lobby', ChatHandler)
   

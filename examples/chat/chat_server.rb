@@ -17,7 +17,7 @@ EventMachine.run do
     end
   end
     
-  bridge = Bridge::Bridge.new(:host => 'localhost', :port => 8090, :api_key => 'abcdefgh', :log => 5).connect do
+  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :log => 5).connect do
     puts 'Connected to Bridge'
   end
   
@@ -38,7 +38,7 @@ EventMachine.run do
       end
   end
 
-  App.run!(:port => 80) 
+  App.run!(:port => 8000) 
   
   
 end
