@@ -17,7 +17,7 @@ module Bridge
 
   class Bridge
 
-    attr_accessor :options, :connection, :queue, :store, :is_ready #:nodoc: 
+    attr_accessor :options, :connection, :store, :is_ready #:nodoc: 
     
     # :call-seq:
     #   new(options={})
@@ -63,8 +63,8 @@ module Bridge
       # Create connection object
       @connection = Connection.new(self)
       
-      # Store ready event handler
-      @queue = []
+      # Store event handlers
+      @events = {}
 
     end
 
@@ -101,6 +101,21 @@ module Bridge
       @store[name] = handler
       # Return reference to stored callback
       Reference.new(self, ['client', @connection.client_id, name], ops)
+    end
+    
+    def on name, &fn
+      if !@events.key? name
+        @events[name] = [];
+      end
+      @events[name].push fn
+    end
+    
+    def emit name, args=[]
+      if @events.key? name
+        @events[name].each do |fn|
+          fn.call *args
+        end
+      end
     end
     
     def send args, destination #:nodoc:
@@ -225,7 +240,7 @@ module Bridge
       if @is_ready
         callback.call
       else
-        @queue << callback
+        on 'ready', &callback
       end
     end
     
@@ -246,21 +261,21 @@ module Bridge
     # Erlang gateway.
     class SystemService #:nodoc:
       def initialize bridge
-        @store = bridge.store
+        @bridge = bridge
       end
       
       def hookChannelHandler name, handler, callback = nil
         # Retrieve requested handler
-        obj = @store[handler.address[2]]
+        obj = @bridge.store[handler.address[2]]
         # Store under channel name
-        @store["channel:#{name}"] = obj
+        @bridge.store["channel:#{name}"] = obj
         # Send callback with reference to channel and handler operations
         callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], Util.find_ops(obj)), name) if callback
       end
 
       def getService name, callback
-        if @store.key? name
-          callback.call(@store[name], name)
+        if @bridge.store.key? name
+          callback.call(@bridge.store[name], name)
         else
           callback.call(nil, name)
         end
@@ -268,6 +283,7 @@ module Bridge
       
       def remoteError msg
         Util.warn msg
+        @bridge.emit 'remote_error', [msg]
       end 
     end
         

@@ -81,10 +81,8 @@ module Bridge
         Util.info('Handshake complete')
         # Trigger ready callback
         if not @bridge.is_ready
-          @bridge.queue.each do |fun|
-            fun.call
-          end
           @bridge.is_ready = true
+          @bridge.emit 'ready'
         end
       end
     end
