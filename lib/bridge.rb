@@ -107,7 +107,7 @@ module Bridge
       if !@events.key? name
         @events[name] = [];
       end
-      @events[name].push fn
+      @events[name] << fn
     end
     
     def emit name, args=[]

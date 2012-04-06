@@ -11,9 +11,15 @@ EventMachine.run do
   end
   
   
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh').connect
+  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh').connect do
+    puts 'connected'
+    bridge.on 'remote_error' do | msg |
+      puts msg
+    end
+    bridge.publish_service 'test.', Bridge
+  end
   
-  bridge.join_channel('lobby', ChatHandler)
+  ##bridge.join_channel('lobby', ChatHandler)
   
   
 end
