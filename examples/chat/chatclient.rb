@@ -2,14 +2,13 @@ require 'bridge'
 
 EventMachine.run do
 
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :log => 5)
+  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh')
 
   class ChatHandler
     def message sender, msg
       print sender, ":", msg
     end
   end
-
 
   bridge.connect
 
@@ -19,4 +18,3 @@ EventMachine.run do
   end
 
 end
-
