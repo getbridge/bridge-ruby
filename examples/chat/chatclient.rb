@@ -6,7 +6,7 @@ EventMachine.run do
 
   class ChatHandler
     def message sender, msg
-      print sender, ":", msg
+      puts "#{sender}: #{msg}"
     end
   end
 
@@ -14,7 +14,8 @@ EventMachine.run do
 
   auth = bridge.get_service('auth')
   auth.join('flotype-lovers', 'secret123', ChatHandler.new) do |channel, name|
-    print "Joined: ", name
+    puts "Joined: #{name}"
+    channel.message('steve', 'Flotype Bridge is nifty')
   end
 
 end
