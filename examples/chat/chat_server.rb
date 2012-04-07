@@ -1,46 +1,24 @@
-require 'rubygems' 
-require 'sinatra/base'
-require 'bridge'
-require 'thin'
+    require 'bridge'
 
+    EventMachine.run do
 
-EventMachine.run do
-  
-  class ChatServer
+      bridge = Bridge::Bridge.new(:api_key => 'abcdefgh')
 
-    def initialize bridge
-      @bridge = bridge
-    end
-  
-    def join name, handler, callback
-      @bridge.join_channel 'lobby', handler, &callback
-    end
-  end
-    
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :log => 5).connect do
-    puts 'Connected to Bridge'
-  end
-  
-  bridge.publish_service("chatserver", ChatServer.new(bridge)) do 
-    puts('started chatserver')
-  end
-  
-  
-  
-  
-  
-  
-  # Host static file
-  
-  class App < Sinatra::Base
-      get '/' do
-          erb :index, :locals => {:title => 'index'}
+      class AuthHandler
+        def initialize bridge
+          @bridge = bridge
+        end
+
+        def join name, password, handler, &callback
+          if password == 'secret123'
+            @bridge.join_channel(name, handler, &callback)
+            puts 'Welcome!'
+          else
+            puts 'Sorry!'
+          end
+        end
       end
-  end
 
-  App.run!(:port => 8000) 
-  
-  
-end
-
-
+      bridge.connect
+      bridge.publish_service('auth', AuthHandler.new(bridge))
+    end
