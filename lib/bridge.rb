@@ -103,6 +103,21 @@ module Bridge
       Reference.new(self, ['client', @connection.client_id, name], ops)
     end
     
+    # :call-seq:
+    #   on(name) { |*args| block }
+    #
+    # Adds the given block as a handler for the event specified by <tt>name</tt>. Calling multiple times will result in multiple handlers being attached to the event
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the event for the given block to listen to
+    #
+    # === Events  
+    #  
+    # List of events Bridge emits
+    #  
+    # <tt>'ready' ()</tt>:: Bridge is connected and ready. Not emitted on reconnects
+    # <tt>'remoteError' (error_message)</tt>:: A remote error has occurred in Bridge. The error message is provided as a parameter
     def on name, &fn
       if !@events.key? name
         @events[name] = [];
@@ -110,7 +125,7 @@ module Bridge
       @events[name] << fn
     end
     
-    def emit name, args=[]
+    def emit name, args=[] #:nodoc:
       if @events.key? name
         @events[name].each do |fn|
           fn.call *args
