@@ -2,7 +2,7 @@ require 'bridge'
 
 EventMachine.run do
 
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh')
+  bridge = Bridge::Bridge.new(:api_key => 'myapikey')
 
   class AuthHandler
     def initialize bridge
