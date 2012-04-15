@@ -48,13 +48,17 @@ module Bridge
       if v.is_a? Hash
         # If object has ref key, convert to reference
         if v.has_key? 'ref'
-          # Create reference
-          ref = Reference.new(bridge, v['ref'], v['operations'])
-          if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
-            # Callback wrapper
-            obj[k] = Util.ref_callback ref
+          if v['ref'][1] == bridge.connection.client_id and v['ref'][0] == 'client' and 
+            obj[k] = bridge.store[v['ref'][2]]
           else
-            obj[k] = ref
+            # Create reference
+            ref = Reference.new(bridge, v['ref'], v['operations'])
+            if v.has_key? 'operations' and v['operations'].length == 1 and v['operations'][0] == 'callback'
+              # Callback wrapper
+              obj[k] = Util.ref_callback ref
+            else
+              obj[k] = ref
+            end
           end
           return
         end

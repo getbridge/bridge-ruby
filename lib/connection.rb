@@ -110,14 +110,14 @@ module Bridge
         Util.error "Message parsing failed"
       end
         # Convert serialized ref objects to callable references
-        Serializer.unserialize(@bridge, message)
+        Serializer.unserialize(@bridge, message['args'])
         # Extract RPC destination address
         destination = message['destination']
         if !destination
           Util.warn "No destination in message #{message}"
           return
         end
-        @bridge.execute message['destination'].address, message['args']
+        @bridge.execute message['destination']['ref'], message['args']
     end
     
     def send_command command, data
