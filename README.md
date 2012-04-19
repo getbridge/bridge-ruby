@@ -16,7 +16,7 @@ Clone this repository using `git clone git@bitbucket.org:flotype/bridge-ruby.git
 loop.
 
 ##Documentation and Support
-* API Reference: http://flotype.com/docs/api/python/
+* API Reference: http://flotype.com/docs/api/ruby/
 * Getting Started: http://www.flotype.com/docs/gettingstarted/ruby/
 * About Flotype and Flotype Bridge: http://www.flotype.com/
 
