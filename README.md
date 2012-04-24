@@ -1,5 +1,5 @@
 #Flotype Bridge for Javascript
-Flotype Bridge enables cross-language RPC for interserver and client-server communication.
+Flotype Bridge is a unified messaging system that allows you to easily build cross-language services to share data and realtime updates among your servers and your clients
 
 ##Installation
 Quick install: Using [RubyGems](https://rubygems.org/), do `gem install flotype-bridge --pre`
@@ -16,8 +16,8 @@ Clone this repository using `git clone git@bitbucket.org:flotype/bridge-ruby.git
 loop.
 
 ##Documentation and Support
-* API Reference: http://www.flotype.com/resources/api
-* Getting Started: http://www.flotype.com/resources/gettingstarted
+* API Reference: http://flotype.com/docs/api/ruby/
+* Getting Started: http://www.flotype.com/docs/gettingstarted/ruby/
 * About Flotype and Flotype Bridge: http://www.flotype.com/
 
 The `examples` directory of this library contains sample applications for Flotype Bridge.
