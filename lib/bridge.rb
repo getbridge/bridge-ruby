@@ -159,6 +159,25 @@ module Bridge
     end
 
     # :call-seq:
+    #   Unpublish_service(name, handler) { |name| block }
+    #
+    # Stops publishing a ruby object or module as a Bridge service with the given name.
+    #
+    # If a block is given, calls the given block with the name of the unpublished service
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge service that will no longer be published
+    #  
+    def unpublish_service name, &callback
+      if name == 'system'
+        Util.error("Invalid service name: #{name}")
+      else
+        @connection.send_command(:LEAVEWORKERPOOL, {:name => name, :callback => Serializer.serialize(self, callback)})
+      end
+    end
+    
+    # :call-seq:
     #   get_service(name) -> service
     #   get_service(name) { |service, name| block }
     #
