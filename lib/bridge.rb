@@ -159,7 +159,7 @@ module Bridge
     end
 
     # :call-seq:
-    #   Unpublish_service(name, handler) { |name| block }
+    #   unpublish_service(name, handler) { |name| block }
     #
     # Stops publishing a ruby object or module as a Bridge service with the given name.
     #
