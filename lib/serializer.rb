@@ -50,6 +50,9 @@ module Bridge
         if v.has_key? 'ref'
           if v['ref'][1] == bridge.connection.client_id and v['ref'][0] == 'client' and 
             obj[k] = bridge.store[v['ref'][2]]
+            if obj[k].is_a? Callback
+              obj[k] = obj[k].method :callback
+            end
           else
             # Create reference
             ref = Reference.new(bridge, v['ref'], v['operations'])
