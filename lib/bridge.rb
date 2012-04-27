@@ -76,7 +76,7 @@ module Bridge
       if func
         last = args.last
         # If last argument is callable and function arity is one less than args length, pass in as block
-        if last.is_a? Util::CallbackReference and func.arity == args.length - 1
+        if (last.is_a? Proc) and func.arity == args.length - 1
           args.pop
           func.call *args do |*args, &blk|
             args << blk if blk
@@ -84,11 +84,11 @@ module Bridge
           end
         else
           begin
-	    func.call *args
-	  rescue StandardError => err
-	    Util.error err
-	    Util.error "Exception while calling #{address[3]}(#{args})"
-	  end
+            func.call *args
+          rescue StandardError => err
+            Util.error err
+            Util.error "Exception while calling #{address[3]}(#{args})"
+          end
         end
       else
         Util.warn "Could not find object to handle, #{address}"
@@ -299,12 +299,10 @@ module Bridge
       end
       
       def hookChannelHandler name, handler, callback = nil
-        # Retrieve requested handler
-        obj = @bridge.store[handler.address[2]]
         # Store under channel name
-        @bridge.store["channel:#{name}"] = obj
+        @bridge.store["channel:#{name}"] = handler
         # Send callback with reference to channel and handler operations
-        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], Util.find_ops(obj)), name) if callback
+        callback.call(Reference.new(self, ['channel', name, "channel:#{name}"], Util.find_ops(handler)), name) if callback
       end
 
       def getService name, callback
