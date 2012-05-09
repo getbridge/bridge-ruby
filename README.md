@@ -1,4 +1,4 @@
-#Flotype Bridge for Javascript
+#Flotype Bridge for Ruby
 Flotype Bridge is a unified messaging system that allows you to easily build cross-language services to share data and realtime updates among your servers and your clients
 
 ##Installation
