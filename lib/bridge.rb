@@ -2,6 +2,7 @@ require 'util.rb'
 require 'serializer.rb'
 require 'connection.rb'
 require 'reference.rb'
+require 'client.rb'
 
 require 'eventmachine'
 
@@ -80,6 +81,7 @@ module Bridge
       # Store event handlers
       @events = {}
 
+      @context = nil
     end
 
     def execute address, args #:nodoc:
@@ -238,6 +240,10 @@ module Bridge
       ref = Reference.new(self, ['named', name, name])
       callback.call(ref, name) if callback
       return ref
+    end
+
+    def get_client id
+      return Client.new(self, id)
     end
 
     # :call-seq:
