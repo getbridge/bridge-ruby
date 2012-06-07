@@ -6,7 +6,7 @@ require 'serializer.rb'
 module Bridge
   class Connection #:nodoc: all
 
-    attr_accessor :connected, :client_id, :sock
+    attr_accessor :connected, :client_id, :sock, :options
   
     def initialize bridge
       # Set associated bridge object
