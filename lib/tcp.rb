@@ -25,8 +25,7 @@ module Bridge
     def ssl_verify_peer cert
         cert = OpenSSL::X509::Certificate.new(cert)
         ca_cert = OpenSSL::X509::Certificate.new(File.read('/Users/sridatta/flotype.crt'))
-        puts cert.inspect
-        puts cert.verify(ca_cert.public_key)
+        cert.verify(ca_cert.public_key)
         true
     end
 
