@@ -26,7 +26,7 @@ module Bridge
     def redirector
       # Support for redirector.
       uri = URI(@options[:redirector])
-      conn = EventMachine::Protocols::HttpClient2.connect(uri.host, uri.port)
+      conn = EventMachine::Protocols::HttpClient2.connect(:host => uri.host, :port => uri.port, :ssl => @options[:secure])
       req = conn.get({:uri => "/redirect/#{@options[:api_key]}"})
       req.callback do |obj|
         begin
