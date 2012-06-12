@@ -243,7 +243,7 @@ module Bridge
 
     # +handler+:: A remote object, ruby object or module to handle method
     #   calls from the channel
-    def join_channel name, handler, writeable = false, &callback
+    def join_channel name, handler, writeable = true, &callback
       @connection.send_command(
         :JOINCHANNEL,
         { :name => name,
