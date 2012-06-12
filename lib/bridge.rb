@@ -238,11 +238,20 @@ module Bridge
     # 
     # === Attributes  
     #  
-    # +name+:: The name of the Bridge channel the handler will recieve methods calls for
-    # +handler+:: A remote object, ruby object or module to handle method calls from the channel
-    #  
-    def join_channel name, handler, &callback
-      @connection.send_command(:JOINCHANNEL, {:name => name, :handler => Serializer.serialize(self, handler), :callback => Serializer.serialize(self, callback)})
+    # +name+:: The name of the Bridge channel the handler will recieve
+    #   methods calls for.
+
+    # +handler+:: A remote object, ruby object or module to handle method
+    #   calls from the channel
+    def join_channel name, handler, writeable = false, &callback
+      @connection.send_command(
+        :JOINCHANNEL,
+        { :name => name,
+          :handler => Serializer.serialize(self, handler),
+          :callback => Serializer.serialize(self, callback),
+          :writeable => writeable
+        }
+      )
     end
 
     # :call-seq:
