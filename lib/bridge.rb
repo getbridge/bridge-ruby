@@ -56,11 +56,17 @@ module Bridge
       # Set default options
       @options = {
         :redirector => 'http://redirector.flotype.com',
+        :secure_redirector => 'https://redirector.flotype.com',
+        :secure => false,
         :reconnect  => true,
         :log  => 2, # 0 for no output
-      }    
-      
+      }
+
       @options = @options.merge(options)
+
+      if @options[:secure]
+        @options[:redirector] = @options[:secure_redirector]
+      end
   
       Util.set_log_level(@options[:log])
   
