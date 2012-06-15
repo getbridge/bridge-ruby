@@ -316,12 +316,14 @@ module Bridge
 
     # +handler+:: A remote object, ruby object or module to handle method
     #   calls from the channel
-    def join_channel name, handler, &callback
+    def join_channel name, handler, writeable = true, &callback
       @connection.send_command(
         :JOINCHANNEL,
         { :name => name,
           :handler => Serializer.serialize(self, handler),
-          :callback => Serializer.serialize(self, callback)}
+          :callback => Serializer.serialize(self, callback),
+          :writeable => writeable
+        }
       )
     end
 
