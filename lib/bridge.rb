@@ -15,6 +15,17 @@ require 'eventmachine'
 
 module Bridge
 
+  @@instance = nil
+
+  def self.instance
+    @@instance
+  end
+
+  def self.instance= i
+    @@instance = i
+  end
+
+
   class Bridge
 
     attr_accessor :options, :connection, :store, :is_ready #:nodoc: 
