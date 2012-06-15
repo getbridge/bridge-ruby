@@ -109,15 +109,18 @@ module Bridge
       rescue Exception => e
         Util.error "Message parsing failed"
       end
-        # Convert serialized ref objects to callable references
-        Serializer.unserialize(@bridge, message['args'])
-        # Extract RPC destination address
-        destination = message['destination']
-        if !destination
-          Util.warn "No destination in message #{message}"
-          return
-        end
-        @bridge.execute message['destination']['ref'], message['args']
+      # Convert serialized ref objects to callable references
+      Serializer.unserialize(@bridge, message['args'])
+      # Extract RPC destination address
+      destination = message['destination']
+      if !destination
+        Util.warn "No destination in message #{message}"
+        return
+      end
+      if message['source']
+        @bridge._context = Client.new(message['source'])
+      end
+      @bridge.execute message['destination']['ref'], message['args']
     end
     
     def send_command command, data
