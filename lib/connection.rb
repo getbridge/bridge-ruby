@@ -118,7 +118,7 @@ module Bridge
         return
       end
       if message['source']
-        @bridge._context = Client.new(message['source'])
+        @bridge.context = Client.new(@bridge, message['source'])
       end
       @bridge.execute message['destination']['ref'], message['args']
     end
