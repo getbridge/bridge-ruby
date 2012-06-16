@@ -2,7 +2,7 @@ require 'serializer.rb'
 require 'reference.rb'
 
 module Bridge
-  class Connection #:nodoc: all
+  class Client #:nodoc: all
     def initialize(bridge, id)
       @bridge, @id = bridge, id
     end
