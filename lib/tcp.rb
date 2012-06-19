@@ -1,8 +1,11 @@
 require 'eventmachine'
 require 'openssl'
+require 'ssl_utils.rb'
 
 module Bridge
   class Tcp < EventMachine::Connection #:nodoc: all
+
+    include SSLCertificateVerification
 
     def initialize connection
       @buffer = ''
@@ -10,6 +13,7 @@ module Bridge
       @pos = 0
       @callback = nil
       @connection = connection
+      SSLCertificateVerification.ca_cert_file = File.expand_path('../../include/ssl/cacert.pem', __FILE__)
       start
     end
 
@@ -20,13 +24,6 @@ module Bridge
     def connection_completed
       # connection now ready. call the callback
       @connection.onopen self
-    end
-
-    def ssl_verify_peer cert
-        cert = OpenSSL::X509::Certificate.new(cert)
-        ca_cert = OpenSSL::X509::Certificate.new(File.read('/Users/sridatta/flotype.crt'))
-        cert.verify(ca_cert.public_key)
-        true
     end
 
     def receive_data data
@@ -72,3 +69,5 @@ module Bridge
 
   end
 end
+
+
