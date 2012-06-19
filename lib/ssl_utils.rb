@@ -63,8 +63,6 @@ module SSLCertificateVerification
       unless OpenSSL::SSL.verify_certificate_identity(@last_seen_cert, @hostname)
         fail "the hostname `HOSTNAME' does not match the server certificate"
       end
-    else
-      warn "Skipping hostname verification because `@hostname' is not available."
     end
   end
 end
