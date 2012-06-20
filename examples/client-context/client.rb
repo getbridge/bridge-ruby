@@ -2,7 +2,7 @@ require 'bridge-ruby'
 
 EventMachine.run do
 
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :host => 'localhost', :port => 8090, :log => 5)
+  bridge = Bridge::Bridge.new(:api_key => 'myapikey')
 
   #class ThankHandler
     #def thank msg

@@ -2,8 +2,7 @@ require 'bridge-ruby'
 
 EventMachine.run do
 
-  #bridge = Bridge::Bridge.new(:api_key => 'myapikey')
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :host=>'localhost', :port=>8090)
+  bridge = Bridge::Bridge.new(:api_key => 'myapikey')
 
   class AuthHandler
     def initialize bridge
