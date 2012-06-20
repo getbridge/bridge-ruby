@@ -6,7 +6,7 @@ require 'client.rb'
 
 require 'eventmachine'
 
-# == Flotype Bridge
+# == Bridge
 #
 # Bridge is a cross-language and platform framework for realtime
 # communication and RPC.

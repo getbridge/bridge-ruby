@@ -15,7 +15,7 @@ EventMachine.run do
   auth = bridge.get_service('auth')
   auth.join('bridge-lovers', 'secret123', ChatHandler.new) do |channel, name|
     puts "Joined: #{name}"
-    channel.message('steve', 'Flotype Bridge is nifty')
+    channel.message('steve', 'Bridge is nifty')
   end
 
 end

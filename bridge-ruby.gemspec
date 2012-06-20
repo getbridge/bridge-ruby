@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version = Bridge::VERSION
   s.homepage = 'http://getbridge.com'
 
-  s.authors = ["Flotype"]
+  s.authors = [""]
   s.email   = ["team@getbridge.com"]
 
   s.files = `git ls-files`.split("\n")
