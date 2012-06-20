@@ -2,7 +2,7 @@ require 'bridge'
 
 EventMachine.run do
 
-  bridge = Bridge::Bridge.new(:api_key => 'abcdefgh', :host => 'localhost', :port => 8090)
+  bridge = Bridge::Bridge.new(:api_key => 'myapikey')
 
   class ChatHandler
     def message sender, msg
@@ -10,12 +10,14 @@ EventMachine.run do
     end
   end
 
-  bridge.connect
 
   auth = bridge.get_service('auth')
-  auth.join(ChatHandler.new) do |channel, name|
-    puts "Joined: #{name}"
-    channel.message('steve', "Can write to channel:#{name}")
+  auth.join("flotype-lovers", ChatHandler.new) do |channel, name|
+    puts "Joined channel: #{name}"
+    # The following RPC call will fail because client was not joined to channel with write permissions
+    channel.message('steve', "This should not work.")
   end
+
+  bridge.connect
 
 end
