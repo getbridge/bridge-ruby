@@ -394,7 +394,7 @@ module Bridge
         # Store under channel name
         @bridge.store["channel:#{name}"] = handler
         # Send callback with reference to channel and handler operations
-        callback.call(Reference.new(self,
+        callback.call(Reference.new(@bridge,
                                     ['channel', name, "channel:#{name}"],
                                     Util.find_ops(handler)), name) if callback
       end
