@@ -1,4 +1,4 @@
-require 'bridge'
+require 'bridge-ruby'
 
 EventMachine.run do
 

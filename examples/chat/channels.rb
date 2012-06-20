@@ -1,4 +1,4 @@
-    require 'bridge'
+    require 'bridge-ruby'
 
     EventMachine.run do
 
@@ -11,7 +11,7 @@
       end
 
       bridge.connect
-      bridge.join_channel('flotype-lovers', ChatHandler.new) do |channel, name|
+      bridge.join_channel('bridge-lovers', ChatHandler.new) do |channel, name|
         print "Joined: ", name
         channel.message('steve', 'Flotype Bridge is nifty')
       end

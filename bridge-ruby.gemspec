@@ -1,12 +1,12 @@
 require File.expand_path('../lib/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = 'flotype-bridge'
+  s.name = 'bridge-ruby'
   s.version = Bridge::VERSION
-  s.homepage = 'http://flotype.com'
+  s.homepage = 'http://getbridge.com'
 
   s.authors = ["Flotype"]
-  s.email   = ["team@flotype.com"]
+  s.email   = ["team@getbridge.com"]
 
   s.files = `git ls-files`.split("\n")
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake-compiler', '>= 0.7.9'
 
   s.summary = 'Ruby/Bridge library'
-  s.description = "Ruby client for Flotype Bridge."
+  s.description = "Bridge client for Ruby."
 
   s.rdoc_options = ["--title", "Bridge", "--main", "README.md", "-x", "lib/bb/version"]
   s.extra_rdoc_files = ["README.md"] + `git ls-files -- docs/*`.split("\n")

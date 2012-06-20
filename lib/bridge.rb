@@ -49,7 +49,7 @@ module Bridge
     #  
     # Options hash passed to initialize to modify Bridge behavior.
     #  
-    # <tt>:redirector => 'http://redirector.flotype.com'</tt>:: Address to
+    # <tt>:redirector => 'http://redirector.getbridge.com'</tt>:: Address to
     #   specify Bridge redirector server. The redirector server helps route
     #   the client to the appropriate Bridge server,
 
@@ -70,8 +70,8 @@ module Bridge
 
       # Set default options
       @options = {
-        :redirector => 'http://redirector.flotype.com',
-        :secure_redirector => 'https://redirector.flotype.com',
+        :redirector => 'http://redirector.getbridge.com',
+        :secure_redirector => 'https://redirector.getbridge.com',
         :secure => false,
         :reconnect  => true,
         :log  => 2, # 0 for no output

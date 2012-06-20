@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rubygems/installer'
-GEMSPEC = Gem::Specification.load('flotype-bridge.gemspec')
+GEMSPEC = Gem::Specification.load('bridge-ruby.gemspec')
 
 require 'rake/clean'
 task :clobber => :clean
@@ -9,7 +9,7 @@ desc "Build bridge, then run tests."
 task :default => [:test, :package]
 
 task :install => :package do
-  Gem::Installer.new("pkg/flotype-bridge-#{GEMSPEC.version}.gem").install
+  Gem::Installer.new("pkg/bridge-ruby-#{GEMSPEC.version}.gem").install
 end
 
 desc 'Generate documentation'

@@ -1,29 +1,31 @@
-#Flotype Bridge for Ruby
-Flotype Bridge is a unified messaging system that allows you to easily build cross-language services to share data and realtime updates among your servers and your clients
+# Bridge for Ruby
+Bridge is a unified messaging system that allows you to easily build
+cross-language services to share data and realtime updates among your
+servers and your clients
 
-##Installation
-Quick install: Using [RubyGems](https://rubygems.org/), do `gem install flotype-bridge --pre`
+## Installation
+Quick install: Using [RubyGems](https://rubygems.org/), do `gem install bridge-ruby --pre`
 
 Source install: 
 
-Clone this repository using `git clone git@bitbucket.org:flotype/bridge-ruby.git` and install using 
+Clone this repository using `git clone git@github.org:getbridge/bridge-ruby.git` and install using 
 
-    $ cd FlotypeBridge
+    $ cd bridge-ruby
     $ rake && rake install
 
-###Dependencies
+### Dependencies
 [EventMachine](http://rubyeventmachine.com/) for asynchronous event
 loop.
 
-##Documentation and Support
-* API Reference: http://flotype.com/docs/api/ruby/
-* Getting Started: http://www.flotype.com/docs/gettingstarted/ruby/
-* About Flotype and Flotype Bridge: http://www.flotype.com/
+## Documentation and Support
+* API Reference: http://getbridge.com/docs/api/ruby/
+* Getting Started: http://www.getbridge.com/docs/gettingstarted/ruby/
+* About Bridge: http://www.getbridge.com/
 
-The `examples` directory of this library contains sample applications for Flotype Bridge.
+The `examples` directory of this library contains sample applications for the Ruby client for  Bridge.
 
-Support is available in #flotype on Freenode IRC or the Flotype Bridge Google Group.
+Support is available in #getbridge on Freenode IRC or the Bridge Google Group.
 
 
-##License
-Flotype Bridge is made available under the MIT/X11 license. See LICENSE file for details.
+## License
+The Ruby client for Bridge is made available under the MIT/X11 license. See LICENSE file for details.

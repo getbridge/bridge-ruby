@@ -1,690 +1,1874 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Bridge::Bridge
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
 
-<html>
-<head>
-<meta content="text/html; charset=IBM437" http-equiv="Content-Type">
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
 
-<title>class Bridge::Bridge - RDoc Documentation</title>
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
-
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
-
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
-
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib\bridge.rb
-  </ul>
-</nav>
-
-    
-  </div>
-
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
   
-  <p class="link">Object
+    <a href="../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Bridge.html" title="Bridge (module)">Bridge</a></span></span>
+     &raquo; 
+    <span class="title">Bridge</span>
   
-</nav>
 
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
 
-  <ul class="link-list">
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-i-connect">#connect</a>
-    
-    <li><a href="#method-i-get_channel">#get_channel</a>
-    
-    <li><a href="#method-i-get_service">#get_service</a>
-    
-    <li><a href="#method-i-join_channel">#join_channel</a>
-    
-    <li><a href="#method-i-leave_channel">#leave_channel</a>
-    
-    <li><a href="#method-i-on">#on</a>
-    
-    <li><a href="#method-i-publish_service">#publish_service</a>
-    
-    <li><a href="#method-i-ready">#ready</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
+      <div id="search">
   
-    <li><a href="../Bridge.html">Bridge</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
   
-    <li><a href="../Bridge/Bridge.html">Bridge::Bridge</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
   
-  </ul>
-</nav>
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
 
-  </div>
-</nav>
+    <iframe id="search_frame"></iframe>
 
-<div id="documentation">
-  <h1 class="class">class Bridge::Bridge</h1>
-
-  <div id="description" class="description">
-    
-  </div><!-- description -->
-
+    <div id="content"><h1>Class: Bridge::Bridge
   
   
   
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+</h1>
 
-    
-
-    
-
-    
-
-    <!-- Methods -->
-    
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            new(options={})
-          </span>
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
           
-          <span class="method-click-advice">click to toggle source</span>
+            <li class="next">Bridge::Bridge</li>
           
-        </div>
-        
-        
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/bridge.rb</dd>
+  
+</dl>
+<div class="clear"></div>
 
-        <div class="method-description">
-          
-          <p>Create an instance of the <a href="Bridge.html">Bridge</a> object. This
-object will be used for <a href="Bridge.html">Bridge</a> interactions</p>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bridge/SystemService.html" title="Bridge::Bridge::SystemService (class)">SystemService</a></span>
+    
+  
+</p>
 
-<p><a href="Bridge.html#method-i-connect">#connect</a> must be called to
-connect to the <a href="Bridge.html">Bridge</a> server</p>
 
-<h3 id="method-c-new-label-Attributes++">Attributes  </h3>
-<dl class="rdoc-list note-list"><dt><code>options</code>
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#connection-instance_method" title="#connection (instance method)">- (Object) <strong>connection</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#context-instance_method" title="#context (instance method)">- (Object) <strong>context</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_ready-instance_method" title="#is_ready (instance method)">- (Object) <strong>is_ready</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#options-instance_method" title="#options (instance method)">- (Object) <strong>options</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#store-instance_method" title="#store (instance method)">- (Object) <strong>store</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#connect-instance_method" title="#connect (instance method)">- (Object) <strong>connect</strong>(&amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#emit-instance_method" title="#emit (instance method)">- (Object) <strong>emit</strong>(name, args = []) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execute-instance_method" title="#execute (instance method)">- (Object) <strong>execute</strong>(address, args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_channel-instance_method" title="#get_channel (instance method)">- (Object) <strong>get_channel</strong>(name, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_client-instance_method" title="#get_client (instance method)">- (Object) <strong>get_client</strong>(id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_service-instance_method" title="#get_service (instance method)">- (Object) <strong>get_service</strong>(name, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Bridge) <strong>initialize</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><dl class="rdoc-list note-list"><dt><code>:port =&gt; nil</code>
 <dd>
-<p>Optional hash of arguments specified below</p>
+<p>An integer specifying the port of the Bridge.</p>
+</dd></dl>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#join_channel-instance_method" title="#join_channel (instance method)">- (Object) <strong>join_channel</strong>(name, handler, writeable = true, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><dl class="rdoc-list note-list"><dt><code>handler</code>
+<dd>
+<p>A remote object, ruby object or module to handle method.</p>
+</dd></dl>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#leave_channel-instance_method" title="#leave_channel (instance method)">- (Object) <strong>leave_channel</strong>(channel, handler, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on-instance_method" title="#on (instance method)">- (Object) <strong>on</strong>(name, &amp;fn) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#publish_service-instance_method" title="#publish_service (instance method)">- (Object) <strong>publish_service</strong>(name, handler, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ready-instance_method" title="#ready (instance method)">- (Object) <strong>ready</strong>(&amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send-instance_method" title="#send (instance method)">- (Object) <strong>send</strong>(args, destination) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#store_object-instance_method" title="#store_object (instance method)">- (Object) <strong>store_object</strong>(handler, ops) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:nodoc:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unpublish_service-instance_method" title="#unpublish_service (instance method)">- (Object) <strong>unpublish_service</strong>(name, &amp;callback) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:call-seq:.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Bridge::Bridge (class)">Bridge</a></span></tt>) <strong>initialize</strong>(options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <dl class="rdoc-list note-list"><dt><code>:port =&gt; nil</code>
+<dd>
+<p>An integer specifying the port of the Bridge</p>
 </dd></dl>
 
-<h3 id="method-c-new-label-Options++">Options  </h3>
+<pre class="code ruby"><code>server to connect to. Overrides +:redirector+ when both +:host+ and
++:port+ are specified.</code></pre>
 
-<p>Options hash passed to initialize to modify <a
-href="Bridge.html">Bridge</a> behavior</p>
-<dl class="rdoc-list note-list"><dt><code>:redirector =&gt; 'http://redirector.flotype.com'</code>
-<dd>
-<p>Address to specify <a href="Bridge.html">Bridge</a> redirector server. The
-redirector server helps route the client to the appropriate <a
-href="Bridge.html">Bridge</a> server</p>
-</dd><dt><code>:reconnect =&gt; true</code>
-<dd>
-<p>Enable automatic reconnection to <a href="Bridge.html">Bridge</a> server</p>
-</dd><dt><code>:log =&gt; 2</code>
-<dd>
-<p>An integer specifying log level. 3 =&gt; Log all, 2 =&gt; Log warnings, 1
-=&gt; Log errors, 0 =&gt; No logging output</p>
-</dd><dt><code>:host =&gt; nil</code>
-<dd>
-<p>The hostname of the <a href="Bridge.html">Bridge</a> server to connect to.
-Overrides <code>:redirector</code> when both <code>:host</code> and
-<code>:port</code> are specified</p>
-</dd><dt><code>:port =&gt; nil</code>
-<dd>
-<p>An integer specifying the port of the <a href="Bridge.html">Bridge</a>
-server to connect to. Overrides <code>:redirector</code> when both
-<code>:host</code> and <code>:port</code> are specified</p>
-</dd></dl>
-          
 
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 43</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+  </div>
+</div>
+<div class="tags">
+  
 
-  <span class="ruby-comment"># Set default options</span>
-  <span class="ruby-ivar">@options</span> = {
-    <span class="ruby-value">:redirector</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'http://redirector.flotype.com'</span>,
-    <span class="ruby-value">:reconnect</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
-    <span class="ruby-value">:log</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>, <span class="ruby-comment"># 0 for no output</span>
-  }    
-  
-  <span class="ruby-ivar">@options</span> = <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
-  
-  <span class="ruby-constant">Util</span>.<span class="ruby-identifier">set_log_level</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:log</span>])
-  
-  <span class="ruby-ivar">@store</span> = {}
-  <span class="ruby-comment"># Initialize system service call</span>
-  <span class="ruby-ivar">@store</span>[<span class="ruby-string">'system'</span>] = <span class="ruby-constant">SystemService</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
-  
-  <span class="ruby-comment"># Indicates whether server is connected and handshaken</span>
-  <span class="ruby-ivar">@is_ready</span> = <span class="ruby-keyword">false</span>
-  
-  <span class="ruby-comment"># Create connection object</span>
-  <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
-  
-  <span class="ruby-comment"># Store event handlers</span>
-  <span class="ruby-ivar">@events</span> = {}
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
 
-        
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 69</span>
 
-        
-      </div><!-- new-method -->
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+
+  <span class='comment'># Set default options
+</span>  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:redirector</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://redirector.getbridge.com</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+    <span class='symbol'>:secure_redirector</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>https://redirector.getbridge.com</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+    <span class='symbol'>:secure</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='symbol'>:reconnect</span>  <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='symbol'>:log</span>  <span class='op'>=&gt;</span> <span class='int'>2</span><span class='comma'>,</span> <span class='comment'># 0 for no output
+</span>  <span class='rbrace'>}</span>
+
+  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:secure</span><span class='rbracket'>]</span>
+    <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:redirector</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:secure_redirector</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  
+  <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_set_log_level'>set_log_level</span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:log</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  
+  <span class='ivar'>@store</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='comment'># Initialize system service call
+</span>  <span class='ivar'>@store</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>system</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>SystemService</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  
+  <span class='comment'># Indicates whether server is connected and handshaken
+</span>  <span class='ivar'>@is_ready</span> <span class='op'>=</span> <span class='kw'>false</span>
+  
+  <span class='comment'># Create connection object
+</span>  <span class='ivar'>@connection</span> <span class='op'>=</span> <span class='const'>Connection</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+  
+  <span class='comment'># Store event handlers
+</span>  <span class='ivar'>@events</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+
+  <span class='ivar'>@context</span> <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="connection=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="connection-instance_method">
+  
+    - (<tt>Object</tt>) <strong>connection</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_connection'>connection</span>
+  <span class='ivar'>@connection</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="context=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="context-instance_method">
+  
+    - (<tt>Object</tt>) <strong>context</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_context'>context</span>
+  <span class='ivar'>@context</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="is_ready=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="is_ready-instance_method">
+  
+    - (<tt>Object</tt>) <strong>is_ready</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_ready'>is_ready</span>
+  <span class='ivar'>@is_ready</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="options=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="options-instance_method">
+  
+    - (<tt>Object</tt>) <strong>options</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='ivar'>@options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="store=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="store-instance_method">
+  
+    - (<tt>Object</tt>) <strong>store</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_store'>store</span>
+  <span class='ivar'>@store</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
 
     
-    </section><!-- public-class-method-details -->
+      <div class="method_details first">
+  <h3 class="signature first" id="connect-instance_method">
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+    - (<tt>Object</tt>) <strong>connect</strong>(&amp;callback) 
+  
 
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-      <div id="method-i-connect" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            connect { block }
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        
+<p>:call-seq:</p>
 
-        <div class="method-description">
-          
-          <p>Starts the connection to the <a href="Bridge.html">Bridge</a> server.</p>
+<pre class="code ruby"><code><span class='id identifier rubyid_connect'>connect</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_block'>block</span> <span class='rbrace'>}</span></code></pre>
 
-<p>If a block is given, calls the given block when <a
-href="Bridge.html">Bridge</a> is connected and ready.</p>
-          
+<p>Starts the connection to the Bridge server.</p>
 
-          
-          <div class="method-source-code" id="connect-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 269</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">connect</span> &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ready</span> &amp;<span class="ruby-identifier">callback</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">start</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- connect-source -->
-          
-        </div>
+<p>If a block is given, calls the given block when Bridge is connected</p>
 
-        
+<pre class="code ruby"><code>and ready.</code></pre>
 
-        
-      </div><!-- connect-method -->
 
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+380
+381
+382
+383
+384</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 380</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_connect'>connect</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_ready'>ready</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span> <span class='kw'>if</span> <span class='id identifier rubyid_callback'>callback</span>
+  <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span>
+  <span class='kw'>return</span> <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-get_channel" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            get_channel(name) &rarr; channel
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            get_channel(name) { |channel, name| block }
-          </span>
-          
-        </div>
-        
-        
+      <div class="method_details ">
+  <h3 class="signature " id="emit-instance_method">
+  
+    - (<tt>Object</tt>) <strong>emit</strong>(name, args = []) 
+  
 
-        <div class="method-description">
-          
-          <p>Retrives a channel from <a href="Bridge.html">Bridge</a> with the given
-name.</p>
+  
 
-<p>Calling a method on the channel object will result in the given method
-being executed on all clients that have been joined to the channel.</p>
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
 
-<p>Note that if the requested channel does not exist or is empty, an object is
-still returned, however attempts to make method calls on the object will
-result in a remote error.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168
+169
+170
+171
+172</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 166</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_emit'>emit</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#:nodoc:
+</span>  <span class='kw'>if</span> <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span>
+    <span class='ivar'>@events</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fn'>fn</span><span class='op'>|</span>
+      <span class='id identifier rubyid_fn'>fn</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execute-instance_method">
+  
+    - (<tt>Object</tt>) <strong>execute</strong>(address, args) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span> <span class='id identifier rubyid_address'>address</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='comment'>#:nodoc:
+</span>  <span class='comment'># Retrieve stored handler
+</span>  <span class='id identifier rubyid_obj'>obj</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='lbracket'>[</span><span class='id identifier rubyid_address'>address</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+  <span class='comment'># Retrieve function in handler
+</span>  <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_obj'>obj</span><span class='period'>.</span><span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='id identifier rubyid_address'>address</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_func'>func</span>
+    <span class='id identifier rubyid_last'>last</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
+    <span class='comment'># If last argument is callable and function arity is one less than
+</span>    <span class='comment'>#   args length, pass in as block
+</span>    <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Proc</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_arity'>arity</span> <span class='op'>==</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>-</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
+      <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_blk'>blk</span><span class='op'>|</span>
+        <span class='id identifier rubyid_args'>args</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_blk'>blk</span> <span class='kw'>if</span> <span class='id identifier rubyid_blk'>blk</span>
+        <span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='kw'>begin</span>
+        <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+      <span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_err'>err</span>
+        <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='id identifier rubyid_err'>err</span>
+        <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Exception while calling </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_address'>address</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_content'>(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='rbrace'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Could not find object to handle, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_address'>address</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_channel</strong>(name, &amp;callback) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
+
+<pre class="ruby"><span class="ruby-identifier">get_channel</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">channel</span>
+<span class="ruby-identifier">get_channel</span>(<span class="ruby-identifier">name</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">channel</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
+
+<p>Retrives a channel from Bridge with the given name.</p>
+
+<p>Calling a method on the channel object will result in the given</p>
+
+<pre class="code ruby"><code>method being executed on all clients that have been joined to the
+channel.</code></pre>
+
+<p>Note that if the requested channel does not exist or is empty, an</p>
+
+<pre class="code ruby"><code>object is still returned, however attempts to make method calls on
+the object will result in a remote error.</code></pre>
 
 <p>Returns the requested channel.</p>
 
-<p>If a block is given, calls the given block with the requested channel and
-channel name.</p>
+<p>If a block is given, calls the given block with the requested channel</p>
 
-<h3 id="method-i-get_channel-label-Attributes++">Attributes  </h3>
+<pre class="code ruby"><code>and channel name.</code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
 <dl class="rdoc-list note-list"><dt><code>name</code>
 <dd>
-<p>The name of the <a href="Bridge.html">Bridge</a> channel being requested</p>
+<p>The name of the Bridge channel being requested</p>
 </dd></dl>
-          
 
-          
-          <div class="method-source-code" id="get_channel-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 203</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_channel</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-comment"># Send GETCHANNEL command in order to establih link for channel if client is not member</span>
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:GETCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>})
-  <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'channel'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-node">&quot;channel:#{name}&quot;</span>])
-  <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ref</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- get_channel-source -->
-          
-        </div>
 
-        
+  </div>
+</div>
+<div class="tags">
+  
 
-        
-      </div><!-- get_channel-method -->
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
+
+289
+290
+291
+292
+293
+294
+295
+296</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 289</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_channel'>get_channel</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='comment'># Send GETCHANNEL command in order to establih link for channel if
+</span>  <span class='comment'>#   client is not member
+</span>  <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span><span class='symbol'>:GETCHANNEL</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ref'>ref</span> <span class='op'>=</span> <span class='const'>Reference</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>channel</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>channel:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_callback'>callback</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_ref'>ref</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-get_service" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            get_service(name) &rarr; service
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            get_service(name) { |service, name| block }
-          </span>
-          
-        </div>
-        
-        
+      <div class="method_details ">
+  <h3 class="signature " id="get_client-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_client</strong>(id) 
+  
 
-        <div class="method-description">
-          
-          <p>Retrives a service published to <a href="Bridge.html">Bridge</a> with the
-given name.</p>
+  
 
-<p>If multiple <a href="Bridge.html">Bridge</a> clients have a published a
-service, the service is retrieved from one of the publishers round-robin.</p>
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
-<p>Note that if the requested service does not exist, an object is still
-returned, however attempts to make method calls on the object will result
-in a remote error.</p>
+
+262
+263
+264</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 262</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_client'>get_client</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>return</span> <span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_service-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_service</strong>(name, &amp;callback) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
+
+<pre class="ruby"><span class="ruby-identifier">get_service</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">service</span>
+<span class="ruby-identifier">get_service</span>(<span class="ruby-identifier">name</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">service</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
+
+<p>Retrives a service published to Bridge with the given name.</p>
+
+<p>If multiple Bridge clients have a published a service, the service is</p>
+
+<pre class="code ruby"><code>retrieved from one of the publishers round-robin.</code></pre>
+
+<p>Note that if the requested service does not exist, an object is still</p>
+
+<pre class="code ruby"><code>returned, however attempts to make method calls on the object will
+result in a remote error.</code></pre>
 
 <p>Returns the requested service.</p>
 
-<p>If a block is given, calls the given block with the requested service and
-service name.</p>
+<p>If a block is given, calls the given block with the requested service</p>
 
-<h3 id="method-i-get_service-label-Attributes++">Attributes  </h3>
+<pre class="code ruby"><code>and service name.</code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
 <dl class="rdoc-list note-list"><dt><code>name</code>
 <dd>
-<p>The name of the <a href="Bridge.html">Bridge</a> service being requested</p>
+<p>The name of the Bridge service being requested</p>
 </dd></dl>
-          
 
-          
-          <div class="method-source-code" id="get_service-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 179</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_service</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, [<span class="ruby-string">'named'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">name</span>])
-  <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">ref</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ref</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- get_service-source -->
-          
-        </div>
 
-        
+  </div>
+</div>
+<div class="tags">
+  
 
-        
-      </div><!-- get_service-method -->
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
+
+256
+257
+258
+259
+260</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 256</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_service'>get_service</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='id identifier rubyid_ref'>ref</span> <span class='op'>=</span> <span class='const'>Reference</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>named</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_callback'>callback</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_ref'>ref</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-join_channel" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            join_channel(name, handler) { |channel, name| block }
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        
+      <div class="method_details ">
+  <h3 class="signature " id="join_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>join_channel</strong>(name, handler, writeable = true, &amp;callback) 
+  
 
-        <div class="method-description">
-          
-          <p>Provides a remote object, ruby object or module as a receiver for methods
-calls on a <a href="Bridge.html">Bridge</a> channel.</p>
+  
 
-<p>The given handler can be a remote object, in which case the <a
-href="Bridge.html">Bridge</a> client that created the remote object will be
-joined to the channel. Method calls to the channel will be not be proxied
-through this client but go directly to the source of the remote object.</p>
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <dl class="rdoc-list note-list"><dt><code>handler</code>
+<dd>
+<p>A remote object, ruby object or module to handle method</p>
+</dd></dl>
 
-<p>If a block is given, calls the given block with the joined channel and
-channel name.</p>
+<pre class="code ruby"><code><span class='id identifier rubyid_calls'>calls</span> <span class='id identifier rubyid_from'>from</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_channel'>channel</span></code></pre>
 
-<h3 id="method-i-join_channel-label-Attributes++">Attributes  </h3>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 319</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_join_channel'>join_channel</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_handler'>handler</span><span class='comma'>,</span> <span class='id identifier rubyid_writeable'>writeable</span> <span class='op'>=</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span>
+    <span class='symbol'>:JOINCHANNEL</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
+      <span class='symbol'>:handler</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_handler'>handler</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='symbol'>:callback</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='symbol'>:writeable</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_writeable'>writeable</span>
+    <span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="leave_channel-instance_method">
+  
+    - (<tt>Object</tt>) <strong>leave_channel</strong>(channel, handler, &amp;callback) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
+
+<pre class="ruby"><span class="ruby-identifier">leave_channel</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>)
+<span class="ruby-identifier">leave_channel</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
+
+<p>Leaves a Bridge channel with the given name and handler object.</p>
+
+<p>The given handler can be a remote object, in which case the Bridge</p>
+
+<pre class="code ruby"><code>client that created the remote object will be removed from the
+channel.</code></pre>
+
+<p>If a block is given, calls the given block with the name of the</p>
+
+<pre class="code ruby"><code>channel left.</code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
 <dl class="rdoc-list note-list"><dt><code>name</code>
 <dd>
-<p>The name of the <a href="Bridge.html">Bridge</a> channel the handler will
-recieve methods calls for</p>
+<p>The name of the Bridge channel to leave</p>
 </dd><dt><code>handler</code>
 <dd>
-<p>A remote object, ruby object or module to handle method calls from the
-channel</p>
+<p>A remote object, ruby object or module that was used to</p>
 </dd></dl>
-          
 
-          
-          <div class="method-source-code" id="join_channel-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 225</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">join_channel</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:JOINCHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- join_channel-source -->
-          
-        </div>
+<pre class="code ruby"><code><span class='id identifier rubyid_handle'>handle</span> <span class='id identifier rubyid_moethod'>moethod</span> <span class='id identifier rubyid_calls'>calls</span> <span class='id identifier rubyid_from'>from</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_channel'>channel</span></code></pre>
 
-        
 
-        
-      </div><!-- join_channel-method -->
+  </div>
+</div>
+<div class="tags">
+  
 
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+349
+350
+351
+352
+353
+354
+355
+356</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 349</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_leave_channel'>leave_channel</span> <span class='id identifier rubyid_channel'>channel</span><span class='comma'>,</span> <span class='id identifier rubyid_handler'>handler</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span>
+    <span class='symbol'>:LEAVECHANNEL</span><span class='comma'>,</span>
+    <span class='lbrace'>{</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
+      <span class='symbol'>:handler</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_handler'>handler</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='symbol'>:callback</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-leave_channel" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            leave_channel(name, handler)
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            leave_channel(name, handler) { |name| block }
-          </span>
-          
-        </div>
-        
-        
+      <div class="method_details ">
+  <h3 class="signature " id="on-instance_method">
+  
+    - (<tt>Object</tt>) <strong>on</strong>(name, &amp;fn) 
+  
 
-        <div class="method-description">
-          
-          <p>Leaves a <a href="Bridge.html">Bridge</a> channel with the given name and
-handler object.</p>
+  
 
-<p>The given handler can be a remote object, in which case the <a
-href="Bridge.html">Bridge</a> client that created the remote object will be
-removed from the channel.</p>
-
-<p>If a block is given, calls the given block with the name of the channel
-left.</p>
-
-<h3 id="method-i-leave_channel-label-Attributes++">Attributes  </h3>
-<dl class="rdoc-list note-list"><dt><code>name</code>
-<dd>
-<p>The name of the <a href="Bridge.html">Bridge</a> channel to leave</p>
-</dd><dt><code>handler</code>
-<dd>
-<p>A remote object, ruby object or module that was used to handle moethod
-calls from the channel</p>
-</dd></dl>
-          
-
-          
-          <div class="method-source-code" id="leave_channel-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 244</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">leave_channel</span> <span class="ruby-identifier">channel</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:LEAVECHANNEL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:handler</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">handler</span>), <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- leave_channel-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- leave_channel-method -->
-
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-      <div id="method-i-on" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            on(name) { |*args| block }
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        
+<p>:call-seq:</p>
 
-        <div class="method-description">
-          
-          <p>Adds the given block as a handler for the event specified by
-<code>name</code>. Calling multiple times will result in multiple handlers
-being attached to the event</p>
+<pre class="ruby"><span class="ruby-identifier">on</span>(<span class="ruby-identifier">name</span>) { <span class="ruby-operator">|</span>*<span class="ruby-identifier">args</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
 
-<h3 id="method-i-on-label-Attributes++">Attributes  </h3>
+<p>Adds the given block as a handler for the event specified by</p>
+
+<pre class="code ruby"><code>&lt;tt&gt;name&lt;/tt&gt;. Calling multiple times will result in multiple
+handlers being attached to the event</code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
 <dl class="rdoc-list note-list"><dt><code>name</code>
 <dd>
 <p>The name of the event for the given block to listen to</p>
 </dd></dl>
 
-<h3 id="method-i-on-label-Events++">Events  </h3>
+<h3 id="label-Events++">Events  </h3>
 
-<p>List of events <a href="Bridge.html">Bridge</a> emits</p>
+<p>List of events Bridge emits</p>
 <dl class="rdoc-list note-list"><dt><code>'ready' ()</code>
 <dd>
-<p><a href="Bridge.html">Bridge</a> is connected and ready. Not emitted on
-reconnects</p>
-</dd><dt><code>'remoteError' (error_message)</code>
-<dd>
-<p>A remote error has occurred in <a href="Bridge.html">Bridge</a>. The error
-message is provided as a parameter</p>
+<p>Bridge is connected and ready. Not emitted on</p>
 </dd></dl>
-          
 
-          
-          <div class="method-source-code" id="on-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 121</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on</span> <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">fn</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@events</span>.<span class="ruby-identifier">key?</span> <span class="ruby-identifier">name</span>
-    <span class="ruby-ivar">@events</span>[<span class="ruby-identifier">name</span>] = [];
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-ivar">@events</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fn</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- on-source -->
-          
-        </div>
+<pre class="code ruby"><code><span class='id identifier rubyid_reconnects'>reconnects</span></code></pre>
+<dl class="rdoc-list note-list"><dt><code>'remoteError' (error_message)</code>
+<dd>
+<p>A remote error has occurred</p>
+</dd></dl>
 
-        
+<pre class="code ruby"><code>in Bridge. The error message is provided as a parameter</code></pre>
 
-        
-      </div><!-- on-method -->
 
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161
+162
+163
+164</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on'>on</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_fn'>fn</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span>
+    <span class='ivar'>@events</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='semicolon'>;</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@events</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_fn'>fn</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
     
-      <div id="method-i-publish_service" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            publish_service(name, handler) { |name| block }
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        
+      <div class="method_details ">
+  <h3 class="signature " id="publish_service-instance_method">
+  
+    - (<tt>Object</tt>) <strong>publish_service</strong>(name, handler, &amp;callback) 
+  
 
-        <div class="method-description">
-          
-          <p>Publishes a ruby object or module as a <a href="Bridge.html">Bridge</a>
-service with the given name.</p>
+  
 
-<p>If a block is given, calls the given block with the name of the published
-service upon publish success</p>
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
 
-<h3 id="method-i-publish_service-label-Attributes++">Attributes  </h3>
+<pre class="ruby"><span class="ruby-identifier">publish_service</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
+
+<p>Publishes a ruby object or module as a Bridge service with the given</p>
+
+<pre class="code ruby"><code>name.</code></pre>
+
+<p>If a block is given, calls the given block with the name of the</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_published'>published</span> <span class='id identifier rubyid_service'>service</span> <span class='id identifier rubyid_upon'>upon</span> <span class='id identifier rubyid_publish'>publish</span> <span class='id identifier rubyid_success'>success</span></code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
 <dl class="rdoc-list note-list"><dt><code>name</code>
 <dd>
-<p>The name of the <a href="Bridge.html">Bridge</a> service the handler will
-be published with</p>
-</dd><dt><code>handler</code>
+<p>The name of the Bridge service the handler will be published</p>
+</dd></dl>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_with'>with</span></code></pre>
+<dl class="rdoc-list note-list"><dt><code>handler</code>
 <dd>
 <p>A ruby object or module to publish</p>
 </dd></dl>
-          
 
-          
-          <div class="method-source-code" id="publish_service-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 152</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish_service</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'system'</span>
-    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Invalid service name: #{name}&quot;</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@store</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">handler</span>
-    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send_command</span>(<span class="ruby-value">:JOINWORKERPOOL</span>, {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:callback</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Serializer</span>.<span class="ruby-identifier">serialize</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">callback</span>)})
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- publish_service-source -->
-          
-        </div>
 
-        
-
-        
-      </div><!-- publish_service-method -->
-
-    
-      <div id="method-i-ready" class="method-detail ">
-        
-        
-        <div class="method-heading">
-          <span class="method-callseq">
-            ready { block }
-          </span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-        
-
-        <div class="method-description">
-          
-          <p>Calls the given block when <a href="Bridge.html">Bridge</a> is connected
-and ready. Calls the given block immediately if <a
-href="Bridge.html">Bridge</a> is already ready.</p>
-          
-
-          
-          <div class="method-source-code" id="ready-source">
-            <pre><span class="ruby-comment"># File lib\bridge.rb, line 254</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">ready</span> &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@is_ready</span>
-    <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">on</span> <span class="ruby-string">'ready'</span>, &amp;<span class="ruby-identifier">callback</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- ready-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- ready-method -->
-
-    
-    </section><!-- public-instance-method-details -->
+  </div>
+</div>
+<div class="tags">
   
-  </section><!-- 5Buntitled-5D -->
 
-</div><!-- documentation -->
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
 
 
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 195</span>
 
+<span class='kw'>def</span> <span class='id identifier rubyid_publish_service'>publish_service</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_handler'>handler</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>system</span><span class='tstring_end'>'</span></span>
+    <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid service name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@store</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_handler'>handler</span>
+    <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span>
+      <span class='symbol'>:JOINWORKERPOOL</span><span class='comma'>,</span>
+      <span class='lbrace'>{</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
+        <span class='symbol'>:callback</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ready-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ready</strong>(&amp;callback) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_ready'>ready</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_block'>block</span> <span class='rbrace'>}</span></code></pre>
+
+<p>Calls the given block when Bridge is connected and ready. Calls the given
+block immediately if Bridge is already ready.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+364
+365
+366
+367
+368
+369
+370</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 364</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ready'>ready</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>if</span> <span class='ivar'>@is_ready</span>
+    <span class='id identifier rubyid_callback'>callback</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_on'>on</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ready</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send-instance_method">
+  
+    - (<tt>Object</tt>) <strong>send</strong>(args, destination) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+174
+175
+176
+177
+178</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 174</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_destination'>destination</span> <span class='comment'>#:nodoc:
+</span>  <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span><span class='symbol'>:SEND</span><span class='comma'>,</span>
+                           <span class='lbrace'>{</span> <span class='symbol'>:args</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='comma'>,</span>
+                             <span class='symbol'>:destination</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_destination'>destination</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="store_object-instance_method">
+  
+    - (<tt>Object</tt>) <strong>store_object</strong>(handler, ops) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:nodoc:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+132
+133
+134
+135
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 132</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_store_object'>store_object</span> <span class='id identifier rubyid_handler'>handler</span><span class='comma'>,</span> <span class='id identifier rubyid_ops'>ops</span> <span class='comment'>#:nodoc:
+</span>  <span class='comment'># Generate random id for callback being stored
+</span>  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_generate_guid'>generate_guid</span>
+  <span class='ivar'>@store</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_handler'>handler</span>
+  <span class='comment'># Return reference to stored callback
+</span>  <span class='const'>Reference</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>client</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_client_id'>client_id</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_ops'>ops</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unpublish_service-instance_method">
+  
+    - (<tt>Object</tt>) <strong>unpublish_service</strong>(name, &amp;callback) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>:call-seq:</p>
+
+<pre class="ruby"><span class="ruby-identifier">unpublish_service</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">handler</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">block</span> }
+</pre>
+
+<p>Stops publishing a ruby object or module as a Bridge service with the</p>
+
+<pre class="code ruby"><code>given name.</code></pre>
+
+<p>If a block is given, calls the given block with the name of the</p>
+
+<pre class="code ruby"><code>unpublished service.</code></pre>
+
+<h3 id="label-Attributes++">Attributes  </h3>
+<dl class="rdoc-list note-list"><dt><code>name</code>
+<dd>
+<p>The name of the Bridge service that will no longer be</p>
+</dd></dl>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_published'>published</span></code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/bridge.rb', line 222</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unpublish_service'>unpublish_service</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_callback'>callback</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>system</span><span class='tstring_end'>'</span></span>
+    <span class='const'>Util</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid service name: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_send_command'>send_command</span><span class='lparen'>(</span>
+      <span class='symbol'>:LEAVEWORKERPOOL</span><span class='comma'>,</span>
+      <span class='lbrace'>{</span> <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
+        <span class='symbol'>:callback</span> <span class='op'>=&gt;</span> <span class='const'>Serializer</span><span class='period'>.</span><span class='id identifier rubyid_serialize'>serialize</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jun 20 10:48:54 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

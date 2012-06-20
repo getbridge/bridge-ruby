@@ -6,7 +6,7 @@ class BridgeDummy
   
   def initialize
     @options = {
-      :redirector => 'http://redirector.flotype.com',
+      :redirector => 'http://redirector.getbridge.com',
       :reconnect  => true,
       :log  => 2, # 0 for no output
     } 

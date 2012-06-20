@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: SSLCertificateVerification
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo;
+    
+    
+    <span class="title">SSLCertificateVerification</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: SSLCertificateVerification
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><span class='object_link'><a href="Bridge/Tcp.html" title="Bridge::Tcp (class)">Bridge::Tcp</a></span></dd>
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/ssl_utils.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Verifies that the peer certificate is a valid chained certificate. That is,
+it's signed by a root CA or a CA signed by a root CA.</p>
+
+<p>This module will also perform hostname verification against the server???s
+certificate, but <em>only</em> if an instance variable called <tt>@hostname</tt>
+exists.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Class Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ca_cert_file-class_method" title="ca_cert_file (class method)">+ (Object) <strong>ca_cert_file</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>In PEM format.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ca_store-instance_method" title="#ca_store (instance method)">- (Object) <strong>ca_store</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ssl_handshake_completed-instance_method" title="#ssl_handshake_completed (instance method)">- (Object) <strong>ssl_handshake_completed</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ssl_verify_peer-instance_method" title="#ssl_verify_peer (instance method)">- (Object) <strong>ssl_verify_peer</strong>(cert_string) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>It's important that we try to not add a certificate to the store that's
+already in the store, because OpenSSL::X509::Store will raise an exception.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id="ca_cert_file=-class_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="ca_cert_file-class_method">
+  
+    + (<tt>Object</tt>) <strong>ca_cert_file</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>In PEM format.</p>
+
+<p>Eg: <a
+href="http://curl.haxx.se/docs/caextract.html">curl.haxx.se/docs/caextract.html</a></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ssl_utils.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ca_cert_file'>ca_cert_file</span>
+  <span class='ivar'>@ca_cert_file</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="ca_store-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ca_store</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ssl_utils.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ca_store'>ca_store</span>
+  <span class='kw'>unless</span> <span class='ivar'>@ca_store</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='const'>SSLCertificateVerification</span><span class='period'>.</span><span class='id identifier rubyid_ca_cert_file'>ca_cert_file</span>
+      <span class='ivar'>@ca_store</span> <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>X509</span><span class='op'>::</span><span class='const'>Store</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+      <span class='ivar'>@ca_store</span><span class='period'>.</span><span class='id identifier rubyid_add_file'>add_file</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_fail'>fail</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>you must specify a file with root CA certificates as `SSLCertificateVerification.ca_cert_file'</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@ca_store</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ssl_handshake_completed-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ssl_handshake_completed</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ssl_utils.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ssl_handshake_completed'>ssl_handshake_completed</span>
+  <span class='kw'>if</span> <span class='ivar'>@hostname</span>
+    <span class='kw'>unless</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>SSL</span><span class='period'>.</span><span class='id identifier rubyid_verify_certificate_identity'>verify_certificate_identity</span><span class='lparen'>(</span><span class='ivar'>@last_seen_cert</span><span class='comma'>,</span> <span class='ivar'>@hostname</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_fail'>fail</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the hostname `HOSTNAME' does not match the server certificate</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ssl_verify_peer-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ssl_verify_peer</strong>(cert_string) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>It's important that we try to not add a certificate to the store that's
+already in the store, because OpenSSL::X509::Store will raise an exception.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ssl_utils.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ssl_verify_peer'>ssl_verify_peer</span><span class='lparen'>(</span><span class='id identifier rubyid_cert_string'>cert_string</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cert'>cert</span> <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>X509</span><span class='op'>::</span><span class='const'>Certificate</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_cert_string'>cert_string</span><span class='rparen'>)</span>
+  <span class='comment'># Some servers send the same certificate multiple times. I'm not even joking... (gmail.com)
+</span>  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_cert'>cert</span> <span class='op'>==</span> <span class='ivar'>@last_seen_cert</span>
+  <span class='ivar'>@last_seen_cert</span> <span class='op'>=</span> <span class='id identifier rubyid_cert'>cert</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_ca_store'>ca_store</span><span class='period'>.</span><span class='id identifier rubyid_verify'>verify</span><span class='lparen'>(</span><span class='ivar'>@last_seen_cert</span><span class='rparen'>)</span>
+    <span class='comment'># A server may send the root certifiacte, which we already have and thus
+</span>    <span class='comment'># should not be added to the store again.
+</span>    <span class='id identifier rubyid_ca_store'>ca_store</span><span class='period'>.</span><span class='id identifier rubyid_add_cert'>add_cert</span><span class='lparen'>(</span><span class='ivar'>@last_seen_cert</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='ivar'>@last_seen_cert</span><span class='period'>.</span><span class='id identifier rubyid_root?'>root?</span>
+    <span class='kw'>true</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_fail'>fail</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unable to verify the server certificate of `</span><span class='embexpr_beg'>#{</span><span class='ivar'>@hostname</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>false</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Wed Jun 20 10:48:53 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

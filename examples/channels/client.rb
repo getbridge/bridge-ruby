@@ -1,4 +1,4 @@
-require 'bridge'
+require 'bridge-ruby'
 
 EventMachine.run do
 
@@ -12,7 +12,7 @@ EventMachine.run do
 
 
   auth = bridge.get_service('auth')
-  auth.join("flotype-lovers", ChatHandler.new) do |channel, name|
+  auth.join("bridge-lovers", ChatHandler.new) do |channel, name|
     puts "Joined channel: #{name}"
     # The following RPC call will fail because client was not joined to channel with write permissions
     channel.message('steve', "This should not work.")
