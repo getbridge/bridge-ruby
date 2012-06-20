@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.summary = 'Ruby/Bridge library'
   s.description = "Bridge client for Ruby."
 
-  s.rdoc_options = ["--title", "Bridge", "--main", "README.md", "-x", "lib/bb/version"]
+  s.rdoc_options = ["--title", "Bridge", "--main", "README.md", "-x", "lib/version"]
   s.extra_rdoc_files = ["README.md"] + `git ls-files -- docs/*`.split("\n")
 end
