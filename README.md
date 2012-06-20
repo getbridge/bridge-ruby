@@ -22,10 +22,10 @@ loop.
 * Getting Started: http://www.getbridge.com/docs/gettingstarted/ruby/
 * About Bridge: http://www.getbridge.com/
 
-The `examples` directory of this library contains sample applications for the Ruby client for  Bridge.
+The `examples` directory of this library contains sample applications for Bridge.
 
 Support is available in #getbridge on Freenode IRC or the Bridge Google Group.
 
 
 ## License
-The Ruby client for Bridge is made available under the MIT/X11 license. See LICENSE file for details.
+Bridge is made available under the MIT/X11 license. See LICENSE file for details.
