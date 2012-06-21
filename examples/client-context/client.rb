@@ -4,18 +4,18 @@ EventMachine.run do
 
   bridge = Bridge::Bridge.new(:api_key => 'myapikey')
 
-  #class ThankHandler
-    #def thank msg
-      #puts msg
-    #end
-  #end
+  class PongObject
+    def pong
+      puts "PONG!"
+    end
+  end
 
   bridge.connect
 
-  #bridge.publish_service("thank", ThankHandler.new)
+  bridge.store_service("pong", PongObject.new)
 
-  test = bridge.get_service('test')
-  test.someFunction
+  pinger = bridge.get_service('ping')
+  pinger.ping
 
 end
 
