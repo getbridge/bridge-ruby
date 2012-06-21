@@ -206,6 +206,26 @@ module Bridge
     end
 
     # :call-seq:
+    #   store_service(name, handler) 
+    #
+    # Stores a Ruby object or module as a Bridge service with the given
+    #   name.
+    #  
+    # === Attributes  
+    #  
+    # +name+:: The name of the Bridge service the handler will be stored
+    #   under
+    # +handler+:: A Ruby object or module to store
+    #  
+    def store_service name, handler
+      if name == 'system'
+        Util.error("Invalid service name: #{name}")
+      else
+        @store[name] = handler
+      end
+    end
+
+    # :call-seq:
     #   unpublish_service(name, handler) { |name| block }
     #
     # Stops publishing a ruby object or module as a Bridge service with the
@@ -316,6 +336,8 @@ module Bridge
 
     # +handler+:: A remote object, ruby object or module to handle method
     #   calls from the channel
+    #
+    # +writeable+:: Whether the handler's creator may write to the channel 
     def join_channel name, handler, writeable = true, &callback
       @connection.send_command(
         :JOINCHANNEL,
