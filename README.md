@@ -8,7 +8,7 @@ Quick install: Using [RubyGems](https://rubygems.org/), do `gem install bridge-r
 
 Source install: 
 
-Clone this repository using `git clone git@github.org:getbridge/bridge-ruby.git` and install using 
+Clone this repository using `git clone git@github.com:getbridge/bridge-ruby.git` and install using 
 
     $ cd bridge-ruby
     $ rake && rake install
